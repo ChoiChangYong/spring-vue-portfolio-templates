@@ -6,6 +6,7 @@
     <main class="one-page">
       <div class="pr-section pr-selected">
         <YYFoliumNav></YYFoliumNav>
+        <YYFoliumHome></YYFoliumHome>
       </div>
     </main>
     <!-- Overlay Effect -->
@@ -27,12 +28,14 @@
 
 <script>
 import YYFoliumNav from './components/YYFoliumNav'
+import YYFoliumHome from './components/YYFoliumHome'
 import $ from 'jquery'
 
 export default {
   name: 'app',
   components: {
-    YYFoliumNav
+    YYFoliumNav,
+    YYFoliumHome
   },
   mounted() {
     $(window).on('load', function(e) {
