@@ -2,10 +2,10 @@
   <div id="app">
     <!-- Preloader -->
     <div class="page-preloader"></div>
-    <YYFoliumNav></YYFoliumNav>
     <!-- Main Content START -->
     <main class="one-page">
       <div class="pr-section pr-selected">
+        <YYFoliumNav></YYFoliumNav>
       </div>
     </main>
     <!-- Overlay Effect -->
@@ -17,7 +17,6 @@
 </template>
 
 <script src="./plugins/font-awesome/js/fontawesome-all.min.js"></script>
-<script src="./plugins/typed-js/typed.min.js"></script>
 <script src="./plugins/circliful/js/jquery.circliful.min.js"></script>
 <script src="./plugins/inview/jquery.inview.min.js"></script>
 <script src="./plugins/count-up/countUp.min.js"></script>
@@ -25,7 +24,6 @@
 <script src="./plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="./plugins/owl-carousel/owl.carousel.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_wGWMl2iJ-ixWJI525qrGsnxFgkieSro&amp;callback=initMap" async defer></script>
-<script src="./assets/js/util.js"></script>
 
 <script>
 import YYFoliumNav from './components/YYFoliumNav'
@@ -42,7 +40,7 @@ export default {
 
       // Page Preloader
       $('.page-preloader').fadeOut('slow');
-    });
+    })
   }
 }
 </script>

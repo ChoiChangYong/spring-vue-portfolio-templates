@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light top-navigation">
         <div class="container">
-            <a class="navbar-brand" href="#home">Insert title</a>
+            <a class="navbar-brand" href="#home">{{ getTitle }}</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,11 @@
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex'
 
+export default {
+    computed: {
+        ...mapGetters(['getTitle'])
+    }
 }
 </script>
