@@ -14,8 +14,6 @@
                 :smartBackspace="true"
                 :loop="true"
                 :contentType="'html'"
-                :loopCount="false"
-                :v-text="center"
             >
                 <h3> - <span class="typing"></span> - </h3>
             </vue-typed-js>
@@ -23,25 +21,21 @@
             <p>{{ getSubIntro }}</p>
 
             <div class="modern-button banner-button">
-                <a href="#" class="faa-parent animated-hover">Download CV <i class="fas fa-arrow-down faa-falling"></i></a>
+                <a href="#">Download CV <i class="fas fa-arrow-down"></i></a>
             </div>
 
             <div class="arrow-bounce">
-                <a href="#about">
-                    <!-- <i class="fas fa-angle-double-down fa-2x"></i> -->
-                </a>
+                <a href="#about"><i class="fas fa-angle-double-down fa-2x"></i></a>
             </div>
         </div>
     </header>
 </template>
 
-<script src="../plugins/typed-js/typed.min.js"></script>
-
 <script>
 import { mapGetters } from 'vuex'
 
 export default {
-    computed: {
+    computed: {    
         ...mapGetters(['getIntro']),
         ...mapGetters(['getSubIntro'])
     },

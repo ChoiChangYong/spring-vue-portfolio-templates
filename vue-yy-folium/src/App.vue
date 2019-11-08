@@ -17,7 +17,6 @@
   </div>
 </template>
 
-<script src="./plugins/font-awesome/js/fontawesome-all.min.js"></script>
 <script src="./plugins/circliful/js/jquery.circliful.min.js"></script>
 <script src="./plugins/inview/jquery.inview.min.js"></script>
 <script src="./plugins/count-up/countUp.min.js"></script>
