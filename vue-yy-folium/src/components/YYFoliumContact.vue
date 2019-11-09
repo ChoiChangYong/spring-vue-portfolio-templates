@@ -15,31 +15,31 @@
             <form class="contact-form">
                 <h2>Send Me A Message</h2>
 
-                <label class="field-label" for="first-name">Enter Your Name *</label>
-                <div class="wrap-field wrap-field-left field-validate" data-validate="Enter First Name">
-                    <input id="first-name" class="input-field" type="text" name="first-name" placeholder="First Name">
+                <label class="field-label" for="first-name">Input Your Name *</label>
+                <div class="wrap-field wrap-field-left field-validate" data-validate="Input First Name">
+                    <input id="first-name" class="input-field" type="text" v-model="setInputValue.firstName" placeholder="First Name">
                     <span class="field-animate"></span>
                 </div>
-                <div class="wrap-field wrap-field-right field-validate" data-validate="Enter Last Name">
-                    <input id="last-name" class="input-field" type="text" name="last-name" placeholder="Last Name">
+                <div class="wrap-field wrap-field-right field-validate" data-validate="Input Last Name">
+                    <input id="last-name" class="input-field" type="text" v-model="setInputValue.lastName" placeholder="Input Name">
                     <span class="field-animate"></span>
                 </div>
 
-                <label class="field-label" for="email">Enter Your Email *</label>
+                <label class="field-label" for="email">Input Your Email *</label>
                 <div class="wrap-field field-validate" data-validate="Enter Valid Email">
-                    <input id="email" class="input-field" type="text" name="email" placeholder="Eg. your-name@example.com">
+                    <input id="email" class="input-field" type="text" v-model="setInputValue.email" placeholder="Eg. your-name@example.com">
                     <span class="field-animate"></span>
                 </div>
 
-                <label class="field-label" for="phone">Enter Your Phone Number</label>
+                <label class="field-label" for="phone">Input Your Phone Number</label>
                 <div class="wrap-field">
-                    <input id="phone" class="input-field" type="text" name="phone" placeholder="Eg. +1 234 567890">
+                    <input id="phone" class="input-field" type="text" v-model="setInputValue.phone" placeholder="Eg. +1 234 567890">
                     <span class="field-animate"></span>
                 </div>
 
                 <label class="field-label" for="message">Message *</label>
                 <div class="wrap-field field-validate" data-validate="Enter Your Message">
-                    <textarea id="message" class="input-field" name="message" placeholder="Write Me a Message"></textarea>
+                    <textarea id="message" class="input-field" v-model="setInputValue.message" placeholder="Write Me a Message"></textarea>
                     <span class="field-animate"></span>
                 </div>
 
@@ -53,25 +53,13 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-
-                    <div class="contact-details">
-                        <span class="contact-label">Address</span>
-
-                        <span class="contact-detail">4384, Seeley Way Wellsville, NY 14895 US</span>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
                         <i class="fas fa-phone"></i>
                     </div>
 
                     <div class="contact-details">
                         <span class="contact-label">Lets Talk</span>
 
-                        <span class="contact-detail">+1 234 567890</span>
+                        <span class="contact-detail">{{ getTel }}</span>
                     </div>
                 </div>
 
@@ -83,9 +71,7 @@
                     <div class="contact-details">
                         <span class="contact-label">General Support</span>
 
-                        <span class="contact-detail">
-                                <a href="mailto:jonathan@example.com">jonathan@example.com</a>
-                            </span>
+                        <span class="contact-detail">{{ getEmail }}</span>
                     </div>
                 </div>
             </div>
@@ -95,9 +81,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import $ from 'jquery'
 
 export default {
+    computed: {
+        ...mapGetters([
+            'getEmail',
+            'getTel',
+            'setInputValue'
+        ])
+    },
     mounted() {
         // Contact Form Validation and Submission
         var contactForm = $('.contact-form');

@@ -1,9 +1,9 @@
 const state = {
-    name: "Insert Name",
-    position: "Insert Position",
-    gender : "Insert Gender",
-    email : "Insert Email",
-    tel : "Insert Tel"
+    name: "Input Name",
+    position: "Input Position",
+    gender : "Input Gender",
+    email : "Input Email",
+    tel : "Input Tel"
 };
 
 const getters = {
