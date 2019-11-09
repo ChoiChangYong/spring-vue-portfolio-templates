@@ -7,6 +7,13 @@
       <div class="pr-section pr-selected">
         <YYFoliumNav></YYFoliumNav>
         <YYFoliumHome></YYFoliumHome>
+        <!-- Page Content START -->
+        <div class="pr-content">
+          <YYFoliumAbout></YYFoliumAbout>
+          <div class="strength"></div>
+          <YYFoliumResume></YYFoliumResume>
+          <div class="talk-to-me"></div>
+        </div>
       </div>
     </main>
     <!-- Overlay Effect -->
@@ -17,27 +24,23 @@
   </div>
 </template>
 
-<script src="./plugins/circliful/js/jquery.circliful.min.js"></script>
-<script src="./plugins/inview/jquery.inview.min.js"></script>
-<script src="./plugins/count-up/countUp.min.js"></script>
-<script src="./plugins/mixitup/mixitup.min.js"></script>
-<script src="./plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="./plugins/owl-carousel/owl.carousel.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_wGWMl2iJ-ixWJI525qrGsnxFgkieSro&amp;callback=initMap" async defer></script>
-
 <script>
 import YYFoliumNav from './components/YYFoliumNav'
 import YYFoliumHome from './components/YYFoliumHome'
+import YYFoliumAbout from './components/YYFoliumAbout'
+import YYFoliumResume from './components/YYFoliumResume';
 import $ from 'jquery'
 
 export default {
   name: 'app',
   components: {
     YYFoliumNav,
-    YYFoliumHome
+    YYFoliumHome,
+    YYFoliumAbout,
+    YYFoliumResume
   },
   mounted() {
-    $(window).on('load', function(e) {
+    $(window).on('load', function() {
       'use strict';
 
       // Page Preloader
