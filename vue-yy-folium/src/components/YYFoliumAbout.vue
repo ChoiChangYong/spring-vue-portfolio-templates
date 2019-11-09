@@ -12,13 +12,13 @@
         <!-- Section Title END -->
 
         <div class="row">
-            <div class="col-md-4 col-lg-4">
+            <div class="col-md-6 col-lg-5">
                 <!-- About Image -->
                 <img src="../images/about-me.png" alt="About Me" class="img-fluid" />
             </div>
 
             <!-- About Information START -->
-            <div class="col-md-8 col-lg-8">
+            <div class="col-md-6 col-lg-7">
                 <div class="pr-right-info">
                     <h4>Name</h4>
                     <p>{{ getName }}</p>
@@ -41,7 +41,7 @@
 
                 <div class="pr-right-info">
                     <h4>Email</h4>
-                    <p><a v-bind:href="emailLink">{{ getEmail }}</a></p>
+                    <p>{{ getEmail }}</p>
                 </div>
             </div>
             <!-- About Information END -->
@@ -136,10 +136,6 @@ export default {
         ...mapGetters(['getEmail']),
         ...mapGetters(['getEmailLink']),
         ...mapGetters(['getTel']),
-
-        emailLink() {
-            return "mailto:"+this.getEmail;
-        }
     },
     mounted() {
         // Animate Skills Progressbar In View

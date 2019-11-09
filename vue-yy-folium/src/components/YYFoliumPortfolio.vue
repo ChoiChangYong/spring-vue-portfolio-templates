@@ -36,7 +36,7 @@
         <div class="row gallery">
             <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix website">
                 <figure class="imghvr-zoom-in">
-                    <img class="img-fluid" src="../images/portfolio/1.jpg" alt="Portfolio" />
+                    <img id="portfolio_image" class="img-fluid" src="../images/portfolio/1.jpg" alt="Portfolio" />
 
                     <figcaption>
                         <h1>Web Designing</h1>
@@ -49,54 +49,6 @@
                     <a href="../images/portfolio/1.jpg" class="portfolio-popup" title="Web Designing"></a>
                 </figure>
             </div>
-
-            <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix system">
-                <figure class="imghvr-zoom-in">
-                    <img class="img-fluid" src="../images/portfolio/2.jpg" alt="Portfolio" />
-
-                    <figcaption>
-                        <h1>System Development</h1>
-
-                        <p>Duis finibus nisi et diam rhoncus, non efficitur sem malesuada. Ut bibendum efficitur hendrerit. Fusce quis sodales diam.</p>
-
-                        <i class="fas fa-plus fa-inverse fa-2x"></i>
-                    </figcaption>
-
-                    <a href="../images/portfolio/2.jpg" class="portfolio-popup" title="System Development"></a>
-                </figure>
-            </div>
-
-            <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix logo">
-                <figure class="imghvr-zoom-in">
-                    <img class="img-fluid" src="../images/portfolio/3.jpg" alt="Portfolio" />
-
-                    <figcaption>
-                        <h1>Logo Designing</h1>
-
-                        <p>Duis finibus nisi et diam rhoncus, non efficitur sem malesuada. Ut bibendum efficitur hendrerit. Fusce quis sodales diam.</p>
-
-                        <i class="fas fa-plus fa-inverse fa-2x"></i>
-                    </figcaption>
-
-                    <a href="../images/portfolio/3.jpg" class="portfolio-popup" title="Logo Designing"></a>
-                </figure>
-            </div>
-
-            <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix app">
-                <figure class="imghvr-zoom-in">
-                    <img class="img-fluid" src="../images/portfolio/4.jpg" alt="Portfolio" />
-
-                    <figcaption>
-                        <h1>App Development</h1>
-
-                        <p>Duis finibus nisi et diam rhoncus, non efficitur sem malesuada. Ut bibendum efficitur hendrerit. Fusce quis sodales diam.</p>
-
-                        <i class="fas fa-plus fa-inverse fa-2x"></i>
-                    </figcaption>
-
-                    <a href="../images/portfolio/4.jpg" class="portfolio-popup" title="App Development"></a>
-                </figure>
-            </div>
         </div>
     </div>
     <!-- Portfolio Section END -->
@@ -105,10 +57,13 @@
 <script>
 import $ from 'jquery'
 import mixitup from 'mixitup';
-import 'magnific-popup';
+
 
 export default {
     mounted() {
+        
+        $('.portfolio-popup').attr("href", $('#portfolio_image').attr("src"));
+
         // Flter Portfolio Gallery
         mixitup('.gallery', {
             selectors: {

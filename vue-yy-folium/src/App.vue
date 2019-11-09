@@ -31,7 +31,7 @@ import YYFoliumHome from './components/YYFoliumHome'
 import YYFoliumAbout from './components/YYFoliumAbout'
 import YYFoliumResume from './components/YYFoliumResume';
 import YYFoliumPortfolio from './components/YYFoliumPortfolio';
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default {
   name: 'app',
@@ -54,7 +54,9 @@ export default {
 </script>
 
 <style>
-@import url("./assets/css/color-beige.css");
+@import url("./plugins/image-hover/imagehover.min.css");
+@import url("./plugins/magnific-popup/magnific-popup.css");
 @import url("./assets/css/custom.css");
 @import url("./assets/css/reset.css");
+@import url("./assets/css/color-beige.css");
 </style>
