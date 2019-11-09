@@ -33,12 +33,29 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import $ from 'jquery'
 
 export default {
     computed: {    
         ...mapGetters(['getIntro']),
         ...mapGetters(['getSubIntro'])
     },
+    mounted() {
+        'use strict';
+
+        $('a').on('click', function(event) {
+            if (this.hash !== '') {
+                event.preventDefault();
+
+                var hash = this.hash;
+
+                // Smooth Page Scroll to Target
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800);
+            }
+        });
+    }
 }
 </script>
 
