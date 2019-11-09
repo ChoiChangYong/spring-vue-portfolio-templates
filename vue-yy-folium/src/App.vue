@@ -10,6 +10,9 @@
         <!-- Page Content START -->
         <div class="pr-content">
           <YYFoliumAbout></YYFoliumAbout>
+          <div class="strength"></div>
+          <YYFoliumResume></YYFoliumResume>
+          <div class="talk-to-me"></div>
         </div>
       </div>
     </main>
@@ -25,6 +28,7 @@
 import YYFoliumNav from './components/YYFoliumNav'
 import YYFoliumHome from './components/YYFoliumHome'
 import YYFoliumAbout from './components/YYFoliumAbout'
+import YYFoliumResume from './components/YYFoliumResume';
 import $ from 'jquery'
 
 export default {
@@ -32,7 +36,8 @@ export default {
   components: {
     YYFoliumNav,
     YYFoliumHome,
-    YYFoliumAbout
+    YYFoliumAbout,
+    YYFoliumResume
   },
   mounted() {
     $(window).on('load', function() {
