@@ -16,8 +16,10 @@
           <YYFoliumPortfolio></YYFoliumPortfolio>
           <YYFoliumContact></YYFoliumContact>
         </div>
+        <YYFoliumFooter></YYFoliumFooter>
       </div>
     </main>
+
     <!-- Overlay Effect -->
     <div class="pr-overlay"></div>
 
@@ -33,6 +35,7 @@ import YYFoliumAbout from './components/YYFoliumAbout'
 import YYFoliumResume from './components/YYFoliumResume';
 import YYFoliumPortfolio from './components/YYFoliumPortfolio';
 import YYFoliumContact from './components/YYFoliumContact';
+import YYFoliumFooter from './components/YYFoliumFooter';
 import $ from 'jquery';
 
 export default {
@@ -43,7 +46,8 @@ export default {
     YYFoliumAbout,
     YYFoliumResume,
     YYFoliumPortfolio,
-    YYFoliumContact
+    YYFoliumContact,
+    YYFoliumFooter
   },
   mounted() {
     $(window).on('load', function() {
@@ -51,7 +55,23 @@ export default {
 
       // Page Preloader
       $('.page-preloader').fadeOut('slow');
-    })
+    }),
+
+    // Back to Top
+    $(window).scroll(function() {
+        if ($(window).scrollTop() >= 280) {
+            $('.back-to-top').fadeIn();
+        } else {
+            $('.back-to-top').fadeOut();
+        }
+    });
+    $('.back-to-top').on('click', function(event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: 0
+        }, '300');
+    });
   }
 }
 </script>
