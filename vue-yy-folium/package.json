@@ -8,10 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.4",
     "core-js": "^3.3.2",
     "jquery": "^3.4.1",
     "jquery-inview": "^1.1.2",
+    "magnific-popup": "^1.1.0",
+    "mixitup": "^3.3.1",
     "modernizr": "^3.8.0",
     "popper.js": "^1.16.0",
     "vue": "^2.6.10",

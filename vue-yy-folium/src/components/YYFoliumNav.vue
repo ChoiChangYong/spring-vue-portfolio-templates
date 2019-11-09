@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light top-navigation">
+    <nav class="navbar fixed-top navbar-expand-md navbar-light top-navigation">
         <div class="container">
             <a class="navbar-brand" href="#home">{{ getTitle }}</a>
 
@@ -18,15 +18,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#service">Services</a>
-                    </li>
-
-                    <li class="nav-item">
                         <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#review">Reviews</a>
                     </li>
 
                     <li class="nav-item">
@@ -40,10 +32,21 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import $ from 'jquery'
 
 export default {
     computed: {
         ...mapGetters(['getTitle'])
+    },
+    mounted() {
+        // Top Navigation Effect
+        $(window).on('scroll', function() {
+            if ($(window).scrollTop() > 0) {
+                $('.top-navigation').addClass('stick');
+            } else {
+                $('.top-navigation').removeClass('stick');
+            }
+        });
     }
 }
 </script>

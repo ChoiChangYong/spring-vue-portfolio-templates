@@ -13,6 +13,7 @@
           <div class="strength"></div>
           <YYFoliumResume></YYFoliumResume>
           <div class="talk-to-me"></div>
+          <YYFoliumPortfolio></YYFoliumPortfolio>
         </div>
       </div>
     </main>
@@ -29,7 +30,8 @@ import YYFoliumNav from './components/YYFoliumNav'
 import YYFoliumHome from './components/YYFoliumHome'
 import YYFoliumAbout from './components/YYFoliumAbout'
 import YYFoliumResume from './components/YYFoliumResume';
-import $ from 'jquery'
+import YYFoliumPortfolio from './components/YYFoliumPortfolio';
+import $ from 'jquery';
 
 export default {
   name: 'app',
@@ -37,7 +39,8 @@ export default {
     YYFoliumNav,
     YYFoliumHome,
     YYFoliumAbout,
-    YYFoliumResume
+    YYFoliumResume,
+    YYFoliumPortfolio
   },
   mounted() {
     $(window).on('load', function() {
@@ -51,7 +54,9 @@ export default {
 </script>
 
 <style>
-@import url("./assets/css/color-beige.css");
+@import url("./plugins/image-hover/imagehover.min.css");
+@import url("./plugins/magnific-popup/magnific-popup.css");
 @import url("./assets/css/custom.css");
 @import url("./assets/css/reset.css");
+@import url("./assets/css/color-beige.css");
 </style>
