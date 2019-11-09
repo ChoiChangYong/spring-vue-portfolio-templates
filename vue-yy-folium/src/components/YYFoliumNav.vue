@@ -18,15 +18,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#service">Services</a>
-                    </li>
-
-                    <li class="nav-item">
                         <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#review">Reviews</a>
                     </li>
 
                     <li class="nav-item">
