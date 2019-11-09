@@ -14,6 +14,7 @@
           <YYFoliumResume></YYFoliumResume>
           <div class="talk-to-me"></div>
           <YYFoliumPortfolio></YYFoliumPortfolio>
+          <YYFoliumContact></YYFoliumContact>
         </div>
       </div>
     </main>
@@ -31,6 +32,7 @@ import YYFoliumHome from './components/YYFoliumHome'
 import YYFoliumAbout from './components/YYFoliumAbout'
 import YYFoliumResume from './components/YYFoliumResume';
 import YYFoliumPortfolio from './components/YYFoliumPortfolio';
+import YYFoliumContact from './components/YYFoliumContact';
 import $ from 'jquery';
 
 export default {
@@ -40,7 +42,8 @@ export default {
     YYFoliumHome,
     YYFoliumAbout,
     YYFoliumResume,
-    YYFoliumPortfolio
+    YYFoliumPortfolio,
+    YYFoliumContact
   },
   mounted() {
     $(window).on('load', function() {
