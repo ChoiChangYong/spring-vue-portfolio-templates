@@ -7,48 +7,26 @@
     <div class="ecaps-page-wrapper">
       <!--Preloader-->
       <AdminYYFoliumNav></AdminYYFoliumNav>
+      <!-- Page Content -->
+      <div class="ecaps-page-content">
+        <AdminYYFoliumHeader></AdminYYFoliumHeader>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import $ from "jquery"
+// import './assets/js/active.js'
 import AdminYYFoliumNav from "./components/AdminYYFoliumNav"
+import AdminYYFoliumHeader from "./components/AdminYYFoliumHeader"
+
 
 export default {
   name: 'app',
   components: {
-    AdminYYFoliumNav
+    AdminYYFoliumNav,
+    AdminYYFoliumHeader
   },
-  mounted() {
-    "use strict";
-
-    var pageWrapper = $(".ecaps-page-wrapper");
-    var sideMenuArea = $(".ecaps-sidemenu-area");
-    
-    // :: Preloader Active Code
-    setTimeout(function () {
-        $("#droba-loader").addClass("loaded")
-    }, 1500);
-    
-    // :: Menu Active Code
-    $("#menuCollasped").on("click", function () {
-        pageWrapper.toggleClass("menu-collasped-active");
-    });
-
-    $("#mobileMenuOpen").on("click", function () {
-        pageWrapper.toggleClass("mobile-menu-active");
-    });
-        sideMenuArea.on("mouseenter", function () {
-        pageWrapper.addClass("sidemenu-hover-active");
-        pageWrapper.removeClass("sidemenu-hover-deactive");
-    });
-
-    sideMenuArea.on("mouseleave", function () {
-        pageWrapper.removeClass("sidemenu-hover-active");
-        pageWrapper.addClass("sidemenu-hover-deactive");
-    });
-  }
 }
 </script>
 

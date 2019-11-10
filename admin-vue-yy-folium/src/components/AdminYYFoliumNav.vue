@@ -32,11 +32,21 @@
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from 'jquery'
 import '../assets/js/treemenu.js'
 
 export default {
+
     mounted() {
+        
+        var pageWrapper = $(".ecaps-page-wrapper");
+        var sideMenuArea = $(".ecaps-sidemenu-area");
+
+        // :: Preloader Active Code
+        setTimeout(function () {
+            $("#droba-loader").addClass("loaded")
+        }, 1500);
+
         // :: Slimscroll Active Code
         if ($.fn.slimscroll) {
             $('#ecapsSideNav').slimscroll({
@@ -51,7 +61,27 @@ export default {
             });
         }
         
+        // :: Menu Active Code
+        $("#menuCollasped").on("click", function () {
+            pageWrapper.toggleClass("menu-collasped-active");
+        });
+
+        $("#mobileMenuOpen").on("click", function () {
+            pageWrapper.toggleClass("mobile-menu-active");
+        });
+
+
+        sideMenuArea.on("mouseenter", function () {
+            pageWrapper.addClass("sidemenu-hover-active");
+            pageWrapper.removeClass("sidemenu-hover-deactive");
+        });
+
+        sideMenuArea.on("mouseleave", function () {
+            pageWrapper.removeClass("sidemenu-hover-active");
+            pageWrapper.addClass("sidemenu-hover-deactive");
+        });
     }
+
 }
 </script>
 
