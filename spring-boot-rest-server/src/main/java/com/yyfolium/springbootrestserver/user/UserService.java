@@ -5,9 +5,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -28,29 +30,32 @@ public class UserService {
     }
 
 
-    public List<User> findAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    public User findByUuid(String uuid) {
+    public Optional<User> getOneByUuid(String uuid) {
         return userRepository.findByUuid(uuid);
     }
 
-    public User update(String userUuid, User userDetails) {
-        User user = userRepository.findByUuid(userUuid);
+    public User update(String uuid, User fetchedUser) {
+        final Optional<User> user = userRepository.findByUuid(uuid);
+        if(user.isPresent()){
+            user.get().setName(fetchedUser.getName());
+            user.get().setGender(fetchedUser.getGender());
+            user.get().setEmail(fetchedUser.getEmail());
+            user.get().setTel(fetchedUser.getTel());
 
-        user.setName(userDetails.getName());
-        user.setGender(userDetails.getGender());
-        user.setEmail(userDetails.getEmail());
-        user.setTel(userDetails.getTel());
-
-        User updatedUser = userRepository.save(user);
-        return updatedUser;
+            return userRepository.save(user.get());
+        }
+        else{
+            return null;
+        }
     }
 
-    public void deleteByUuid(String userUuid) {
-        User user = userRepository.findByUuid(userUuid);
-        userRepository.delete(user);
+    public void deleteByUuid(String uuid) {
+        Optional<User> user = userRepository.findByUuid(uuid);
+        userRepository.delete(user.get());
     }
 
 //    @Override

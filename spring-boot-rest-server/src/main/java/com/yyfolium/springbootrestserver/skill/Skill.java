@@ -17,10 +17,10 @@ import java.sql.Timestamp;
 public class Skill {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name ="user_id",nullable = false)
     private User user;
 

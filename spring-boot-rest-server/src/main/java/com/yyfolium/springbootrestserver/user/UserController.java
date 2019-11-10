@@ -17,12 +17,12 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userService.findAll();
+        return userService.getAll();
     }
 
     @GetMapping("/users/{uuid}")
-    public User getUserById(@PathVariable(value = "uuid") String userUuid) {
-        return userService.findByUuid(userUuid);
+    public Optional<User> getUserByUuid(@PathVariable(value = "uuid") String uuid) {
+        return userService.getOneByUuid(uuid);
     }
 
     @PostMapping("/users")
@@ -31,14 +31,14 @@ public class UserController {
     }
 
     @PutMapping("/users/{uuid}")
-    public User updateUser(@PathVariable(value = "uuid") String userUuid,
-                           @Valid @RequestBody User userDetails) {
-        return userService.update(userUuid, userDetails);
+    public User updateUser(@PathVariable(value = "uuid") String uuid,
+                           @Valid @RequestBody User user) {
+        return userService.update(uuid, user);
     }
 
     @DeleteMapping("/users/{uuid}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String userUuid) {
-        userService.deleteByUuid(userUuid);
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String uuid) {
+        userService.deleteByUuid(uuid);
         return ResponseEntity.ok().build();
     }
 }

@@ -16,8 +16,8 @@ import java.sql.Timestamp;
 public class PortfolioImage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name ="portfolio_project_id",nullable = false)
