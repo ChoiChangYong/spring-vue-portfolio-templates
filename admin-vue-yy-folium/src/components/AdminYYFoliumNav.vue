@@ -14,15 +14,16 @@
                     <!-- Sidebar Menu -->
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
-                            <li class="active"><a href="index.html"><i class="icon_lifesaver"></i> <span>Home</span></a></li>
-                            <li><a href="index.html"><i class="icon_lifesaver"></i> <span>About</span></a></li>
+                            <li class="active"><a href="#"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                            <li><a href="#"><i class="fas fa-id-card-alt"></i> <span>About</span></a></li>
+                            <li><a href="#"><i class="fas fa-history"></i> <span>Resume</span></a></li>
                             <li class="treeview">
-                                <a href="javascript:void(0)"><i class="icon_drive"></i> <span>Portfolio</span> <i class="fa fa-angle-right"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-puzzle-piece"></i> <span>Portfolio</span> <i class="fa fa-angle-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a href="avatar.html">All</a></li>
+                                    <li><a href="#">All</a></li>
                                 </ul>
                             </li>
-                            <li><a href="index.html"><i class="icon_lifesaver"></i> <span>Contact</span></a></li>
+                            <li><a href="#"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -32,6 +33,7 @@
 
 <script>
 import $ from 'jquery';
+import '../assets/js/treemenu.js'
 
 export default {
     mounted() {
@@ -48,6 +50,7 @@ export default {
                 wheelStep: 15
             });
         }
+        
     }
 }
 </script>
