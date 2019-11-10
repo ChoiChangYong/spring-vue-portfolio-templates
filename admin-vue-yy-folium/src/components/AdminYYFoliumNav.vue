@@ -14,8 +14,8 @@
                     <!-- Sidebar Menu -->
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
-                            <li class="active"><a href="#"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                            <li><a href="#"><i class="fas fa-id-card-alt"></i> <span>About</span></a></li>
+                            <li class="active"><router-link to="/home"><i class="fas fa-home"></i><span>Home</span></router-link></li>
+                            <li><router-link to="/about"><i class="fas fa-id-card-alt"></i><span>About</span></router-link></li>
                             <li><a href="#"><i class="fas fa-history"></i> <span>Resume</span></a></li>
                             <li class="treeview">
                                 <a href="javascript:void(0)"><i class="fas fa-puzzle-piece"></i> <span>Portfolio</span> <i class="fa fa-angle-right"></i></a>
@@ -36,7 +36,6 @@ import $ from 'jquery'
 import '../assets/js/treemenu.js'
 
 export default {
-
     mounted() {
         
         var pageWrapper = $(".ecaps-page-wrapper");

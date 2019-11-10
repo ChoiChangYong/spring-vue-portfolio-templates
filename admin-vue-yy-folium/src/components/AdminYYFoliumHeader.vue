@@ -64,12 +64,6 @@ export default {
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();
         }
-
-        
-        // :: PreventDefault a Click
-        $('a[href="#"]').on("click", function ($) {
-            $.preventDefault();
-        });
     }
 }
 </script>

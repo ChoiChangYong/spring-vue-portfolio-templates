@@ -10,13 +10,14 @@
       <!-- Page Content -->
       <div class="ecaps-page-content">
         <AdminYYFoliumHeader></AdminYYFoliumHeader>
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import './assets/js/active.js'
+import $ from 'jquery'
 import AdminYYFoliumNav from "./components/AdminYYFoliumNav"
 import AdminYYFoliumHeader from "./components/AdminYYFoliumHeader"
 
@@ -27,6 +28,12 @@ export default {
     AdminYYFoliumNav,
     AdminYYFoliumHeader
   },
+  mounted() {
+    // :: PreventDefault a Click
+    $('a[href="#"]').on("click", function ($) {
+        $.preventDefault();
+    });
+  }
 }
 </script>
 
