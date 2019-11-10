@@ -1,14 +1,19 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.header;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.user.User;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Table(name = "header")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Header {
 
     @Id
@@ -31,10 +36,18 @@ public class Header {
     @Column(length = 255, nullable = false)
     private String image_url;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public Header(User user, String title, String intro, int sub_intro, String image_url) {
+        this.user = user;
+        this.title = title;
+        this.intro = intro;
+        this.sub_intro = sub_intro;
+        this.image_url = image_url;
+    }
 }

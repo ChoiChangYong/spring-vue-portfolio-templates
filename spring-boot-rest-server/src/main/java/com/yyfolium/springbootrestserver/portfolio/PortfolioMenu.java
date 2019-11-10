@@ -1,15 +1,20 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.portfolio;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.user.User;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
-public class Skill {
+@Table(name = "portfolio_menu")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class PortfolioMenu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,13 +27,15 @@ public class Skill {
     @Column(length = 30, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private int level;
-
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public PortfolioMenu(User user, String name) {
+        this.user = user;
+        this.name = name;
+    }
 }

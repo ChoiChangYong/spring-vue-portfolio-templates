@@ -1,14 +1,19 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.contact;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.user.User;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Table(name = "contact")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contact {
 
     @Id
@@ -31,10 +36,18 @@ public class Contact {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public Contact(User user, String name, String email, String tel, String message) {
+        this.user = user;
+        this.name = name;
+        this.email = email;
+        this.tel = tel;
+        this.message = message;
+    }
 }

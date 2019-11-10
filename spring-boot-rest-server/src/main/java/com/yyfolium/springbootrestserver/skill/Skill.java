@@ -1,15 +1,20 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.skill;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.user.User;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
-public class Resume {
+@Table(name = "skill")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,27 +25,21 @@ public class Resume {
     private User user;
 
     @Column(length = 30, nullable = false)
-    private String job;
-
-    @Column(length = 50, nullable = false)
-    private String company;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String description;
+    private String name;
 
     @Column(nullable = false)
-    private Timestamp start_date;
+    private int level;
 
-    @Column(nullable = false)
-    private Timestamp end_date;
-
-    @Column(nullable = false)
-    private int history_flag;
-
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public Skill(User user, String name, int level) {
+        this.user = user;
+        this.name = name;
+        this.level = level;
+    }
 }

@@ -1,14 +1,18 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.portfolio;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Table(name = "portfolio_image")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PortfolioImage {
 
     @Id
@@ -22,10 +26,15 @@ public class PortfolioImage {
     @Column(length = 255, nullable = false)
     private String url;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public PortfolioImage(PortfolioProject portfolioProject, String url) {
+        this.portfolioProject = portfolioProject;
+        this.url = url;
+    }
 }

@@ -1,14 +1,19 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.job;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.user.User;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Table(name = "job")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Job {
 
     @Id
@@ -22,10 +27,15 @@ public class Job {
     @Column(length = 30, nullable = false)
     private String name;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public Job(User user, String name) {
+        this.user = user;
+        this.name = name;
+    }
 }

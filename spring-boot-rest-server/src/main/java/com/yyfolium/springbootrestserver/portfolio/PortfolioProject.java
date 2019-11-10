@@ -1,14 +1,19 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.portfolio;
 
-import lombok.Data;
+import com.yyfolium.springbootrestserver.portfolio.PortfolioMenu;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Table(name = "portfolio_project")
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PortfolioProject {
 
     @Id
@@ -25,10 +30,16 @@ public class PortfolioProject {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
+
+    @Builder
+    public PortfolioProject(PortfolioMenu portfolioMenu, String job, String description) {
+        this.portfolioMenu = portfolioMenu;
+        this.job = job;
+        this.description = description;
+    }
 }

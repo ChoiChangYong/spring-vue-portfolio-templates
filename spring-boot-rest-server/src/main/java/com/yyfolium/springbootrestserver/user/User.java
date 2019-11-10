@@ -1,23 +1,29 @@
-package com.yyfolium.springbootrestserver.models;
+package com.yyfolium.springbootrestserver.user;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.UUID;
 
-@Data
 @Entity
+@Table(name = "user")
+@Getter @Setter
+@EqualsAndHashCode(of = "uuid")
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    @Id
-    @Column(length = 32)
+    @Column(length = 32, nullable = false, unique = true)
     private String uuid;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Id
+    @Column(length = 30)
     private String id;
 
     @Column(length = 255, nullable = false)
@@ -35,11 +41,20 @@ public class User {
     @Column(length = 15)
     private String tel;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp created;
 
     @UpdateTimestamp
     private Timestamp updated;
 
+    @Builder
+    public User(String id, String password, String name, int gender, String email, String tel) {
+        this.uuid = UUID.randomUUID().toString().replace("-", "");
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.tel = tel;
+    }
 }
