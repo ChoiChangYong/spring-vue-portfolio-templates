@@ -3,7 +3,7 @@
     <div class="ecaps-sidemenu-area">
         <!-- Desktop Logo -->
         <div class="ecaps-logo">
-            <a href="index.html"><img class="desktop-logo" src="../img/core-img/logo.png" alt="Desktop Logo"> <img class="small-logo" src="img/core-img/small-logo.png" alt="Mobile Logo"></a>
+            <a href="index.html"><img class="desktop-logo" src="../../img/core-img/logo.png" alt="Desktop Logo"> <img class="small-logo" src="../../img/core-img/small-logo.png" alt="Mobile Logo"></a>
         </div>
 
         <!-- Side Nav -->
@@ -33,18 +33,13 @@
 
 <script>
 import $ from 'jquery'
-import '../assets/js/treemenu.js'
+import '../../assets/js/treemenu.js'
 
 export default {
     mounted() {
         
         var pageWrapper = $(".ecaps-page-wrapper");
         var sideMenuArea = $(".ecaps-sidemenu-area");
-
-        // :: Preloader Active Code
-        setTimeout(function () {
-            $("#droba-loader").addClass("loaded")
-        }, 1500);
 
         // :: Slimscroll Active Code
         if ($.fn.slimscroll) {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import AdminYYFoliumLogin from './components/AdminYYFoliumLogin'
+import AdminYYFoliumApp from './components/AdminYYFoliumApp'
 import AdminYYFoliumHome from './components/AdminYYFoliumHome'
 import AdminYYFoliumAbout from './components/AdminYYFoliumAbout'
 
@@ -15,12 +16,20 @@ export const router = new VueRouter({
             component: AdminYYFoliumLogin
         },
         {
-            path: '/home',
-            component: AdminYYFoliumHome
-        },  
-        {
-            path: '/about',
-            component: AdminYYFoliumAbout
+            path: '/',
+            component: AdminYYFoliumApp
         },
-    ]
+        { path: '/', component: AdminYYFoliumApp,
+            children: [
+                {
+                    path: '/home',
+                    component: AdminYYFoliumHome
+                },
+                {
+                    path: '/about',
+                    component: AdminYYFoliumAbout
+                },
+            ]
+        }
+    ],
 })

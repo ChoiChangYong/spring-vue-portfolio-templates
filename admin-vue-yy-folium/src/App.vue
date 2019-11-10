@@ -4,31 +4,25 @@
     <div id="droba-loader">
         <div class="loader"></div>
     </div>
-    <div class="ecaps-page-wrapper">
-      <!--Preloader-->
-      <AdminYYFoliumNav></AdminYYFoliumNav>
-      <!-- Page Content -->
-      <div class="ecaps-page-content">
-        <AdminYYFoliumHeader></AdminYYFoliumHeader>
-        <router-view></router-view>
-      </div>
-    </div>
+
+    <router-view></router-view>
+
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
-import AdminYYFoliumNav from "./components/AdminYYFoliumNav"
-import AdminYYFoliumHeader from "./components/AdminYYFoliumHeader"
-
 
 export default {
   name: 'app',
   components: {
-    AdminYYFoliumNav,
-    AdminYYFoliumHeader
   },
   mounted() {
+    // :: Preloader Active Code
+    setTimeout(function () {
+        $("#droba-loader").addClass("loaded")
+    }, 1500);
+    
     // :: PreventDefault a Click
     $('a[href="#"]').on("click", function ($) {
         $.preventDefault();
