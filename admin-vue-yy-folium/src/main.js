@@ -7,6 +7,7 @@ import 'jquery-ui'
 import 'jquery-slimscroll'
 import 'owl.carousel'
 import 'popper.js'
+import 'particles.js'
 
 import {router} from './routes'
 import {store} from './store/store'
