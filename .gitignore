@@ -1,4 +1,4 @@
-  
+// vue-yy-folium  
 .DS_Store
 node_modules
 dist
@@ -25,6 +25,9 @@ vscode
 vue-yy-folium/src/assets/
 vue-yy-folium/src/plugins/
 vue-yy-folium/src/images/
+
+// admin-vue-yy-folium
+
 
 HELP.md
 target/
