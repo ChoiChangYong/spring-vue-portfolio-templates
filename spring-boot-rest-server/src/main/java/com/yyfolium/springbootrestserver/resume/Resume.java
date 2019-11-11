@@ -3,6 +3,7 @@ package com.yyfolium.springbootrestserver.resume;
 import com.yyfolium.springbootrestserver.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -40,7 +41,7 @@ public class Resume {
     private Timestamp endDate;
 
     @Column(name = "history_flag", nullable = false)
-    private int historyFlag;
+    private Integer historyFlag;
 
     @CreationTimestamp
     private Timestamp created;

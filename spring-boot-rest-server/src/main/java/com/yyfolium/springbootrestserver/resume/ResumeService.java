@@ -38,12 +38,18 @@ public class ResumeService {
         isUser(user_id);
         final Optional<Resume> resume = resumeRepository.findById(resume_id);
         if(resume.isPresent()){
-            resume.get().setJob(fetchedResume.getJob());
-            resume.get().setCompany(fetchedResume.getCompany());
-            resume.get().setDescription(fetchedResume.getDescription());
-            resume.get().setStartDate(fetchedResume.getStartDate());
-            resume.get().setEndDate(fetchedResume.getEndDate());
-            resume.get().setHistoryFlag(fetchedResume.getHistoryFlag());
+            Optional.ofNullable(fetchedResume.getJob()).ifPresent(f -> resume.get().setJob(fetchedResume.getJob()));
+            Optional.ofNullable(fetchedResume.getCompany()).ifPresent(f -> resume.get().setCompany(fetchedResume.getCompany()));
+            Optional.ofNullable(fetchedResume.getDescription()).ifPresent(f -> resume.get().setDescription(fetchedResume.getDescription()));
+            Optional.ofNullable(fetchedResume.getStartDate()).ifPresent(f -> resume.get().setStartDate(fetchedResume.getStartDate()));
+            Optional.ofNullable(fetchedResume.getEndDate()).ifPresent(f -> resume.get().setEndDate(fetchedResume.getEndDate()));
+            Optional.ofNullable(fetchedResume.getHistoryFlag()).ifPresent(f -> resume.get().setHistoryFlag(fetchedResume.getHistoryFlag()));
+//            resume.get().setJob(fetchedResume.getJob());
+//            resume.get().setCompany(fetchedResume.getCompany());
+//            resume.get().setDescription(fetchedResume.getDescription());
+//            resume.get().setStartDate(fetchedResume.getStartDate());
+//            resume.get().setEndDate(fetchedResume.getEndDate());
+//            resume.get().setHistoryFlag(fetchedResume.getHistoryFlag());
             return resumeRepository.save(resume.get());
         }
         else{

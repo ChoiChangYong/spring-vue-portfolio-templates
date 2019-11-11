@@ -37,12 +37,14 @@ public class SkillService {
     public Skill update(String user_id, Long skill_id, Skill fetchedSkill) {
         isUser(user_id);
         final Optional<Skill> skill = skillRepository.findById(skill_id);
-        if(skill.isPresent()){
-            skill.get().setName(fetchedSkill.getName());
-            skill.get().setLevel(fetchedSkill.getLevel());
+        if(skill.isPresent()) {
+            Optional.ofNullable(fetchedSkill.getName()).ifPresent(f -> skill.get().setName(fetchedSkill.getName()));
+            Optional.ofNullable(fetchedSkill.getLevel()).ifPresent(f -> skill.get().setLevel(fetchedSkill.getLevel()));
+//            skill.get().setName(fetchedSkill.getName());
+//            skill.get().setLevel(fetchedSkill.getLevel());
             return skillRepository.save(skill.get());
         }
-        else{
+        else {
             return null;
         }
     }

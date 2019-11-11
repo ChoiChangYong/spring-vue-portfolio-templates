@@ -3,6 +3,7 @@ package com.yyfolium.springbootrestserver.skill;
 import com.yyfolium.springbootrestserver.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Skill {
     private String name;
 
     @Column(nullable = false)
-    private int level;
+    private Integer level;
 
     @CreationTimestamp
     private Timestamp created;
