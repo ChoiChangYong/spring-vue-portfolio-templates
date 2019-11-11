@@ -33,14 +33,14 @@ public class Resume {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private Timestamp start_date;
+    @Column(name = "start_date", nullable = false)
+    private Timestamp startDate;
 
-    @Column(nullable = false)
-    private Timestamp end_date;
+    @Column(name = "end_date", nullable = false)
+    private Timestamp endDate;
 
-    @Column(nullable = false)
-    private int history_flag;
+    @Column(name = "history_flag", nullable = false)
+    private int historyFlag;
 
     @CreationTimestamp
     private Timestamp created;
@@ -49,13 +49,13 @@ public class Resume {
     private Timestamp updated;
 
     @Builder
-    public Resume(User user, String job, String company, String description, Timestamp start_date, Timestamp end_date, int history_flag) {
+    public Resume(User user, String job, String company, String description, Timestamp startDate, Timestamp endDate, int historyFlag) {
         this.user = user;
         this.job = job;
         this.company = company;
         this.description = description;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.history_flag = history_flag;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.historyFlag = historyFlag;
     }
 }

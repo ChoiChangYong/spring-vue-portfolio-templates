@@ -30,11 +30,11 @@ public class Header {
     @Column(length = 50, nullable = false)
     private String intro;
 
-    @Column(length = 50, nullable = false)
-    private int sub_intro;
+    @Column(name = "sub_intro", length = 50, nullable = false)
+    private int subIntro;
 
-    @Column(length = 255, nullable = false)
-    private String image_url;
+    @Column(name = "image_url", length = 255, nullable = false)
+    private String imageUrl;
 
     @CreationTimestamp
     private Timestamp created;
@@ -43,11 +43,11 @@ public class Header {
     private Timestamp updated;
 
     @Builder
-    public Header(User user, String title, String intro, int sub_intro, String image_url) {
+    public Header(User user, String title, String intro, int subIntro, String imageUrl) {
         this.user = user;
         this.title = title;
         this.intro = intro;
-        this.sub_intro = sub_intro;
-        this.image_url = image_url;
+        this.subIntro = subIntro;
+        this.imageUrl = imageUrl;
     }
 }
