@@ -5,8 +5,13 @@
             <AdminYYFoliumNav></AdminYYFoliumNav>
             <!-- Page Content -->
             <div class="ecaps-page-content">
-            <AdminYYFoliumHeader></AdminYYFoliumHeader>
-            <router-view></router-view>
+                <AdminYYFoliumHeader></AdminYYFoliumHeader>
+                <!-- Main Content Area -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <router-view></router-view>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
