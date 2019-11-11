@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <!-- Preloader -->
-    <div id="droba-loader">
-        <div class="loader"></div>
-    </div>
+    <body>
+      <!-- Preloader -->
+      <div id="droba-loader">
+          <div class="loader"></div>
+      </div>
 
-    <router-view></router-view>
-
+      <router-view></router-view>
+    </body>
   </div>
 </template>
 
@@ -22,7 +23,7 @@ export default {
     setTimeout(function () {
         $("#droba-loader").addClass("loaded")
     }, 1500);
-    
+
     // :: PreventDefault a Click
     $('a[href="#"]').on("click", function ($) {
         $.preventDefault();

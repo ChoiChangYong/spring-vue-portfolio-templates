@@ -1,5 +1,5 @@
 <template>
-<div class="main-content- login-area-2 bg-img h-100vh dark-color-overlay" id="particles-js">
+    <div class="main-content- login-area-2 bg-img h-100vh dark-color-overlay" id="particles-js">
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-7 col-lg-6 mx-auto">

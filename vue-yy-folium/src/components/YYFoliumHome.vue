@@ -4,7 +4,7 @@
             <h2>{{ getIntro }}</h2>
 
             <div id="typed-strings">
-                <span>Senior Software Engineer</span>
+                <span>안녕하세요 반갑습니다</span>
             </div>
 
             <vue-typed-js 
