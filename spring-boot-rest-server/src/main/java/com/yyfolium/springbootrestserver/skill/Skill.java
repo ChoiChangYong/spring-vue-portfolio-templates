@@ -38,7 +38,7 @@ public class Skill {
     private Timestamp updated;
 
     @Builder
-    public Skill(User user, String name, int level) {
+    public Skill(User user, String name, Integer level) {
         this.user = user;
         this.name = name;
         this.level = level;

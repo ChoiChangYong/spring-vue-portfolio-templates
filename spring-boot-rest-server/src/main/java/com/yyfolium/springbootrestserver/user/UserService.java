@@ -55,7 +55,8 @@ public class UserService {
 
     public void deleteByUuid(String uuid) {
         Optional<User> user = userRepository.findByUuid(uuid);
-        userRepository.delete(user.get());
+        user.ifPresent(userRepository::delete);
+//        userRepository.delete(user.get());
     }
 
 //    @Override

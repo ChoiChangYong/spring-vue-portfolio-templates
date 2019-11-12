@@ -1,6 +1,6 @@
-package com.yyfolium.springbootrestserver.portfolio;
+package com.yyfolium.springbootrestserver.portfolio.project;
 
-import com.yyfolium.springbootrestserver.portfolio.PortfolioMenu;
+import com.yyfolium.springbootrestserver.portfolio.menu.PortfolioMenu;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

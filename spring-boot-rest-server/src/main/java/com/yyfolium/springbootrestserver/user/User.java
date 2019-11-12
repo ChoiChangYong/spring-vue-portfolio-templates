@@ -33,7 +33,7 @@ public class User {
     private String name;
 
     @Column(nullable = false)
-    private int gender;
+    private Integer gender;
 
     @Column(length = 100, nullable = false)
     private String email;
@@ -48,7 +48,7 @@ public class User {
     private Timestamp updated;
 
     @Builder
-    public User(String id, String password, String name, int gender, String email, String tel) {
+    public User(String id, String password, String name, Integer gender, String email, String tel) {
         this.uuid = UUID.randomUUID().toString().replace("-", "");
         this.id = id;
         this.password = password;

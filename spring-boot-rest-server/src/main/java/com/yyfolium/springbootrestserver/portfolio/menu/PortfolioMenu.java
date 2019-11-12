@@ -1,4 +1,4 @@
-package com.yyfolium.springbootrestserver.portfolio;
+package com.yyfolium.springbootrestserver.portfolio.menu;
 
 import com.yyfolium.springbootrestserver.user.User;
 import lombok.*;

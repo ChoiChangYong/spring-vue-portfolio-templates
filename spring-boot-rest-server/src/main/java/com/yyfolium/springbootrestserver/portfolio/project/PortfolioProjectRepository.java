@@ -1,4 +1,4 @@
-package com.yyfolium.springbootrestserver.portfolio;
+package com.yyfolium.springbootrestserver.portfolio.project;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

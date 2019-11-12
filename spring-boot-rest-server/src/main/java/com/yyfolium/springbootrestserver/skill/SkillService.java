@@ -20,7 +20,7 @@ public class SkillService {
 
     public Skill create(String user_id, Skill skill) {
         Optional<User> user = userRepository.findByUuid(user_id);
-        skill.setUser(user.get());
+        user.ifPresent(skill::setUser);
         return skillRepository.save(skill);
     }
 
@@ -52,7 +52,8 @@ public class SkillService {
     public void deleteById(String user_id, Long skill_id) {
         isUser(user_id);
         Optional<Skill> skill = skillRepository.findById(skill_id);
-        skillRepository.delete(skill.get());
+        skill.ifPresent(skillRepository::delete);
+//        skillRepository.delete(skill.get());
     }
 
     public void isUser(String user_id){

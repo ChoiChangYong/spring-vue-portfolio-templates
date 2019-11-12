@@ -20,7 +20,7 @@ public class ResumeService {
 
     public Resume create(String user_id, Resume resume) {
         Optional<User> user = userRepository.findByUuid(user_id);
-        resume.setUser(user.get());
+        user.ifPresent(resume::setUser);
         return resumeRepository.save(resume);
     }
 
@@ -60,7 +60,7 @@ public class ResumeService {
     public void deleteById(String user_id, Long resume_id) {
         isUser(user_id);
         Optional<Resume> resume = resumeRepository.findById(resume_id);
-        resumeRepository.delete(resume.get());
+        resume.ifPresent(resumeRepository::delete);
     }
 
     public void isUser(String user_id){
