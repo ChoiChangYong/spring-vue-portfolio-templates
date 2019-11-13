@@ -1,20 +1,41 @@
 package com.yyfolium.springbootrestserver.user;
 
+import com.yyfolium.springbootrestserver.S3Wrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${cloud.aws.s3.bucket.name}")
+    private String bucketName;
+
+    @Value("${cloud.aws.s3.bucket.name.profile}")
+    private String storeName;
+
+    @Value("${cloud.aws.s3.bucket.endpoint}")
+    private String bucketEndpoint;
+
+    private final S3Wrapper s3Wrapper;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, S3Wrapper s3Wrapper) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.s3Wrapper = s3Wrapper;
+        this.s3Wrapper.setBucket(bucketName+storeName);
+    }
 
     public User create(User user) {
         User newUser = User.builder()
@@ -24,6 +45,7 @@ public class UserService {
                 .gender(user.getGender())
                 .email(user.getEmail())
                 .tel(user.getTel())
+                .imageUrl(user.getImageUrl())
                 .build();
 
         return userRepository.save(newUser);
@@ -38,14 +60,23 @@ public class UserService {
         return userRepository.findByUuid(uuid);
     }
 
-    public User update(String uuid, User fetchedUser) {
+    public User update(String uuid, User fetchedUser, MultipartFile multipartFile) throws IOException {
         final Optional<User> user = userRepository.findByUuid(uuid);
         if(user.isPresent()){
             user.get().setName(fetchedUser.getName());
             user.get().setGender(fetchedUser.getGender());
             user.get().setEmail(fetchedUser.getEmail());
             user.get().setTel(fetchedUser.getTel());
-            user.get().setImageUrl(fetchedUser.getImageUrl());
+
+            String fileName = UUID.randomUUID().toString().replace("-", "");
+            String originName = multipartFile.getOriginalFilename();
+            String exc = originName.substring(originName.lastIndexOf(".")+1, originName.length());
+            String fileFullPath = bucketEndpoint+storeName+"/"+fileName+"."+exc;
+
+            s3Wrapper.setBucket(bucketName+"/"+storeName);
+            s3Wrapper.upload(multipartFile.getInputStream(), fileName+"."+exc);
+
+            user.get().setImageUrl(fileFullPath);
 
             return userRepository.save(user.get());
         }

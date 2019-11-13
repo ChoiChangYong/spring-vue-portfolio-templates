@@ -1,6 +1,6 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
-    <img src="/upload-dir/test.jpg"/>
+    <img src="https://yyfolium-image.s3.ap-northeast-2.amazonaws.com/profile-image/1ceaab1a40bb4f67bcab63226c1ed46a.jpg"/>
     <div th:if="${message}">
         <h2 th:text="${message}"/>
     </div>
@@ -8,7 +8,7 @@
     <div>
         <form method="POST" enctype="multipart/form-data" action="/">
             <table>
-                <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                <tr><td>File to upload:</td><td><input type="file" name="profileImage" /></td></tr>
                 <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
             </table>
         </form>

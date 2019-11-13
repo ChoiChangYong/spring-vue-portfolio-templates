@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,8 +25,8 @@ public class PortfolioImageController {
 
     private final StorageService storageService;
 
-    @Value("${portfolio-image-path}")
-    String portfolioImagePath;
+    @Value("${cloud.aws.s3.bucket.endpoint}")
+    private String bucketEndpoint;
 
     @Autowired
     public PortfolioImageController(
@@ -48,20 +49,18 @@ public class PortfolioImageController {
 
     @PostMapping("/users/{user_id}/pf-projects/{project_id}/pf-images")
     public PortfolioImage createPortfolioImage(
-            @PathVariable String user_id, @PathVariable Long project_id, @Valid @RequestBody PortfolioImage portfolioImage) {
+            @PathVariable String user_id, @PathVariable Long project_id,
+            @RequestParam("projectImage") MultipartFile multipartFile) {
 
-        String fileName = UUID.randomUUID().toString().replace("-", "");
-        portfolioImage.setUrl(portfolioImagePath);
-
-        Resource file = storageService.loadAsResource(fileName);
-        return portfolioImageService.create(user_id, project_id, portfolioImage);
+        return portfolioImageService.create(user_id, project_id, multipartFile);
     }
 
     @PutMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")
     public PortfolioImage updatePortfolioImage(
             @PathVariable String user_id, @PathVariable Long project_id,
-            @PathVariable(value = "id") Long image_id, @Valid @RequestBody PortfolioImage portfolioImage) {
-        return portfolioImageService.update(user_id, project_id, image_id, portfolioImage);
+            @PathVariable(value = "id") Long image_id,
+            @RequestParam("projectImage") MultipartFile multipartFile) throws IOException {
+        return portfolioImageService.update(user_id, project_id, image_id, multipartFile);
     }
 
     @DeleteMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")

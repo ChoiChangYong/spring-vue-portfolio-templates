@@ -29,19 +29,19 @@ public class User {
     @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private String name;
 
-    @Column(nullable = false)
+    @Column()
     private Integer gender;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String email;
 
     @Column(length = 15)
     private String tel;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String imageUrl;
 
     @CreationTimestamp
@@ -59,6 +59,6 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.tel = tel;
-        this.imageUrl = UUID.randomUUID().toString().replace("-", "");
+        this.imageUrl = imageUrl;
     }
 }
