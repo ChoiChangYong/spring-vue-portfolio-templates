@@ -18,10 +18,24 @@
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
                             <li class="active"><router-link to="/home"><i class="fas fa-home"></i><span>Home</span></router-link></li>
-                            <li><router-link to="/about"><i class="fas fa-id-card-alt"></i><span>About</span></router-link></li>
+                            <li class="treeview">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-id-card-alt"></i>
+                                    <span>About</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><router-link to="/about/profile">Profile</router-link></li>
+                                    <li><router-link to="/about/job">Job</router-link></li>
+                                </ul>
+                                </li>
                             <li><a href="#"><i class="fas fa-history"></i> <span>Resume</span></a></li>
                             <li class="treeview">
-                                <a href="javascript:void(0)"><i class="fas fa-puzzle-piece"></i> <span>Portfolio</span> <i class="fa fa-angle-right"></i></a>
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-puzzle-piece"></i> 
+                                    <span>Portfolio</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
                                 <ul class="treeview-menu">
                                     <li><a href="#">All</a></li>
                                 </ul>

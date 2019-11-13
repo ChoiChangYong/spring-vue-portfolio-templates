@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 import AdminYYFoliumLogin from './components/AdminYYFoliumLogin'
 import AdminYYFoliumApp from './components/AdminYYFoliumApp'
 import AdminYYFoliumHome from './components/AdminYYFoliumHome'
-import AdminYYFoliumAbout from './components/AdminYYFoliumAbout'
+import AdminYYFoliumAboutProfile from './components/AdminYYFoliumAboutProfile'
+import AdminYYFoliumAboutJob from './components/AdminYYFoliumAboutJob';
 
 Vue.use(VueRouter)
 
@@ -26,8 +27,12 @@ export const router = new VueRouter({
                     component: AdminYYFoliumHome
                 },
                 {
-                    path: '/about',
-                    component: AdminYYFoliumAbout
+                    path: '/about/profile',
+                    component: AdminYYFoliumAboutProfile
+                },
+                {
+                    path: '/about/job',
+                    component: AdminYYFoliumAboutJob
                 },
             ]
         }
