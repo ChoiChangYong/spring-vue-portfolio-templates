@@ -45,6 +45,7 @@ public class UserService {
             user.get().setGender(fetchedUser.getGender());
             user.get().setEmail(fetchedUser.getEmail());
             user.get().setTel(fetchedUser.getTel());
+            user.get().setImageUrl(fetchedUser.getImageUrl());
 
             return userRepository.save(user.get());
         }

@@ -41,6 +41,9 @@ public class User {
     @Column(length = 15)
     private String tel;
 
+    @Column(length = 255, nullable = false)
+    private String imageUrl;
+
     @CreationTimestamp
     private Timestamp created;
 
@@ -48,7 +51,7 @@ public class User {
     private Timestamp updated;
 
     @Builder
-    public User(String id, String password, String name, Integer gender, String email, String tel) {
+    public User(String id, String password, String name, Integer gender, String email, String tel, String imageUrl) {
         this.uuid = UUID.randomUUID().toString().replace("-", "");
         this.id = id;
         this.password = password;
@@ -56,5 +59,6 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.tel = tel;
+        this.imageUrl = UUID.randomUUID().toString().replace("-", "");
     }
 }
