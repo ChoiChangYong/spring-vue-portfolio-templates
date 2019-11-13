@@ -17,6 +17,7 @@ import 'owl.carousel'
 import 'popper.js'
 
 import 'particles.js'
+import 'dropzone'
 
 import { router } from './routes'
 import { store } from './store/store'

@@ -95,12 +95,10 @@ export default {
         ...mapMutations(['toastSubmit']),
     },
     mounted() {
+
     }
 }
 </script>
 
 <style scpoed>
-    .toast-top-right .toast {
-    background-color: #007bff;
-    }   
 </style>
