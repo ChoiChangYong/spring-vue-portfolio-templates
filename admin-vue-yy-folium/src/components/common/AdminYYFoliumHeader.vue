@@ -20,12 +20,12 @@
 
         <div class="right-side-navbar d-flex align-items-center justify-content-end">
             <!-- Mobile Trigger -->
-            <div class="right-side-trigger" id="rightSideTrigger">
+            <div class="right-side-trigger" id="rightSideTrigger" @click="TrriggerActive()">
                 <i class="ti-align-left"></i>
             </div>
 
             <!-- Top Bar Nav -->
-            <ul class="right-side-content d-flex align-items-center">
+            <ul class="right-side-content d-flex align-items-center" v-bind:class="{ active : getIsActive}">
                 <li class="nav-item dropdown">
                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../img/member-img/mail-5.jpg" alt=""></button>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -53,13 +53,16 @@
 
 <script>
 import $ from 'jquery'
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
+    computed: {
+        ...mapGetters(['getIsActive'])
+    },
+    methods: {
+        ...mapMutations(['TrriggerActive']),
+    },
     mounted() {
-        $("#rightSideTrigger").on("click", function () {
-            $(".right-side-content").toggleClass("active");
-        });
-
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();

@@ -3,7 +3,10 @@
     <div class="ecaps-sidemenu-area">
         <!-- Desktop Logo -->
         <div class="ecaps-logo">
-            <a href="index.html"><img class="desktop-logo" src="../../img/core-img/logo.png" alt="Desktop Logo"> <img class="small-logo" src="../../img/core-img/small-logo.png" alt="Mobile Logo"></a>
+            <a href="index.html">
+                <img class="desktop-logo" src="../../img/core-img/logo.png" alt="Desktop Logo"> 
+                <img class="small-logo" src="../../img/core-img/small-logo.png" alt="Mobile Logo">
+            </a>
         </div>
 
         <!-- Side Nav -->
@@ -33,7 +36,6 @@
 
 <script>
 import $ from 'jquery'
-import '../../assets/js/treemenu.js'
 
 export default {
     mounted() {
@@ -54,16 +56,6 @@ export default {
                 wheelStep: 15
             });
         }
-        
-        // :: Menu Active Code
-        $("#menuCollasped").on("click", function () {
-            pageWrapper.toggleClass("menu-collasped-active");
-        });
-
-        $("#mobileMenuOpen").on("click", function () {
-            pageWrapper.toggleClass("mobile-menu-active");
-        });
-
 
         sideMenuArea.on("mouseenter", function () {
             pageWrapper.addClass("sidemenu-hover-active");
@@ -74,6 +66,16 @@ export default {
             pageWrapper.removeClass("sidemenu-hover-active");
             pageWrapper.addClass("sidemenu-hover-deactive");
         });
+                
+        // :: Menu Active Code
+        $("#menuCollasped").on("click", function () {
+            pageWrapper.toggleClass("menu-collasped-active");
+        });
+
+        $("#mobileMenuOpen").on("click", function () {
+            pageWrapper.toggleClass("mobile-menu-active");
+        });
+
     }
 
 }

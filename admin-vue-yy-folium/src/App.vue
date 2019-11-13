@@ -13,6 +13,7 @@
 
 <script>
 import $ from 'jquery'
+import './assets/js/treemenu.js'
 
 export default {
   name: 'app',
@@ -23,15 +24,11 @@ export default {
     setTimeout(function () {
         $("#droba-loader").addClass("loaded")
     }, 1500);
-
-    // :: PreventDefault a Click
-    $('a[href="#"]').on("click", function ($) {
-        $.preventDefault();
-    });
   }
 }
 </script>
 
 <style>
+@import url("./assets/css/bootstrap.min.css");
 @import url("./assets/css/style.css");
 </style>

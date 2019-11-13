@@ -6,13 +6,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="edit-table-area">
-                            <h4 class="card-title">
-                                포트폴리오 사이트의 첫 페이지를 채워주세요
+                            <h4 class="card-title mb-15">
+                                포트폴리오 사이트의 첫 페이지를 채워주세요.
                             </h4>
                             <div class="card mb-2">
                                 <div class="card-header">
                                     <a class="text-body" data-toggle="collapse" aria-expanded="true">
-                                        <h5 class="text-muted">Select Image</h5>
+                                        <a class="text-muted">이미지를 선택해주세요.</a>
                                     </a>
                                 </div>
                                 <div id="accordion-2" class="collapse show" data-parent="#accordion-" style="">
@@ -41,10 +41,10 @@
                             <div class="card mb-2">
                                 <div class="card-header">
                                     <a class="text-body" data-toggle="collapse" aria-expanded="true">
-                                        <h5 class="text-muted">Fill the Table</h5>
+                                        <a class="text-muted">표를 채워주세요.</a>
                                     </a>
                                 </div>
-                                <div id="accordion-3" class="collapse show" data-parent="#accordion-" style="">
+                                <div id="accordion-3" class="collapse show" data-parent="#accordion-">
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table id="basicTableId" class="table table-bordered table-striped">
@@ -74,9 +74,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-lg btn-block btn-outline-primary mr-2 font-16 font-16" @click="toastSubmit()">Success</button>
-                            <!-- <button type="submit" class="btn btn-outline-danger mr-2 align-right" @click="tosSuccessSubmit()">Submit</button> -->
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" @click="toastSubmit()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -86,32 +85,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import $ from 'jquery'
-import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
     computed: {
         ...mapGetters(['setInputValue']),
     },
     methods: {
-        toastSubmit() {
-            this.$toastr.success('성공적으로 저장되었습니다.', 'Submit Success', {timeOut: 1000});
-        }
-        // ...mapMutations(['tosSuccessSubmit'])
+        ...mapMutations(['toastSubmit']),
     },
     mounted() {
-        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
-        $("#basicTableId").on("cell:edited");
-
     }
 }
 </script>
 
 <style scpoed>
-    .align-right {  
-        float: right;
-    }
     .toast-top-right .toast {
     background-color: #007bff;
     }   

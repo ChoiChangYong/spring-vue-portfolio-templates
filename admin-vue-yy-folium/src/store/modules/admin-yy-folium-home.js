@@ -1,5 +1,3 @@
-import toastr from 'toastr'
-
 const state = {
     inputValue: {
         tilte:"Input Title",
@@ -16,9 +14,6 @@ const getters = {
 };
 
 const mutations = {
-    tosSuccessSubmit() {
-        toastr.success("Success Submit","Success Submit");
-    }
 }
 
 
