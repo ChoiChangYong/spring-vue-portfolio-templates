@@ -14,7 +14,7 @@ const mutations = {
     },
     MenuCollaspedActive () {
         state.isActive = !state.isActive
-    }
+    },
 };
 
 export default {

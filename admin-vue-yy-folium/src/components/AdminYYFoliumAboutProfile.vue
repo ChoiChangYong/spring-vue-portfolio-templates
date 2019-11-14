@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import AdminYYFoliumDropzone from "./common/AdminYYFoliumDropzone"
 import { mapMutations } from "vuex"
 import $ from 'jquery'
@@ -87,7 +88,9 @@ export default {
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();
-    }
+        }
+        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
+        $("#basicTableId").on("cell:edited");
     }
 }   
 </script>

@@ -18,9 +18,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
-
 import AdminYYFoliumNav from "./common/AdminYYFoliumNav"
 import AdminYYFoliumHeader from "./common/AdminYYFoliumHeader"
 
@@ -29,10 +26,6 @@ export default {
         AdminYYFoliumNav,
         AdminYYFoliumHeader,
     },
-    mounted() {
-        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
-        $("#basicTableId").on("cell:edited");
-    }
 }
 </script>
 

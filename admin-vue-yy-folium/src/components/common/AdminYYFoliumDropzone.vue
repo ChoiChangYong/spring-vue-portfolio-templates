@@ -1,5 +1,5 @@
 <template>
-    <Vue2Dropzone ref="ImageUpload" id="dropzone" :options="dropzoneOptions"></Vue2Dropzone>
+    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions"></Vue2Dropzone>
 </template>
 
 <script>
