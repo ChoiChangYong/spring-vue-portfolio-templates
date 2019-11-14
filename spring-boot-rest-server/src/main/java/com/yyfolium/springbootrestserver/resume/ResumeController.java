@@ -17,7 +17,7 @@ public class ResumeController {
 
     @GetMapping("/users/{user_id}/resumes")
     public List<Resume> getAllResumes(@PathVariable String user_id) {
-        return resumeService.getAll(user_id);
+        return resumeService.getAllByUserOrderByCreatedDesc(user_id);
     }
 
     @GetMapping("/users/{user_id}/resumes/{id}")

@@ -24,9 +24,9 @@ public class PortfolioMenuService {
         return portfolioMenuRepository.save(portfolioMenu);
     }
 
-    public List<PortfolioMenu> getAll(String user_id) {
+    public List<PortfolioMenu> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return portfolioMenuRepository.findAll();
+        return portfolioMenuRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<PortfolioMenu> getOneById(String user_id, Long portfolioMenu_id) {

@@ -67,10 +67,10 @@ public class PortfolioImageService {
         return portfolioImageRepository.save(newPortfolioImage);
     }
 
-    public List<PortfolioImage> getAll(String user_id, Long project_id) {
+    public List<PortfolioImage> getAllByPortfolioProjectOrderByCreatedDesc(String user_id, Long project_id) {
         isUser(user_id);
         isPortfolioProject(project_id);
-        return portfolioImageRepository.findAll();
+        return portfolioImageRepository.findByPortfolioProjectOrderByCreatedDesc(portfolioProjectRepository.findById(project_id).get());
     }
 
     public Optional<PortfolioImage> getOneById(String user_id, Long project_id, Long image_id) {

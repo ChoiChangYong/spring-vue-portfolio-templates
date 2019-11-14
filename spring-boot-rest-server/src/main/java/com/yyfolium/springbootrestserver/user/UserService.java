@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,11 @@ public class UserService {
         this.s3Wrapper.setBucket(bucketName+storeName);
     }
 
+    public Boolean authentication(String id, String password) {
+        Optional<User> user = userRepository.findById(id);
+        return user.filter(value -> passwordEncoder.matches(password, value.getPassword())).isPresent();
+    }
+
     public User create(User user) {
         User newUser = User.builder()
                 .id(user.getId())
@@ -56,8 +62,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> getOneById(String id) {
+        return userRepository.findById(id);
+    }
+
     public Optional<User> getOneByUuid(String uuid) {
         return userRepository.findByUuid(uuid);
+    }
+
+    public Optional<User> getUserBySessionId(HttpSession session) {
+        return userRepository.findByUuid((String) session.getAttribute("uuid"));
     }
 
     public User update(String uuid, User fetchedUser, MultipartFile multipartFile) throws IOException {

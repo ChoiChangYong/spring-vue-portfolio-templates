@@ -17,7 +17,7 @@ public class ContactController {
 
     @GetMapping("/users/{user_id}/contacts")
     public List<Contact> getAllContacts(@PathVariable String user_id) {
-        return contactService.getAll(user_id);
+        return contactService.getAllByUserOrderByCreatedDesc(user_id);
     }
 
     @GetMapping("/users/{user_id}/contacts/{id}")

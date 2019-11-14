@@ -17,7 +17,7 @@ public class HeaderController {
 
     @GetMapping("/users/{user_id}/headers")
     public List<Header> getAllHeaders(@PathVariable String user_id) {
-        return headerService.getAll(user_id);
+        return headerService.getAllByUserOrderByCreatedDesc(user_id);
     }
 
     @GetMapping("/users/{user_id}/headers/{id}")

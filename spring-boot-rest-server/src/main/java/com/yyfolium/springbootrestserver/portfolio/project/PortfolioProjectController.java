@@ -18,7 +18,7 @@ public class PortfolioProjectController {
     @GetMapping("/users/{user_id}/pf-menus/{menu_id}/pf-projects")
     public List<PortfolioProject> getAllPortfolioProjects(
             @PathVariable String user_id, @PathVariable Long menu_id) {
-        return portfolioProjectService.getAll(user_id, menu_id);
+        return portfolioProjectService.getAllByPortfolioMenuOrderByCreatedDesc(user_id, menu_id);
     }
 
     @GetMapping("/users/{user_id}/pf-menus/{menu_id}/pf-projects/{id}")

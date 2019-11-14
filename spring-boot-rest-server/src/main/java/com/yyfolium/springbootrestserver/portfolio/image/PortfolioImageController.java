@@ -38,7 +38,7 @@ public class PortfolioImageController {
     @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images")
     public List<PortfolioImage> getAllPortfolioImages(
             @PathVariable String user_id, @PathVariable Long project_id) {
-        return portfolioImageService.getAll(user_id, project_id);
+        return portfolioImageService.getAllByPortfolioProjectOrderByCreatedDesc(user_id, project_id);
     }
 
     @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")

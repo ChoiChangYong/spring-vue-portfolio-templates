@@ -24,9 +24,9 @@ public class SkillService {
         return skillRepository.save(skill);
     }
 
-    public List<Skill> getAll(String user_id) {
+    public List<Skill> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return skillRepository.findAll();
+        return skillRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<Skill> getOneById(String user_id, Long skill_id) {

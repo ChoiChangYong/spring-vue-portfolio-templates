@@ -24,9 +24,9 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    public List<Contact> getAll(String user_id) {
+    public List<Contact> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return contactRepository.findAll();
+        return contactRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<Contact> getOneById(String user_id, Long contact_id) {

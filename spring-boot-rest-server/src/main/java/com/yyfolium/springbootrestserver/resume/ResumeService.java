@@ -24,9 +24,9 @@ public class ResumeService {
         return resumeRepository.save(resume);
     }
 
-    public List<Resume> getAll(String user_id) {
+    public List<Resume> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return resumeRepository.findAll();
+        return resumeRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<Resume> getOneById(String user_id, Long resume_id) {

@@ -24,9 +24,9 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public List<Job> getAll(String user_id) {
+    public List<Job> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return jobRepository.findAll();
+        return jobRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<Job> getOneById(String user_id, Long job_id) {

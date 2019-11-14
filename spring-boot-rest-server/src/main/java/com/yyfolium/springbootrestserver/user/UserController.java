@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -25,6 +26,11 @@ public class UserController {
     @GetMapping("/users/{uuid}")
     public Optional<User> getUserByUuid(@PathVariable(value = "uuid") String uuid) {
         return userService.getOneByUuid(uuid);
+    }
+
+    @GetMapping("/user")
+    public Optional<User> getUserByUuid(HttpSession session) {
+        return userService.getUserBySessionId(session);
     }
 
     @PostMapping("/users")

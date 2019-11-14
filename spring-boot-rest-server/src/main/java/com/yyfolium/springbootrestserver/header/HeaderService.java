@@ -24,9 +24,9 @@ public class HeaderService {
         return headerRepository.save(header);
     }
 
-    public List<Header> getAll(String user_id) {
+    public List<Header> getAllByUserOrderByCreatedDesc(String user_id) {
         isUser(user_id);
-        return headerRepository.findAll();
+        return headerRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
 
     public Optional<Header> getOneById(String user_id, Long header_id) {

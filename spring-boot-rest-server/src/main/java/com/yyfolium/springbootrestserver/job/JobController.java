@@ -17,7 +17,7 @@ public class JobController {
 
     @GetMapping("/users/{user_id}/jobs")
     public List<Job> getAllJobs(@PathVariable String user_id) {
-        return jobService.getAll(user_id);
+        return jobService.getAllByUserOrderByCreatedDesc(user_id);
     }
 
     @GetMapping("/users/{user_id}/jobs/{id}")

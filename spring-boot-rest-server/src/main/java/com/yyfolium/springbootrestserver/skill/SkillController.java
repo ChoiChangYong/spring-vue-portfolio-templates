@@ -17,7 +17,7 @@ public class SkillController {
 
     @GetMapping("/users/{user_id}/skills")
     public List<Skill> getAllSkills(@PathVariable String user_id) {
-        return skillService.getAll(user_id);
+        return skillService.getAllByUserOrderByCreatedDesc(user_id);
     }
 
     @GetMapping("/users/{user_id}/skills/{id}")
