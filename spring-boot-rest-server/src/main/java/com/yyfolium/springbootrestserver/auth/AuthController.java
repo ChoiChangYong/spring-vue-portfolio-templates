@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/api")
@@ -30,38 +28,23 @@ public class AuthController {
     private int sessionExpiredTime;
 
     @PostMapping("/login")
-    public boolean login(@RequestBody User user, HttpServletResponse response) {
-        boolean loginResult = false;
+    public String login(@RequestBody User user) {
+        String loginResult = "0";
 
         if(userService.authentication(user.getId(), user.getPassword())) {
             Session session = sessionRepository.createSession();
             session.setAttribute("uuid", userService.getOneById(user.getId()).get().getUuid());
             sessionRepository.save(session);
-
-            Cookie sessionId = new Cookie("sessionId", session.getId());
-            response.addCookie(sessionId);
             
-            loginResult = true;
+            loginResult = session.getId();
         }
 
         return loginResult;
     }
 
     @PostMapping("/session-validation")
-    public boolean sessionValidation(HttpServletRequest request) {
-        AtomicReference<String> sessionId = new AtomicReference<>();
-
-        Cookie[] cookies =  request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                System.out.println(c.getName());
-                if (c.getName().equals("sessionId")) {
-                    sessionId.set(c.getValue());
-                }
-            }
-        }
-        System.out.println(sessionId.get());
-        Session session = sessionRepository.findById(sessionId.get());
+    public boolean sessionValidation(@RequestBody Map sessionObject) {
+        Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
 
         if(session==null)
             return false;
@@ -70,10 +53,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
-        Cookie kc = new Cookie("sessionId", null);
-        kc.setMaxAge(0);
-        response.addCookie(kc);
+    public ResponseEntity<?> logout(@RequestBody Map sessionObject) {
+        sessionRepository.deleteById((String) sessionObject.get("sessionId"));
         return ResponseEntity.ok().build();
     }
 }
