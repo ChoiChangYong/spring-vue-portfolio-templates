@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="edit-table-area">
                         <h4 class="card-title mb-15">
-                            직무를 작성해주세요.
+                            Job
                         </h4>
                         <div class="card mb-2">
                             <div class="card-header">

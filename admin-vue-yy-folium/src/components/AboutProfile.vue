@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-15">프로필을 작성해주세요.</h4>
+                    <h4 class="card-title mb-15">Profile</h4>
                     <div class="card mb-2">
                         <div class="card-header">
                             <a data-toggle="collapse" aria-expanded="true" class="text-body text-muted">

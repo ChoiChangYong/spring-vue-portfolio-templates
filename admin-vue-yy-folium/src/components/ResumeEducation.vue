@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-15">
-                   학력사항
+                   Education
                 </h4>
                 <div class="card mb-2">
                     <div class="card-header">
