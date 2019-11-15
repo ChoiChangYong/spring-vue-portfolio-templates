@@ -7,6 +7,9 @@ import AdminYYFoliumHome from './components/AdminYYFoliumHome'
 import AdminYYFoliumAboutProfile from './components/AdminYYFoliumAboutProfile'
 import AdminYYFoliumAboutJob from './components/AdminYYFoliumAboutJob';
 import AdminYYFoliumResumeWork from './components/AdminYYFoliumResumeWork'
+import AdminYYFoliumResumeEducation from './components/AdminYYFoliumResumeEducation'
+import AdminYYFoliumContact from './components/AdminYYFoliumContact'
+
 
 Vue.use(VueRouter)
 
@@ -41,7 +44,11 @@ export const router = new VueRouter({
                 },
                 {
                     path: '/resume/education',
-                    // component: AdminYYFoliumResume
+                    component: AdminYYFoliumResumeEducation
+                },
+                {
+                    path: '/contact',
+                    component: AdminYYFoliumContact
                 }
             ],
             

@@ -13,14 +13,12 @@ import 'vue-toastr-2/dist/vue-toastr-2.min.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import VueSession from 'vue-session'
 
 window.toastr = require('toastr')
 
 Vue.use(Vuex);
 Vue.use(VueToastr2)
 Vue.use(VueSweetalert2);
-Vue.use(VueSession)
 
 const mutations = {
     toastSubmit() {

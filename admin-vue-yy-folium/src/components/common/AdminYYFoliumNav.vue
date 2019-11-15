@@ -46,11 +46,8 @@
                                     <span>Portfolio</span>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#">All</a></li>
-                                </ul>
                             </li>
-                            <li><a href="#"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+                            <li><router-link to="/contact"><i class="fas fa-envelope"></i> <span>Contact</span></router-link></li>
                         </ul>
                     </nav>
                 </div>

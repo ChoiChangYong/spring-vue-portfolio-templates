@@ -13,7 +13,7 @@
                                     <a class="text-muted">표를 채워주세요.</a>
                                 </a>
                             </div>
-                            <div id="accordion-3" class="collapse show" data-parent="#accordion-" style="">
+                            <div id="accordion-3" class="collapse show" data-parent="#accordion-">
                                 <div class="card-body">
                                     <div class="text-right mb-2">
                                         <i class="fas fa-plus-square fa-2x" @click="showAlertAdd"></i>
