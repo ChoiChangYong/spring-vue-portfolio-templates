@@ -28,8 +28,18 @@
                                     <li><router-link to="/about/profile">Profile</router-link></li>
                                     <li><router-link to="/about/job">Job</router-link></li>
                                 </ul>
-                                </li>
-                            <li><a href="#"><i class="fas fa-history"></i> <span>Resume</span></a></li>
+                            </li>
+                            <li class="treeview">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-history"></i>
+                                    <span>Resume</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><router-link to="/resume/work">Work</router-link></li>
+                                    <li><router-link to="/resume/education">Education</router-link></li>
+                                </ul>
+                            </li>
                             <li class="treeview">
                                 <a href="javascript:void(0)">
                                     <i class="fas fa-puzzle-piece"></i> 

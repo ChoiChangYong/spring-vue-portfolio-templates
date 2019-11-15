@@ -8,12 +8,7 @@ const getters = {
 }
 
 const mutations = {
-    addRow(state, index) {
-        state.jobs.push([{index: index, job: ""}]);
-      },
-      removeRow(state, index){
-        state.jobs.splice(index, 1);
-      }
+    
 }
 
 export default {

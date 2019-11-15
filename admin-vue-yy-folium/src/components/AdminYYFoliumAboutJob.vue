@@ -85,7 +85,8 @@ export default {
             })
         },
         showAlertAdd(){
-            this.$swal({
+            var Swal = this.$swal
+            Swal({
                 title: "직업을 입력해주세요.",
                 input: "text",
                 inputAttributes: {
@@ -99,16 +100,15 @@ export default {
                         if (!t.ok) throw new Error(t.statusText);
                         return t.json()
                     }).catch(function (t) {
-                        this.$swal.showValidationMessage("Request failed: " + t)
+                        Swal.showValidationMessage("Request failed: " + t)
                     })
                 },
                 allowOutsideClick: function () {
-                    this.$swal.isLoading()
+                    Swal.isLoading()
                 }
             }).then(function (t) {
-                t.value && this.$swal.fire({
-                    title: t.value.login + "'s avatar",
-                    imageUrl: t.value.avatar_url
+                t.value && Swal.fire({
+                    title: "\" "+t.value.login + " \"이 등록되었습니다."
                 })
             })
         }
