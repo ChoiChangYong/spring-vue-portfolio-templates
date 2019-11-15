@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -15,35 +16,35 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
     @Value("${server.servlet.session.timeout}")
     private int sessionExpiredTime;
 
     @PostMapping("/login")
-    public boolean login(
+    public String login(
             @RequestBody User user,
             HttpSession session) {
-        boolean result = false;
+        String result = "0";
 
         if(userService.authentication(user.getId(), user.getPassword())) {
             session.setAttribute("uuid", userService.getOneById(user.getId()).get().getUuid());
             session.setMaxInactiveInterval(sessionExpiredTime);
-            result = true;
+            result = session.getId();
         }
 
         return result;
     }
 
     @PostMapping("/session-validation")
-    public boolean sessionValidation(HttpSession session) {
-        boolean isExpired;
-        if(session.getAttribute("uuid") == null) {
-            isExpired = true;
-            session.invalidate();
-        } else {
-            isExpired = false;
-        }
+    public boolean sessionValidation(@RequestBody String sessionId) {
+        System.out.println("sessionId : " + sessionId);
 
-        return !isExpired;
+        Optional<Session> session = sessionRepository.findBySessionId(sessionId);
+        System.out.println(session.toString());
+
+        return !session.isPresent();
     }
 
     @PostMapping("/logout")
