@@ -54,12 +54,13 @@ public class AuthController {
         Cookie[] cookies =  request.getCookies();
         if (cookies != null) {
             for (Cookie c : cookies) {
+                System.out.println(c.getName());
                 if (c.getName().equals("sessionId")) {
                     sessionId.set(c.getValue());
                 }
             }
         }
-
+        System.out.println(sessionId.get());
         Session session = sessionRepository.findById(sessionId.get());
 
         if(session==null)
