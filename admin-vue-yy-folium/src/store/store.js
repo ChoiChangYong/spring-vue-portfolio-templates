@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Home from './modules/admin-yy-folium-home'
-import Common from './modules/admin-yy-folium-common'
-import Job from './modules/admin-yy-folium-about-job'
-import ShowAlert from './modules/admin-yy-folium-alert.js'
-import Login from './modules/admin-yy-folium-login'
+import Home from './modules/home'
+import Common from './modules/common'
+import Job from './modules/about-job'
+import ShowAlert from './modules/alert.js'
+import Login from './modules/login'
+import Session from './modules/session'
 
 import VueToastr2 from 'vue-toastr-2'
 import 'vue-toastr-2/dist/vue-toastr-2.min.css'
@@ -23,7 +24,6 @@ Vue.use(VueSweetalert2);
 const state = {
     host: "http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api"
 }
-// http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api
 
 const getters = {
     getHost(state){
@@ -45,7 +45,8 @@ export const store = new Vuex.Store({
         Common,
         Job,
         ShowAlert,
-        Login
+        Login,
+        Session
     },
     state,
     getters,
