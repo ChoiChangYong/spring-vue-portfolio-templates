@@ -29,9 +29,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 
 export default {
-   
+    computed: {
+        ...mapState("Login",['user','loginError'])
+    },
+    methods: {
+        // ...mapMutations("Login",['login'])
+        ...mapActions("Login",['loginAction']),
+    },
+    actions: {
+    }
 }
 </script>
 

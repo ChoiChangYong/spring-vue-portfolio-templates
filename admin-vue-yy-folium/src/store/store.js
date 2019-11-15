@@ -5,7 +5,7 @@ import Home from './modules/admin-yy-folium-home'
 import Common from './modules/admin-yy-folium-common'
 import Job from './modules/admin-yy-folium-about-job'
 import ShowAlert from './modules/admin-yy-folium-alert.js'
-// import Login from './modules/admin-yy-folium-login'
+import Login from './modules/admin-yy-folium-login'
 
 import VueToastr2 from 'vue-toastr-2'
 import 'vue-toastr-2/dist/vue-toastr-2.min.css'
@@ -33,7 +33,7 @@ export const store = new Vuex.Store({
         Common,
         Job,
         ShowAlert,
-        // Login
+        Login
     },
     mutations,
 });
