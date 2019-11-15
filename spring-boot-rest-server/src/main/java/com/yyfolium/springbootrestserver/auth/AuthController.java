@@ -18,7 +18,10 @@ public class AuthController {
     private int sessionExpiredTime;
 
     @PostMapping("/login")
-    public boolean login(String id, String password, HttpSession session) {
+    public boolean login(
+            @RequestParam("id") String id,
+            @RequestParam("password") String password,
+            HttpSession session) {
         boolean result = false;
 
         if(userService.authentication(id, password)) {
