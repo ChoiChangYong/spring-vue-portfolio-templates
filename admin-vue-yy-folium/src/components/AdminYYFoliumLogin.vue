@@ -7,17 +7,19 @@
                     <div class="middle-box  text-center">
                         <h3 class="mb-50 text-white">Admin</h3>
                         <!-- Form -->
-                        <form class="login-form" @submit.prevent="onSubmit(id, password)">
+                        <form class="login-form" @submit.prevent="loginAction()">
                             <!-- Form Group -->
                             <div class="form-group">
-                                <input type="text" class="form-control" v-model="id" placeholder="User ID" required="">
+                                <input type="text" class="form-control" v-model="user.id" placeholder="아이디를 입력해주세요." required="">
                             </div>
-
                             <!-- Form Group -->
                             <div class="form-group">
-                                <input type="password" class="form-control" v-model="password" placeholder="Password" required="">
+                                <input type="password" class="form-control" v-model="user.password" placeholder="비밀번호를 입력해주세요." required="">
                             </div>
                             <button type="submit" class="btn btn-outline-primary text-white btn-block">Login</button>
+                            <!-- <div class="mt-3">
+                                <p id="loginError">{{ loginError }}</p>
+                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -29,16 +31,15 @@
 <script>
 
 export default {
-    methods: {
-        // onSubmit(id, password) {
-
-        // }
-    }
+   
 }
 </script>
 
 <style scoped>
 #particles-js {
     background-image: url( "../img/bg-img/banner-home.jpg" );
+}
+#loginError {
+    color: #dc3545
 }
 </style>

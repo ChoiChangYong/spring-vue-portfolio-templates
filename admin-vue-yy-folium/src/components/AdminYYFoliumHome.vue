@@ -18,7 +18,7 @@
                                 <div id="accordion-2" class="collapse show" data-parent="#accordion-" style="">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-4 col-lg-3 ">
+                                            <div class="col-md-6 col-lg-4">
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="customRadio1">
@@ -26,7 +26,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-lg-3 ">
+                                            <div class="col-md-6 col-lg-4">
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="customRadio2">
@@ -94,9 +94,6 @@ export default {
     methods: {
         ...mapMutations(['toastSubmit']),
     },
-    mounted() {
-
-    }
 }
 </script>
 
