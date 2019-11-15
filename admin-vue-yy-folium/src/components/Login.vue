@@ -17,9 +17,9 @@
                                 <input type="password" class="form-control" v-model="user.password" placeholder="비밀번호를 입력해주세요." required="">
                             </div>
                             <button type="submit" class="btn btn-outline-primary text-white btn-block">Login</button>
-                            <!-- <div class="mt-3">
+                            <div class="mt-3">
                                 <p id="loginError">{{ loginError }}</p>
-                            </div> -->
+                            </div>
                         </form>
                     </div>
                 </div>

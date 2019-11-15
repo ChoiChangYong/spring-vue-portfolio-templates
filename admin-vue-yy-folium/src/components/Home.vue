@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters, mapMutations, mapActions } from "vuex"
 
 export default {
     computed: {
@@ -93,7 +93,13 @@ export default {
     },
     methods: {
         ...mapMutations(['toastSubmit']),
+        ...mapActions("Login",['SessionCheck']),
+        ...mapActions(['HomeSession'])
     },
+    mounted() {
+        this.SessionCheck(),
+        this.HomeSession()
+    }
 }
 </script>
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 const state = {
     inputValue: {
@@ -6,7 +7,7 @@ const state = {
         subIntro: "Input SubIntro",
         job: ["Input Job"],
     },
-    // sessionCheck: storage.fetch()
+    url: "http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api",
 };
 
 const getters = {
@@ -15,8 +16,21 @@ const getters = {
     },
 };
 
-const mutations = {
-    
+const actions = {
+    HomeSession: () => {
+        axios.get(state.url+"/headers",{
+            params: {
+                'sessionId': window.sessionStorage.getItem("sessionId")
+            }
+        })
+        .then((response) => {
+            alert(JSON.stringify(response.data),null,2);
+        })
+        .catch(function(error) {
+            alert(window.sessionStorage.getItem("sessionId"));
+            alert(error);
+        })
+    }
 }
 
 
@@ -24,5 +38,5 @@ export default {
     // storage,
     state,
     getters,
-    mutations
+    actions
 }

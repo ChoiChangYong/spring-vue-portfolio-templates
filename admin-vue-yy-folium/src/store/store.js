@@ -20,6 +20,17 @@ Vue.use(Vuex);
 Vue.use(VueToastr2)
 Vue.use(VueSweetalert2);
 
+const state = {
+    host: "http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api"
+}
+// http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api
+
+const getters = {
+    getHost(state){
+        return state.host
+    }
+}
+
 const mutations = {
     toastSubmit() {
         Vue.prototype.$toastr.success('성공적으로 저장되었습니다.', 'Submit Success', {timeOut: 1000});
@@ -28,6 +39,7 @@ const mutations = {
 }
 
 export const store = new Vuex.Store({
+    namespaced: true,
     modules: {
         Home,
         Common,
@@ -35,5 +47,7 @@ export const store = new Vuex.Store({
         ShowAlert,
         Login
     },
+    state,
+    getters,
     mutations,
 });
