@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import AdminYYFoliumLogin from './components/AdminYYFoliumLogin'
+import Login from './components/Login'
 import AdminYYFoliumApp from './components/AdminYYFoliumApp'
-import AdminYYFoliumHome from './components/AdminYYFoliumHome'
-import AdminYYFoliumAboutProfile from './components/AdminYYFoliumAboutProfile'
-import AdminYYFoliumAboutJob from './components/AdminYYFoliumAboutJob';
-import AdminYYFoliumResumeWork from './components/AdminYYFoliumResumeWork'
-import AdminYYFoliumResumeEducation from './components/AdminYYFoliumResumeEducation'
-import AdminYYFoliumContact from './components/AdminYYFoliumContact'
-import AdminYYFoliumPortfolioMenu from './components/AdminYYFoliumPortfolioMenu'
+import Home from './components/Home'
+import AboutProfile from './components/AboutProfile'
+import AboutJob from './components/AboutJob';
+import ResumeWork from './components/ResumeWork'
+import ResumeEducation from './components/ResumeEducation'
+import PortfolioMenu from './components/PortfolioMenu'
+import Contact from './components/Contact'
 
 Vue.use(VueRouter)
 
@@ -18,7 +18,7 @@ export const router = new VueRouter({
     routes: [
         {
             path: '/login',
-            component: AdminYYFoliumLogin
+            component: Login
         },
         {
             path: '/',
@@ -28,31 +28,31 @@ export const router = new VueRouter({
             children: [
                 {
                     path: '/home',
-                    component: AdminYYFoliumHome
+                    component: Home
                 },
                 {
                     path: '/about/profile',
-                    component: AdminYYFoliumAboutProfile
+                    component: AboutProfile
                 },
                 {
                     path: '/about/job',
-                    component: AdminYYFoliumAboutJob
+                    component: AboutJob
                 },
                 { 
                     path: '/resume/work', 
-                    component: AdminYYFoliumResumeWork
+                    component: ResumeWork
                 },
                 {
                     path: '/resume/education',
-                    component: AdminYYFoliumResumeEducation
+                    component: ResumeEducation
                 },
                 {
                     path: '/portfolio/menu',
-                    component: AdminYYFoliumPortfolioMenu
+                    component: PortfolioMenu
                 },
                 {
                     path: '/contact',
-                    component: AdminYYFoliumContact
+                    component: Contact
                 }
             ],
             

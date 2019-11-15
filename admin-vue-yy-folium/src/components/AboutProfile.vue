@@ -13,7 +13,7 @@
                         </div>
                         <div id="accordion-2" data-parent="#accordion-" class="collapse show">
                             <div class="card-body">
-                                <AdminYYFoliumDropzone></AdminYYFoliumDropzone>
+                                <ImageDropzone></ImageDropzone>
                             </div>
                         </div>
                     </div>
@@ -73,13 +73,13 @@
 
 <script>
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
-import AdminYYFoliumDropzone from "./common/AdminYYFoliumDropzone"
+import ImageDropzone from "./common/ImageDropzone"
 import { mapMutations } from "vuex"
 import $ from 'jquery'
 
 export default {
     components: {
-        AdminYYFoliumDropzone
+        ImageDropzone
     },
     methods: {
         ...mapMutations(['toastSubmit']),

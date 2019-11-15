@@ -2,10 +2,10 @@
     <div>
         <div class="ecaps-page-wrapper">
             <!--Preloader-->
-            <AdminYYFoliumNav></AdminYYFoliumNav>
+            <SideNav></SideNav>
             <!-- Page Content -->
             <div class="ecaps-page-content">
-                <AdminYYFoliumHeader></AdminYYFoliumHeader>
+                <HeaderNav></HeaderNav>
                 <!-- Main Content Area -->
                 <div class="main-content">
                     <div class="container-fluid">
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import AdminYYFoliumNav from "./common/AdminYYFoliumNav"
-import AdminYYFoliumHeader from "./common/AdminYYFoliumHeader"
+import SideNav from "./common/SideNav"
+import HeaderNav from "./common/HeaderNav"
 
 export default {
     components: {
-        AdminYYFoliumNav,
-        AdminYYFoliumHeader,
+        SideNav,
+        HeaderNav,
     },
 }
 </script>

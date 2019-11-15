@@ -14,7 +14,7 @@
                     </div>
                     <div id="accordion-2" class="collapse show" data-parent="#accordion-">
                         <div class="card-body">
-                            <AdminYYFoliumTimeLine></AdminYYFoliumTimeLine>
+                            <ResumeTimeline></ResumeTimeline>
                         </div>
                     </div>
                 </div>
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import AdminYYFoliumTimeLine from './common/AdminYYFoliumTimeLine'
+import ResumeTimeline from './common/ResumeTimeline'
 export default {
     components: {
-        AdminYYFoliumTimeLine
+        ResumeTimeline
     }
 }
 </script>
