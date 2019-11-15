@@ -1,10 +1,10 @@
 package com.yyfolium.springbootrestserver.repositories;
 
-import com.yyfolium.springbootrestserver.models.User;
+import com.yyfolium.springbootrestserver.user.User;
+import com.yyfolium.springbootrestserver.user.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +40,7 @@ public class UserRepositoryTest {
             System.out.println(metaData.getUserName());
         }
 
-        User existngUser = userRepository.findById("yong");
+        Optional<User> existngUser = userRepository.findById("yong");
         assertThat(existngUser).isNotNull();
     }
 }
