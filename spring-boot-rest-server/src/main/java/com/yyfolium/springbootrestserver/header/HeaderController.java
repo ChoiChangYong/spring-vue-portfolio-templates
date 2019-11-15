@@ -18,6 +18,7 @@ public class HeaderController {
 
     @GetMapping("/headers")
     public List<Header> getAllHeaders(@RequestParam Map sessionObject) {
+        System.out.println(sessionObject.toString());
         return headerService.getAllByUserOrderByCreatedDesc(sessionObject);
     }
 
