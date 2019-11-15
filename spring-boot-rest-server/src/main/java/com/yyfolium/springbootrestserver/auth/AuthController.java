@@ -1,5 +1,6 @@
 package com.yyfolium.springbootrestserver.auth;
 
+import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +20,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public boolean login(
-            @RequestParam("id") String id,
-            @RequestParam("password") String password,
+            @RequestBody User user,
             HttpSession session) {
         boolean result = false;
 
-        if(userService.authentication(id, password)) {
-            session.setAttribute("uuid", userService.getOneById(id).get().getUuid());
+        if(userService.authentication(user.getId(), user.getPassword())) {
+            session.setAttribute("uuid", userService.getOneById(user.getId()).get().getUuid());
             session.setMaxInactiveInterval(sessionExpiredTime);
             result = true;
         }
