@@ -4,6 +4,7 @@ import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestBody String sessionId) {
-        sessionRepository.deleteById(sessionId);
+    public ResponseEntity<?> logout(@RequestBody Map sessionObject) {
+        sessionRepository.deleteById((String) sessionObject.get("sessionId"));
+        return ResponseEntity.ok().build();
     }
 }
