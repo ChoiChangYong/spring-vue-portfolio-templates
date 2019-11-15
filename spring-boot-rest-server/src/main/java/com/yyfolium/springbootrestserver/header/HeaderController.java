@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,9 +16,9 @@ public class HeaderController {
     @Autowired
     HeaderService headerService;
 
-    @GetMapping("/users/{user_id}/headers")
-    public List<Header> getAllHeaders(@PathVariable String user_id) {
-        return headerService.getAllByUserOrderByCreatedDesc(user_id);
+    @GetMapping("/headers")
+    public List<Header> getAllHeaders(@RequestParam Map sessionObject) {
+        return headerService.getAllByUserOrderByCreatedDesc(sessionObject);
     }
 
     @GetMapping("/users/{user_id}/headers/{id}")

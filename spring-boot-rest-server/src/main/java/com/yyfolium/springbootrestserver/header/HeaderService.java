@@ -4,9 +4,12 @@ import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.session.Session;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -18,13 +21,18 @@ public class HeaderService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SessionRepository sessionRepository;
+
     public Header create(String user_id, Header header) {
         Optional<User> user = userRepository.findByUuid(user_id);
         user.ifPresent(header::setUser);
         return headerRepository.save(header);
     }
 
-    public List<Header> getAllByUserOrderByCreatedDesc(String user_id) {
+    public List<Header> getAllByUserOrderByCreatedDesc(Map sessionObject) {
+        Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
+        String user_id = session.getAttribute("uuid");
         isUser(user_id);
         return headerRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
     }
