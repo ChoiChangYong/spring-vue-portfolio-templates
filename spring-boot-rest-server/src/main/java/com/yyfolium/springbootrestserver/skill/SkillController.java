@@ -18,27 +18,36 @@ public class SkillController {
 
     @GetMapping("skills")
     public List<Skill> getAllSkills(@RequestParam Map requestObject) {
+        System.out.println("requestObject : " + requestObject);
         return skillService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/skills/{id}")
     public Optional<Skill> getSkillById(@PathVariable(value = "id") Long id) {
+        System.out.println("id : " + id);
         return skillService.getById(id);
     }
 
     @PostMapping("/skills")
-    public Skill createSkill(@RequestParam(value = "sessionObject") Map sessionObject,
-                             @RequestParam(value = "skill") Skill skill) {
+    public Skill createSkill(@Valid @RequestBody Map requestObject) {
+        System.out.println("sessionObject : " + requestObject.get("sessionObject").toString());
+        System.out.println("skill : " + requestObject.get("skill").toString());
+
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        Skill skill = (Skill) requestObject.get("skill");
+
         return skillService.create(sessionObject.get("sessionId").toString(), skill);
     }
 
     @PutMapping("/skills")
-    public Skill updateSkill(@RequestParam(value = "skill") Skill skill) {
+    public Skill updateSkill(@Valid @RequestBody Skill skill) {
+        System.out.println("skill : " + skill.toString());
         return skillService.update(skill);
     }
 
     @DeleteMapping("/skills/{id}")
     public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
+        System.out.println("id : " + id);
         skillService.delete(id);
         return ResponseEntity.ok().build();
     }
