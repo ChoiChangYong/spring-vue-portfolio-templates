@@ -28,21 +28,21 @@ public class HeaderController {
     }
 
     @PostMapping("/headers")
-    public Header createSkill(@RequestParam(value = "sessionObject") Map sessionObject,
-                             @RequestParam(value = "skill") Header header) {
+    public Header createHeader(@RequestParam(value = "sessionObject") Map sessionObject,
+                             @RequestParam(value = "header") Header header) {
         System.out.println("sessionObject : " + sessionObject.toString());
         System.out.println("header : " + header.toString());
         return headerService.create(sessionObject.get("sessionId").toString(), header);
     }
 
     @PutMapping("/headers")
-    public Header updateSkill(@RequestParam(value = "skill") Header header) {
+    public Header updateHeader(@RequestParam(value = "header") Header header) {
         System.out.println("header : " + header.toString());
         return headerService.update(header);
     }
 
     @DeleteMapping("/headers/{id}")
-    public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> deleteHeader(@PathVariable(value = "id") Long id) {
         System.out.println("id : " + id);
         headerService.delete(id);
         return ResponseEntity.ok().build();
