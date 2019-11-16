@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { api } from './api'
+import { toastSubmit } from './common/toastSubmit'
 import { router } from '../../routes'
 
 const state = {
@@ -8,7 +9,7 @@ const state = {
         backgroundImageFlag: "",
         title: "",
         intro: "",
-        subIntro: ""
+        subIntro: "",
     }
 }
 
@@ -56,17 +57,14 @@ const actions = {
     },
     HomeSubmitApi: () => {
         axios.put(api.url+"/headers",{
-            'header': {
-                'id': state.homeItems.id,
-                'backgroundImageFlag': state.homeItems.backgroundImageFlag,
-                'title': state.homeItems.title,
-                'intro': state.homeItems.intro,
-                'subIntro': state.homeItems.subIntro
-            }
+            'id': state.homeItems.id,
+            'backgroundImageFlag': state.homeItems.backgroundImageFlag,
+            'title': state.homeItems.title,
+            'intro': state.homeItems.intro,
+            'subIntro': state.homeItems.subIntro
         })
-        .then((response) => {
-            alert(response)
-            // context.commit("toastSubmit")
+        .then(() => {
+            toastSubmit()
         })
         .catch(function(error) {
             alert(error);

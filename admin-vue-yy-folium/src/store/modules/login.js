@@ -35,8 +35,8 @@ const actions = {
             state.login.session = response.data
             context.commit("loginTrue")
         })
-        .catch(function(error) { 
-            alert(error);
+        .catch(function() { 
+            state.login.error = "서비스 준비 중입니다."
         })
     }
 }

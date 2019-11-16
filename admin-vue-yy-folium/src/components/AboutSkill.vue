@@ -1,11 +1,11 @@
 <template>
-    <div class="row">
+      <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="edit-table-area">
                         <h4 class="card-title mb-15">
-                            Job
+                            Skill
                         </h4>
                         <div class="card mb-2">
                             <div class="card-header">
@@ -50,45 +50,11 @@
 </template>
 
 <script>
-import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
-import $ from 'jquery'
-import { mapGetters, mapMutations } from 'vuex';
-
 export default {
-    data() {
-        return {
-            idx: 1
-        }
-    },
-    computed: {
-        ...mapGetters(['getJobs'])
-    },
-    methods: {
-        ...mapMutations(['toastSubmit']),
-        ...mapMutations(['showAlertConfirm']),
-        ...mapMutations(['showAlertAdd'])
-    },
-    mounted() {
-        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
-        $("#basicTableId").on("cell:edited",
-            function(e){
-                // consol.log error 해결
-                /*jslint devel: true */
-                /* eslint-disable no-console */
-                /*eslint no-undef: "error"*/
-                /*eslint-env node*/
-                console.log(`'${e.target.id}' changed to '${e.newValue}'`)
-            }
-        )
-    }
+
 }
 </script>
 
 <style>
-    .fa-plus-square {
-        color: #ffc107
-    }
-    .fa-minus-square {
-        color: #dc3545
-    }
+
 </style>

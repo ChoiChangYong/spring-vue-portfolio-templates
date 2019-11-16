@@ -6,6 +6,7 @@ import AdminYYFoliumApp from './components/AdminYYFoliumApp'
 import Home from './components/Home'
 import AboutProfile from './components/AboutProfile'
 import AboutJob from './components/AboutJob';
+import AboutSkill from './components/AboutSkill'
 import ResumeWork from './components/ResumeWork'
 import ResumeEducation from './components/ResumeEducation'
 import PortfolioMenu from './components/PortfolioMenu'
@@ -38,6 +39,10 @@ export const router = new VueRouter({
                 {
                     path: '/about/job',
                     component: AboutJob
+                },
+                {
+                    path: '/about/skill',
+                    component: AboutSkill
                 },
                 { 
                     path: '/resume/work', 

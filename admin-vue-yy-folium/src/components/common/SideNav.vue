@@ -27,6 +27,7 @@
                                 <ul class="treeview-menu">
                                     <li><router-link to="/about/profile">Profile</router-link></li>
                                     <li><router-link to="/about/job">Job</router-link></li>
+                                    <li><router-link to="/about/skill">Skill</router-link></li>
                                 </ul>
                             </li>
                             <li class="treeview">
