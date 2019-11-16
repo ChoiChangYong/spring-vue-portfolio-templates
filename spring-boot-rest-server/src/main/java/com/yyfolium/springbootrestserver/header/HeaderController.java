@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,15 +29,18 @@ public class HeaderController {
     }
 
     @PostMapping("/headers")
-    public Header createHeader(@RequestParam(value = "sessionObject") Map sessionObject,
-                             @RequestParam(value = "header") Header header) {
-        System.out.println("sessionObject : " + sessionObject.toString());
-        System.out.println("header : " + header.toString());
+    public Header createHeader(@Valid @RequestBody Map requestObject) {
+        System.out.println("sessionObject : " + requestObject.get("sessionObject").toString());
+        System.out.println("header : " + requestObject.get("header").toString());
+
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        Header header = (Header) requestObject.get("header");
+
         return headerService.create(sessionObject.get("sessionId").toString(), header);
     }
 
     @PutMapping("/headers")
-    public Header updateHeader(@RequestParam(value = "header") Header header) {
+    public Header updateHeader(@Valid @RequestBody Header header) {
         System.out.println("header : " + header.toString());
         return headerService.update(header);
     }
