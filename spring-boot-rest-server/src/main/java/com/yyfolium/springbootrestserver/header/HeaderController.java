@@ -17,27 +17,33 @@ public class HeaderController {
 
     @GetMapping("/headers")
     public List<Header> getAllHeaders(@RequestParam Map requestObject) {
+        System.out.println("requestObject : " + requestObject);
         return headerService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/headers/{id}")
     public Optional<Header> getSkillById(@PathVariable(value = "id") Long id) {
+        System.out.println("id : " + id);
         return headerService.getById(id);
     }
 
     @PostMapping("/headers")
     public Header createSkill(@RequestParam(value = "sessionObject") Map sessionObject,
                              @RequestParam(value = "skill") Header header) {
+        System.out.println("sessionObject : " + sessionObject.toString());
+        System.out.println("header : " + header.toString());
         return headerService.create(sessionObject.get("sessionId").toString(), header);
     }
 
     @PutMapping("/headers")
     public Header updateSkill(@RequestParam(value = "skill") Header header) {
+        System.out.println("header : " + header.toString());
         return headerService.update(header);
     }
 
     @DeleteMapping("/headers/{id}")
     public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
+        System.out.println("id : " + id);
         headerService.delete(id);
         return ResponseEntity.ok().build();
     }
