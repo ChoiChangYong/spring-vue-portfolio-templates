@@ -1,5 +1,6 @@
 package com.yyfolium.springbootrestserver.header;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,9 @@ public class HeaderController {
         System.out.println("header : " + requestObject.get("header").toString());
 
         Map sessionObject = (Map) requestObject.get("sessionObject");
-        Header header = (Header) requestObject.get("header");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Header header = objectMapper.convertValue(requestObject.get("header"), Header.class);
 
         return headerService.create(sessionObject.get("sessionId").toString(), header);
     }

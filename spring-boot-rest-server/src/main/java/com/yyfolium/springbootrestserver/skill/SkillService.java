@@ -24,6 +24,7 @@ public class SkillService extends GenericServiceWithSessionImpl<Skill, SkillRepo
         if(user!=null) {
             skill.setUser(user);
         }
+        System.out.println(skill.toString());
         return super.repository.save(skill);
     }
 

@@ -1,5 +1,6 @@
 package com.yyfolium.springbootrestserver.skill;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,9 @@ public class SkillController {
         System.out.println("skill : " + requestObject.get("skill").toString());
 
         Map sessionObject = (Map) requestObject.get("sessionObject");
-        Skill skill = (Skill) requestObject.get("skill");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Skill skill = objectMapper.convertValue(requestObject.get("skill"), Skill.class);
 
         return skillService.create(sessionObject.get("sessionId").toString(), skill);
     }
