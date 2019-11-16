@@ -39,7 +39,17 @@ public class HeaderService extends GenericServiceWithSessionImpl<Header, HeaderR
 
     @Override
     public Header update(Header fetchedHeader) {
-        return super.repository.save(fetchedHeader);
+        final Optional<Header> header = super.repository.findById(fetchedHeader.getId());
+        if(header.isPresent()){
+            Optional.ofNullable(fetchedHeader.getTitle()).ifPresent(f -> header.get().setTitle(fetchedHeader.getTitle()));
+            Optional.ofNullable(fetchedHeader.getIntro()).ifPresent(f -> header.get().setIntro(fetchedHeader.getIntro()));
+            Optional.ofNullable(fetchedHeader.getSubIntro()).ifPresent(f -> header.get().setSubIntro(fetchedHeader.getSubIntro()));
+            Optional.ofNullable(fetchedHeader.getBackgroundImageFlag()).ifPresent(f -> header.get().setBackgroundImageFlag(fetchedHeader.getBackgroundImageFlag()));
+            return super.repository.save(header.get());
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
