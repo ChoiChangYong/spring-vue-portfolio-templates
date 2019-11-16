@@ -1,42 +1,32 @@
-import axios from 'axios';
+import axios from 'axios'
+import { api } from './api'
 
 const state = {
-    inputValue: {
-        tilte:"Input Title",
-        intro: "Input Intro",
-        subIntro: "Input SubIntro",
-        job: ["Input Job"],
-    },
-    url: "http://ec2-52-79-241-61.ap-northeast-2.compute.amazonaws.com:8080/api",
-};
-
-const getters = {
-    setInputValue(state) {
-        return state.name;
-    },
-};
+    tilte:"Input Title",
+    intro: "Input Intro",
+    subIntro: "Input SubIntro",
+}
 
 const actions = {
-    HomeSession: () => {
-        axios.get(state.url+"/headers",{
-            params: {
+    SessionCheck: () => {
+        axios.post(api.url+"/session-validation",
+            {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
-        })
+        )
         .then((response) => {
-            alert(JSON.stringify(response.data),null,2);
+            if(!response.data){
+                router.push('/login');
+            }
         })
-        .catch(function(error) {
-            alert(window.sessionStorage.getItem("sessionId"));
+        .catch(function(error) { 
             alert(error);
         })
     }
 }
 
-
 export default {
-    // storage,
+    namespaced: true,
     state,
-    getters,
     actions
 }

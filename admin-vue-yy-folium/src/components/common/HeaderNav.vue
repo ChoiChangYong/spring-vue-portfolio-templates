@@ -25,7 +25,7 @@
             </div>
 
             <!-- Top Bar Nav -->
-            <ul class="right-side-content d-flex align-items-center" v-bind:class="{ active : getIsActive}">
+            <ul class="right-side-content d-flex align-items-center" v-bind:class="{ active : isActive}">
                 <li class="nav-item dropdown">
                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../img/member-img/mail-5.jpg" alt=""></button>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -53,14 +53,14 @@
 
 <script>
 import $ from 'jquery'
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(['getIsActive'])
+        ...mapState("nav",['isActive'])
     },
     methods: {
-        ...mapMutations(['TrriggerActive']),
+        ...mapMutations("nav", ['TrriggerActive']),
     },
     mounted() {
         // :: Dropdown Active Code

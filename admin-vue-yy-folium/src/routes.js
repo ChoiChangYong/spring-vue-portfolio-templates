@@ -22,7 +22,7 @@ export const router = new VueRouter({
         },
         {
             path: '/',
-            component: AdminYYFoliumApp
+            component: Home
         },
         { path: '/', component: AdminYYFoliumApp,
             children: [

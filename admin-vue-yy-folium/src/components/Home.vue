@@ -85,20 +85,19 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex"
+import { mapMutations, mapActions } from "vuex"
 
 export default {
     computed: {
-        ...mapGetters(['setInputValue']),
     },
     methods: {
         ...mapMutations(['toastSubmit']),
-        ...mapActions("Login",['SessionCheck']),
-        ...mapActions(['HomeSession'])
+        ...mapActions("loginApi",['SessionCheck']),
+        // ...mapActions("Session",['Session'])
     },
     mounted() {
-        this.SessionCheck(),
-        this.HomeSession()
+        this.SessionCheck()
+        // this.Session()
     }
 }
 </script>

@@ -18,7 +18,7 @@
                             </div>
                             <button type="submit" class="btn btn-outline-primary text-white btn-block">Login</button>
                             <div class="mt-3">
-                                <p id="loginError">{{ loginError }}</p>
+                                <p id="loginError">{{ login.error }}</p>
                             </div>
                         </form>
                     </div>
@@ -33,11 +33,11 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     computed: {
-        ...mapState("Login",['user','loginError'])
+        ...mapState("loginApi",['user']),
+        ...mapState("loginApi",['login'])
     },
     methods: {
-        // ...mapMutations("Login",['login'])
-        ...mapActions("Login",['loginAction']),
+        ...mapActions("loginApi",['loginAction']),
     },
     actions: {
     }
