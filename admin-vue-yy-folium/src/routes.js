@@ -10,6 +10,7 @@ import ResumeWork from './components/ResumeWork'
 import ResumeEducation from './components/ResumeEducation'
 import PortfolioMenu from './components/PortfolioMenu'
 import Contact from './components/Contact'
+import PageNotFound from './components/common/404NotFound'
 
 Vue.use(VueRouter)
 
@@ -56,9 +57,9 @@ export const router = new VueRouter({
                 }
             ],
         },
-        // {
-            // path: "*",
-            // component: PageNotFound 
-        // }
+        {
+            path: "*",
+            component: PageNotFound 
+        }
     ],
 })
