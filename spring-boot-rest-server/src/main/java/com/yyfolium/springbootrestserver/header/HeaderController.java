@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,33 +16,29 @@ public class HeaderController {
     HeaderService headerService;
 
     @GetMapping("/headers")
-    public List<Header> getAllHeaders(@RequestParam Map sessionObject) {
-        System.out.println(sessionObject.toString());
-        return headerService.getAllByUserOrderByCreatedDesc(sessionObject);
+    public List<Header> getAllHeaders(@RequestParam Map requestObject) {
+        return headerService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
     }
 
-    @GetMapping("/users/{user_id}/headers/{id}")
-    public Optional<Header> getHeaderById(@PathVariable String user_id,
-                                        @PathVariable(value = "id") Long header_id) {
-        return headerService.getOneById(user_id, header_id);
+    @GetMapping("/headers/{id}")
+    public Optional<Header> getSkillById(@PathVariable(value = "id") Long id) {
+        return headerService.getById(id);
     }
 
-    @PostMapping("/users/{user_id}/headers")
-    public Header createHeader(@PathVariable String user_id,
-                             @Valid @RequestBody Header header) {
-        return headerService.create(user_id, header);
+    @PostMapping("/headers")
+    public Header createSkill(@RequestParam(value = "sessionObject") Map sessionObject,
+                             @RequestParam(value = "skill") Header header) {
+        return headerService.create(sessionObject.get("sessionId").toString(), header);
     }
 
-    @PutMapping("/users/{user_id}/headers/{id}")
-    public Header updateHeader(@PathVariable String user_id,
-                             @PathVariable(value = "id") Long header_id,
-                             @Valid @RequestBody Header header) {
-        return headerService.update(user_id, header_id, header);
+    @PutMapping("/headers")
+    public Header updateSkill(@RequestParam(value = "skill") Header header) {
+        return headerService.update(header);
     }
 
-    @DeleteMapping("/users/{user_id}/headers/{id}")
-    public ResponseEntity<?> deleteHeader(@PathVariable String user_id, @PathVariable(value = "id") Long header_id) {
-        headerService.deleteById(user_id, header_id);
+    @DeleteMapping("/headers/{id}")
+    public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
+        headerService.delete(id);
         return ResponseEntity.ok().build();
     }
 }

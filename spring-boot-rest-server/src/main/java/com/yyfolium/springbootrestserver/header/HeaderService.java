@@ -1,70 +1,49 @@
 package com.yyfolium.springbootrestserver.header;
 
+import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class HeaderService {
+public class HeaderService extends GenericServiceWithSessionImpl<Header, HeaderRepository> {
 
-    @Autowired
-    HeaderRepository headerRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    SessionRepository sessionRepository;
-
-    public Header create(String user_id, Header header) {
-        Optional<User> user = userRepository.findByUuid(user_id);
-        user.ifPresent(header::setUser);
-        return headerRepository.save(header);
+    public HeaderService(HeaderRepository headerRepository,
+                        UserRepository userRepository,
+                        SessionRepository sessionRepository) {
+        super(headerRepository, userRepository, sessionRepository);
     }
 
-    public List<Header> getAllByUserOrderByCreatedDesc(Map sessionObject) {
-        Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
-        String user_id = session.getAttribute("uuid");
-        isUser(user_id);
-        return headerRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
-    }
-
-    public Optional<Header> getOneById(String user_id, Long header_id) {
-        isUser(user_id);
-        return headerRepository.findById(header_id);
-    }
-
-    public Header update(String user_id, Long header_id, Header fetchedHeader) {
-        isUser(user_id);
-        final Optional<Header> header = headerRepository.findById(header_id);
-        if(header.isPresent()){
-            Optional.ofNullable(fetchedHeader.getTitle()).ifPresent(f -> header.get().setTitle(fetchedHeader.getTitle()));
-            Optional.ofNullable(fetchedHeader.getIntro()).ifPresent(f -> header.get().setIntro(fetchedHeader.getIntro()));
-            Optional.ofNullable(fetchedHeader.getSubIntro()).ifPresent(f -> header.get().setSubIntro(fetchedHeader.getSubIntro()));
-            Optional.ofNullable(fetchedHeader.getBackgroundImageFlag()).ifPresent(f -> header.get().setBackgroundImageFlag(fetchedHeader.getBackgroundImageFlag()));
-            return headerRepository.save(header.get());
+    @Override
+    public Header create(String sessionId, Header header) {
+        User user = super.getUserBySessionId(sessionId);
+        if(user!=null) {
+            header.setUser(user);
         }
-        else{
-            return null;
-        }
+        return super.repository.save(header);
     }
 
-    public void deleteById(String user_id, Long header_id) {
-        isUser(user_id);
-        Optional<Header> header = headerRepository.findById(header_id);
-        header.ifPresent(headerRepository::delete);
+    @Override
+    public List<Header> getAllByUserOrderByCreatedDesc(String sessionId) {
+        return super.getAllByUserOrderByCreatedDesc(sessionId);
     }
 
-    public void isUser(String user_id){
-        userRepository.findByUuid(user_id)
-                .orElseThrow(() -> new UsernameNotFoundException(user_id));
+    @Override
+    public Optional<Header> getById(Long id) {
+        return super.repository.findById(id);
+    }
+
+    @Override
+    public Header update(Header fetchedHeader) {
+        return super.repository.save(fetchedHeader);
+    }
+
+    @Override
+    public void delete(Long id) {
+        super.delete(id);
     }
 }

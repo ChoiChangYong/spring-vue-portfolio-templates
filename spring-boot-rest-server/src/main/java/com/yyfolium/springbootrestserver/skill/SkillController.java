@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,33 +16,30 @@ public class SkillController {
     @Autowired
     SkillService skillService;
 
-    @GetMapping("/users/{user_id}/skills")
-    public List<Skill> getAllSkills(@PathVariable String user_id) {
-        return skillService.getAllByUserOrderByCreatedDesc(user_id);
+    @GetMapping("skills")
+    public List<Skill> getAllSkills(@RequestParam Map requestObject) {
+        return skillService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
     }
 
-    @GetMapping("/users/{user_id}/skills/{id}")
-    public Optional<Skill> getSkillById(@PathVariable String user_id,
-                                        @PathVariable(value = "id") Long skill_id) {
-        return skillService.getOneById(user_id, skill_id);
+    @GetMapping("/skills/{id}")
+    public Optional<Skill> getSkillById(@PathVariable(value = "id") Long id) {
+        return skillService.getById(id);
     }
 
-    @PostMapping("/users/{user_id}/skills")
-    public Skill createSkill(@PathVariable String user_id,
-                             @Valid @RequestBody Skill skill) {
-        return skillService.create(user_id, skill);
+    @PostMapping("/skills")
+    public Skill createSkill(@RequestParam(value = "sessionObject") Map sessionObject,
+                             @RequestParam(value = "skill") Skill skill) {
+        return skillService.create(sessionObject.get("sessionId").toString(), skill);
     }
 
-    @PutMapping("/users/{user_id}/skills/{id}")
-    public Skill updateSkill(@PathVariable String user_id,
-                             @PathVariable(value = "id") Long skill_id,
-                             @Valid @RequestBody Skill skill) {
-        return skillService.update(user_id, skill_id, skill);
+    @PutMapping("/skills")
+    public Skill updateSkill(@RequestParam(value = "skill") Skill skill) {
+        return skillService.update(skill);
     }
 
-    @DeleteMapping("/users/{user_id}/skills/{id}")
-    public ResponseEntity<?> deleteSkill(@PathVariable String user_id, @PathVariable(value = "id") Long skill_id) {
-        skillService.deleteById(user_id, skill_id);
+    @DeleteMapping("/skills/{id}")
+    public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
+        skillService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
