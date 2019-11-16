@@ -10,7 +10,8 @@ const state = {
         title: "",
         intro: "",
         subIntro: "",
-    }
+    },
+    sessionFlag: false
 }
 
 const mutations = {
@@ -27,35 +28,52 @@ const mutations = {
 }
 
 const actions = {
-    SessionCheck: () => {
+    sessionCheck: function(context) {
         axios.post(api.url+"/session-validation",
             {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         )
-        .then((response) => {
+        .then( response => {
+            
             if(!response.data){
-                router.push('/login');
+                router.push('/login')
             }
+            else {
+                axios.get(api.url+"/headers",{
+                    params: {
+                        'sessionId': window.sessionStorage.getItem("sessionId")
+                    }
+                })
+                .then((response) => {
+                    context.commit("setHomeItems", response.data)
+                })
+                .catch(function(error) {
+                    alert(error);
+                })
+            }
+            
         })
         .catch(function(error) { 
-            alert(error);
-        })
-    },  
-    HomeAction: (context) => {
-        axios.get(api.url+"/headers",{
-            params: {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        })
-        .then((response) => {
-            context.commit("setHomeItems", response.data)
-        })
-        .catch(function(error) {
-            alert(error);
+                alert(error);
         })
     },
-    HomeSubmitApi: () => {
+    // getHeader: (context) => {
+    //     alert("getHeader")
+    //     axios.get(api.url+"/headers",{
+    //         params: {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     })
+    //     .then((response) => {
+    //         alert(response.data)
+    //         context.commit("setHomeItems", response.data)
+    //     })
+    //     .catch(function(error) {
+    //         alert(error);
+    //     })
+    // },
+    homeSubmitApi: () => {
         axios.put(api.url+"/headers",{
             'id': state.homeItems.id,
             'backgroundImageFlag': state.homeItems.backgroundImageFlag,

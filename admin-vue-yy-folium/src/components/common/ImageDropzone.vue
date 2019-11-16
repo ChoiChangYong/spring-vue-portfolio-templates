@@ -10,7 +10,7 @@ export default {
     components: {
         Vue2Dropzone
     },
-    data: function () {
+    data: () => {
         return {
             dropzoneOptions: {
                 url: 'localhost:8080',

@@ -20,12 +20,29 @@ const mutations = {
             state.login.error = "아이디 또는 비밀번호가 일치하지 않습니다."
         } else {
             window.sessionStorage.setItem("sessionId", state.login.session)
-            router.push('/home');
+            router.push('/home', () => {
+                location.reload()
+            })
         }
     }
 }
 
 const actions = {
+    sessionCheck: () => {
+        axios.post(api.url+"/session-validation",
+            {
+                'sessionId': window.sessionStorage.getItem("sessionId")
+            }
+        )
+        .then((response) => {
+            if(response.data){
+                router.push('/home')
+            }
+        })
+        .catch(function(error) { 
+            alert(error);
+        })
+    },
     loginAction: async (context) => {
         await axios.post(api.url+"/login", {
             'id': state.user.id,

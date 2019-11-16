@@ -24,9 +24,11 @@ export const router = new VueRouter({
         },
         {
             path: '/',
-            component: Login
+            redirect: '/home'
         },
-        { path: '/', component: AdminYYFoliumApp,
+        {
+            path: '/', 
+            component: AdminYYFoliumApp,
             children: [
                 {
                     path: '/home',

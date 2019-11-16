@@ -34,19 +34,19 @@
                                                 <!-- v-bind:id="index" -->
                                                 <!-- v-bind:id="index+'remove'"  -->
                                             <!-- <tr v-for="(jobs, index) in getJobs" v-bind:key="jobs.job"> -->
-                                                <td  class="editMe" ref="skillName"></td>
+                                                <!-- <td  class="editMe" ref="skillName"></td>
                                                 <td>
-                                                    <select id="inputState" class="form-control">
-                                                        <option>20%</option>
-                                                        <option>40%</option>
-                                                        <option>60%</option>
-                                                        <option>80%</option>
-                                                        <option>100%</option>
+                                                    <select id="skill-level" class="form-control" v-model="skill.level">
+                                                        <option value="2">20%</option>
+                                                        <option value="4">40%</option>
+                                                        <option value="6">60%</option>
+                                                        <option value="8">80%</option>
+                                                        <option value="10">100%</option>
                                                     </select>
                                                 </td>
                                                 <td>
                                                     <i class="fas fa-minus-square fa-2x" @click="submitSKill"></i>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         </table>
                                     </div>

@@ -1,18 +1,12 @@
 <template>
   <div id="app">
     <body>
-      <!-- Preloader -->
-      <div id="droba-loader">
-          <div class="loader"></div>
-      </div>
-
       <router-view></router-view>
     </body>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
 import './assets/js/treemenu.js'
 
 export default {
@@ -20,10 +14,6 @@ export default {
   components: {
   },
   mounted() {
-    // :: Preloader Active Code
-    setTimeout(function () {
-        $("#droba-loader").addClass("loaded")
-    }, 1500)
 
   }
 }

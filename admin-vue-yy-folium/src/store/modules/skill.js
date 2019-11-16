@@ -54,34 +54,6 @@ const mutations = {
                 Swal.isLoading()
             }
         })
-
-
-    // Swal.fire({
-    //     title: "Skill을 입력해주세요.",
-    //     input: "text",
-    //     inputAttributes: {
-    //         autocapitalize: "off"
-    //     },
-    //     showCancelButton: !0,
-    //     confirmButtonText: "저장",
-    //     showLoaderOnConfirm: !0,
-    //     preConfirm: function (t) {
-    //         return fetch("//api.github.com/users/" + t).then(function (t) {
-    //             if (!t.ok) throw new Error(t.statusText);
-    //             return t.json()
-    //         }).catch(function (t) {
-    //             Swal.showValidationMessage("Request failed: " + t)
-    //         })
-    //     },
-    //     allowOutsideClick: function () {
-    //         Swal.isLoading()
-    //     }
-    // }).then(function (t) {
-    //     t.value && Swal.fire({
-    //         title: "\" "+t.value.login + " \"이 등록되었습니다."
-    //     })
-    // })
-
     }
 }
 

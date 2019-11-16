@@ -37,10 +37,15 @@ export default {
         ...mapState("login",['login'])
     },
     methods: {
+        ...mapActions("login",['sessionCheck']),
         ...mapActions("login",['loginAction']),
     },
-    actions: {
+    mounted() {
+        this.sessionCheck()
     }
+    // destroyed() {
+    //     location.reload()
+    // }
 }
 </script>
 

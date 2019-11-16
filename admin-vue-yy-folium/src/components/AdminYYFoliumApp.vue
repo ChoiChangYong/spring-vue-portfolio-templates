@@ -1,7 +1,10 @@
 <template>
     <div>
+        <!-- Preloader -->
+        <div id="droba-loader">
+            <div class="loader"></div>
+        </div>
         <div class="ecaps-page-wrapper">
-            <!--Preloader-->
             <SideNav></SideNav>
             <!-- Page Content -->
             <div class="ecaps-page-content">
@@ -18,6 +21,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import SideNav from "./common/SideNav"
 import HeaderNav from "./common/HeaderNav"
 
@@ -26,6 +30,12 @@ export default {
         SideNav,
         HeaderNav,
     },
+    mounted() {
+        // :: Preloader Active Code
+        setTimeout(function () {
+            $("#droba-loader").addClass("loaded")
+        }, 1500)
+    }
 }
 </script>
 

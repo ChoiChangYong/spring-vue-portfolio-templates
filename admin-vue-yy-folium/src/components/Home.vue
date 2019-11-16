@@ -1,6 +1,6 @@
 <template>
     <!-- Table area Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" v-bind:class="{ reloadFlag }">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="HomeSubmit()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="homeSubmit()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -89,29 +89,32 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from "vuex"
+import { mapActions, mapState } from "vuex"
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import $ from "jquery"
 
 export default {
+    data: () => {
+        return {
+            reloadFlag: false
+        }
+    },
     computed: {
-        ...mapState("home",['homeItems'])
+        ...mapState("home",['homeItems','sessionFlag'])
     },
     methods: {
-        ...mapMutations(['toastSubmit']),
-        ...mapActions("home",['SessionCheck']),
-        ...mapActions("home",['HomeAction']),
-        ...mapActions("home",['HomeSubmitApi']),
-        HomeSubmit() {
+        ...mapActions("home",['sessionCheck']),
+        ...mapActions("home",['getHeader']),
+        ...mapActions("home",['homeSubmitApi']),
+        homeSubmit() {
             this.homeItems.title = this.$refs.title.innerHTML
             this.homeItems.intro = this.$refs.intro.innerHTML
             this.homeItems.subIntro = this.$refs.subIntro.innerHTML
-            this.HomeSubmitApi()
+            this.homeSubmitApi()
         }
     },
     mounted() {
-        this.SessionCheck()
-        this.HomeAction()
+        this.sessionCheck()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }
