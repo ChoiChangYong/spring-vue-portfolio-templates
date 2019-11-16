@@ -37,16 +37,14 @@ public class SkillService extends GenericServiceWithSessionImpl<Skill, SkillRepo
         return super.repository.findById(id);
     }
 
-    @Override
-    public Skill update(Skill fetchedSkill) {
-        final Optional<Skill> skill = super.repository.findById(fetchedSkill.getId());
-        if(skill.isPresent()){
-            Optional.ofNullable(fetchedSkill.getName()).ifPresent(f -> skill.get().setName(fetchedSkill.getName()));
-            Optional.ofNullable(fetchedSkill.getLevel()).ifPresent(f -> skill.get().setLevel(fetchedSkill.getLevel()));
-            return super.repository.save(skill.get());
-        }
-        else{
-            return null;
+    public void update(Skill[] fetchedSkills) {
+        for(Skill fetchedSkill : fetchedSkills){
+            final Optional<Skill> skill = super.repository.findById(fetchedSkill.getId());
+            if(skill.isPresent()){
+                Optional.ofNullable(fetchedSkill.getName()).ifPresent(f -> skill.get().setName(fetchedSkill.getName()));
+                Optional.ofNullable(fetchedSkill.getLevel()).ifPresent(f -> skill.get().setLevel(fetchedSkill.getLevel()));
+                super.repository.save(skill.get());
+            }
         }
     }
 

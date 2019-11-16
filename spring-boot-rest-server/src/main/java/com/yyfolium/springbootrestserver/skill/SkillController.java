@@ -40,9 +40,10 @@ public class SkillController {
     }
 
     @PutMapping("/skills")
-    public Skill updateSkill(@Valid @RequestBody Skill skill) {
-        System.out.println("skill : " + skill.toString());
-        return skillService.update(skill);
+    public ResponseEntity<?> updateSkill(@Valid @RequestBody Skill[] skills) {
+        System.out.println("skills : " + skills.toString());
+        skillService.update(skills);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/skills/{id}")

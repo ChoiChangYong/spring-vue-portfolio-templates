@@ -40,9 +40,10 @@ public class HeaderController {
     }
 
     @PutMapping("/headers")
-    public Header updateHeader(@Valid @RequestBody Header header) {
+    public ResponseEntity<?> updateHeader(@Valid @RequestBody Header header) {
         System.out.println("header : " + header.toString());
-        return headerService.update(header);
+        headerService.update(header);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/headers/{id}")
