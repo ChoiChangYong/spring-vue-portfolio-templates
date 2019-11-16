@@ -21,7 +21,8 @@ const mutations = {
             state.homeItems.intro = homeItem.intro
             state.homeItems.subIntro = homeItem.subIntro
         }
-    }
+    },
+    // setUpdateHomeItems: (state, payload) => {} 
 }
 
 const actions = {
@@ -53,13 +54,15 @@ const actions = {
             alert(error);
         })
     },
-    SubmitApi: () => {
+    HomeSubmitApi: () => {
         axios.put(api.url+"/headers",{
-            'id': state.homeItems.id,
-            'backgroundImageFlag': state.homeItems.backgroundImageFlag,
-            'title': state.homeItems.title,
-            'intro': state.homeItems.intro,
-            'subIntro': state.homeItems.subIntro
+            'header': {
+                'id': state.homeItems.id,
+                'backgroundImageFlag': state.homeItems.backgroundImageFlag,
+                'title': state.homeItems.title,
+                'intro': state.homeItems.intro,
+                'subIntro': state.homeItems.subIntro
+            }
         })
         .then((response) => {
             alert(response)

@@ -55,7 +55,10 @@ export const router = new VueRouter({
                     component: Contact
                 }
             ],
-            
-        }
+        },
+        // {
+            // path: "*",
+            // component: PageNotFound 
+        // }
     ],
 })

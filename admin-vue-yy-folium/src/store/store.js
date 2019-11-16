@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import nav from './modules/nav'
-import home from './modules/home'
-// import * as mutations from './modules/mutations'
 import login from './modules/login'
+import home from './modules/home'
+import contact from './modules/contact'
 
 import VueToastr2 from 'vue-toastr-2'
 import 'vue-toastr-2/dist/vue-toastr-2.min.css'
@@ -32,5 +32,6 @@ export const store = new Vuex.Store({
         nav,
         login,
         home,
+        contact
     },
 });

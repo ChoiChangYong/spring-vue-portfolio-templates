@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="SubmitHome()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="HomeSubmit()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -101,12 +101,12 @@ export default {
         ...mapMutations(['toastSubmit']),
         ...mapActions("home",['SessionCheck']),
         ...mapActions("home",['HomeAction']),
-        ...mapActions("home",['SubmitApi']),
-        SubmitHome() {
+        ...mapActions("home",['HomeSubmitApi']),
+        HomeSubmit() {
             this.homeItems.title = this.$refs.title.innerHTML
             this.homeItems.intro = this.$refs.intro.innerHTML
             this.homeItems.subIntro = this.$refs.subIntro.innerHTML
-            this.SubmitApi()
+            this.HomeSubmitApi()
         }
     },
     mounted() {
