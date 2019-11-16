@@ -33,11 +33,11 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     computed: {
-        ...mapState("loginApi",['user']),
-        ...mapState("loginApi",['login'])
+        ...mapState("login",['user']),
+        ...mapState("login",['login'])
     },
     methods: {
-        ...mapActions("loginApi",['loginAction']),
+        ...mapActions("login",['loginAction']),
     },
     actions: {
     }

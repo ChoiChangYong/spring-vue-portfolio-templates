@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import nav from './modules/nav'
-// import * as getters from './modules/getters'
+import home from './modules/home'
 // import * as mutations from './modules/mutations'
-import loginApi from './modules/loginApi'
+import login from './modules/login'
 
 import VueToastr2 from 'vue-toastr-2'
 import 'vue-toastr-2/dist/vue-toastr-2.min.css'
@@ -19,16 +19,18 @@ Vue.use(Vuex);
 Vue.use(VueToastr2)
 Vue.use(VueSweetalert2);
 
-// const mutations = {
-//     toastSubmit() {
-//         Vue.prototype.$toastr.success('성공적으로 저장되었습니다.', 'Submit Success', {timeOut: 1000});
-//     },
+const mutations = {
+    toastSubmit() {
+        Vue.prototype.$toastr.success('성공적으로 저장되었습니다.', 'Submit Success', {timeOut: 1000});
+    },
     
-// }
+}
 
 export const store = new Vuex.Store({
+    mutations,
     modules: {
         nav,
-        loginApi,
+        login,
+        home,
     },
 });
