@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { api } from './api'
+import { api } from './common/global-variable'
 import { router } from '../../routes'
 
 const state = {
@@ -19,7 +19,7 @@ const mutations = {
         if(state.login.session == 0){
             state.login.error = "아이디 또는 비밀번호가 일치하지 않습니다."
         } else {
-            state.login.session = window.sessionStorage.setItem("sessionId", state.login.session)
+            window.sessionStorage.setItem("sessionId", state.login.session)
             router.push('/home');
         }
     }

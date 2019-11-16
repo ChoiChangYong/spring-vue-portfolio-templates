@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { api } from './api'
-import { toastSubmit } from './common/toastSubmit'
+import { api } from './common/global-variable'
+import { toastSubmit } from './common/toastr'
 import { router } from '../../routes'
 
 const state = {
