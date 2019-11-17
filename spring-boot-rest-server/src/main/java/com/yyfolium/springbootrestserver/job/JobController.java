@@ -33,7 +33,7 @@ public class JobController {
         Map sessionObject = (Map) requestObject.get("sessionObject");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Job job = objectMapper.convertValue(requestObject.get("skill"), Job.class);
+        Job job = objectMapper.convertValue(requestObject.get("job"), Job.class);
 
         return jobService.create(sessionObject.get("sessionId").toString(), job);
     }
