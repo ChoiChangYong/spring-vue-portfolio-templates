@@ -25,8 +25,8 @@
                         </div>
                         <div id="accordion-2" data-parent="#accordion-" class="collapse show">
                             <div class="card-body">
-                                <div class="col-sm-6 col-lg-5 img-center">
-                                    <img v-bind:src="userAbout.imageUrl" class="img-fluid" alt="" />
+                                <div class="img-wrap">
+                                    <img v-bind:src="userAbout.imageUrl" class="img-fluid profile-img" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -51,12 +51,12 @@
                                         </tr>
                                         <tr>
                                             <th>Name</th>
-                                            <td id="name" class="editMe">{{ userAbout.name }}</td>
+                                            <td id="name" class="editMe" ref="name">{{ userAbout.name }}</td>
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
                                             <td>
-                                                <select id="inputState" class="form-control" v-model="userAbout.gender">
+                                                <select id="gender" class="form-control" v-model="userAbout.gender">
                                                     <option value="1">남자</option>
                                                     <option value="2">여자</option>
                                                 </select>
@@ -64,11 +64,11 @@
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td id="email" class="editMe">{{ userAbout.email }}</td>
+                                            <td id="email" class="editMe" ref="email">{{ userAbout.email }}</td>
                                         </tr>
                                         <tr>
                                             <th>Tel</th>
-                                            <td id="tel" class="editMe">{{ userAbout.tel }}</td>
+                                            <td id="tel" class="editMe" ref="tel">{{ userAbout.tel }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="button" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-primary" @click="profileSubmit">Submit</button>
                     </div>
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
@@ -88,7 +88,7 @@
 <script>
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import ImageDropzone from "./common/ImageDropzone"
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions, mapMutations } from "vuex"
 import $ from 'jquery'
 
 export default {
@@ -100,7 +100,14 @@ export default {
     },
     methods: {
         // ...mapMutations(['toastSubmit']),
-        ...mapActions("profile",['sessionCheck'])
+        ...mapActions("profile",['sessionCheck']),
+        ...mapMutations("profile",['updateprofile']),
+        profileSubmit() {
+            this.userAbout.name = this.$refs.name.innerHTML
+            this.userAbout.email = this.$refs.email.innerHTML
+            this.userAbout.tel = this.$refs.tel.innerHTML
+            this.updateprofile()
+        }
     },
     mounted() {
         this.sessionCheck()
@@ -116,7 +123,16 @@ export default {
 
 <style>
 @import url('../assets/css/dropzone.min.css');
-.img-center {
+.img-wrap {
     margin: auto;
+    width: auto;
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
 }
+.profile-img {
+    width: auto;
+    height: 300px;
+}
+
 </style>

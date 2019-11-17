@@ -1,4 +1,5 @@
 import { api } from './common/global-variable'
+import { toastSubmit } from './common/toastr'
 import { router } from '../../routes'
 import axios from 'axios'
 
@@ -24,6 +25,26 @@ const mutations = {
             state.userAbout.email = profiles.data.email
             state.userAbout.tel = profiles.data.tel
             state.userAbout.imageUrl = profiles.data.imageUrl
+        })
+        .catch(function(error) {
+            alert(error);
+        })
+    },
+    updateprofile: () => {
+        axios.put(api.url+"/users",{
+            'sessionObject': {
+                'sessionId': window.sessionStorage.getItem("sessionId"),
+            },
+            'user': {
+                'name': state.userAbout.name,
+                'gender': state.userAbout.gender,
+                'email': state.userAbout.email,
+                'tel': state.userAbout.tel,
+                'imageUrl': state.userAbout.imageUrl
+            }
+        })
+        .then(() => {
+            toastSubmit()
         })
         .catch(function(error) {
             alert(error);

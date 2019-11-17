@@ -1,10 +1,11 @@
 <template>
-    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions" ></Vue2Dropzone>
+    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions" v-on:vdropzone-success="getProfiles"></Vue2Dropzone>
 </template>
 
 <script>
 import Vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import { mapMutations } from 'vuex'
 
 export default {
     components: {
@@ -23,9 +24,12 @@ export default {
                 method: 'post',
                 acceptedFiles: ".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF",
                 // headers: { "My-Awesome-Header": "header value" },
-                params: {'sessionId': window.sessionStorage.getItem("sessionId")}
+                params: {'sessionId': window.sessionStorage.getItem("sessionId")},
             }
         }
+    },
+    methods: {
+        ...mapMutations("profile",['getProfiles'])
     }
 }
 </script>

@@ -95,7 +95,7 @@ import $ from "jquery"
 
 export default {
     computed: {
-        ...mapState("home",['homeItems','sessionFlag'])
+        ...mapState("home",['homeItems'])
     },
     methods: {
         ...mapActions("home",['sessionCheck']),

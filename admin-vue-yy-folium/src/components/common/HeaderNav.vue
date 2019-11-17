@@ -26,25 +26,8 @@
 
             <!-- Top Bar Nav -->
             <ul class="right-side-content d-flex align-items-center" v-bind:class="{ active : isActive}">
-                <li class="nav-item dropdown">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../img/member-img/mail-5.jpg" alt=""></button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <!-- User Profile Area -->
-                        <div class="user-profile-area">
-                            <div class="user-profile-heading">
-                                <!-- Thumb -->
-                                <div class="profile-thumbnail">
-                                    <img src="../../img/member-img/mail-5.jpg" alt="">
-                                </div>
-                                <!-- Profile Text -->
-                                <div class="profile-text">
-                                    <h6>Ajoy Das</h6>
-                                    <span>ajoydas@example.com</span>
-                                </div>
-                            </div>
-                            <a href="#" class="dropdown-item"><i class="ti-unlink text-warning" aria-hidden="true"></i> Logout</a>
-                        </div>
-                    </div>
+                <li>
+                    <button class="btn btn-outline-dark mr-2" @click="logout">Logout</button>
                 </li>
             </ul>
         </div>
@@ -53,7 +36,7 @@
 
 <script>
 import $ from 'jquery'
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
     computed: {
@@ -61,8 +44,10 @@ export default {
     },
     methods: {
         ...mapMutations("nav", ['TrriggerActive']),
+        ...mapActions("nav",['logout','sessionCheck'])
     },
     mounted() {
+        this.sessionCheck()
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();
@@ -71,6 +56,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+/* .dropdown-item{
+    background-color: #ffc107;
+} */
 </style>
