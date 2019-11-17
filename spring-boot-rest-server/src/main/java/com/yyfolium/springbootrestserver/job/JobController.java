@@ -38,7 +38,7 @@ public class JobController {
         return jobService.create(sessionObject.get("sessionId").toString(), job);
     }
 
-    @PutMapping("/jobs/{id}")
+    @PutMapping("/jobs")
     public ResponseEntity<?> updateJob(@Valid @RequestBody Map requestObject) {
         jobService.update((ArrayList<Object>) requestObject.get("jobs"));
         return ResponseEntity.ok().build();
