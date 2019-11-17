@@ -53,16 +53,16 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     computed: {
         ...mapState("contact",['contacts'])
     },
     mutations: {
-        ...mapMutations("contact",['getContacts'])
+        ...mapActions("contact",['sessionCheck'])
     },
     mounted() {
-        this.getContacts()
+        this.sessionCheck()()
     }
 }
 </script>

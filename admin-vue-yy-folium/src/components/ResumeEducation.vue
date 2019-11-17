@@ -14,7 +14,27 @@
                     </div>
                     <div id="accordion-2" class="collapse show" data-parent="#accordion-">
                         <div class="card-body">
-                            <ResumeTimeline></ResumeTimeline>
+                            <!-- Ibox content -->
+                            <div class="ibox-content" id="ibox-content">
+                                <div id="vertical-timeline" class="vertical-container light--timeline">
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon bg-info btn-floating pulse"></div>
+
+                                        <div class="vertical-timeline-content">
+                                            <div class="mb-2">
+                                                <mark>2016.03.01 ~ 2020.02.21</mark>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h5>동의대학교</h5>
+                                                <strong>컴퓨터소프트웨어공학과</strong>
+                                            </div>
+                                            <div>
+                                                <p>4년동안 열심히 했습니다.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -25,10 +45,10 @@
 </template>
 
 <script>
-import ResumeTimeline from './common/ResumeTimeline'
+
 export default {
-    components: {
-        ResumeTimeline
+    mounted() {
+        this.sessionCheck()
     }
 }
 </script>

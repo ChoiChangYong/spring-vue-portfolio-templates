@@ -52,7 +52,6 @@ const actions = {
                     alert(error);
                 })
             }
-            
         })
         .catch(function(error) { 
                 alert(error);

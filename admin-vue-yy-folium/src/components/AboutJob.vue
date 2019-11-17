@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex"
+import { mapState, mapMutations, mapActions } from "vuex"
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import $ from "jquery"
 
@@ -64,7 +64,8 @@ export default {
         ...mapState("job",['jobs'])
     },
     methods: {
-        ...mapMutations("job",['addJob', "getJobs", "updateJobs"]),
+        ...mapMutations("job",['addJob', "updateJobs"]),
+        ...mapActions("job",["deleteJob", "sessionCheck"]),
         submitJob(){
             for(var idx = 0; idx < this.jobs.length; idx++){
                 this.newJobs.push(this.jobs[idx])
@@ -76,7 +77,7 @@ export default {
         }
     },
     mounted() {
-        this.getJobs()
+        this.sessionCheck()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }

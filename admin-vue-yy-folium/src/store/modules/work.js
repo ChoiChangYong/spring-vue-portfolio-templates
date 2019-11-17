@@ -1,19 +1,32 @@
 import { api, Swal } from './common/global-variable'
-import { toastSubmit } from './common/toastr'
-import axios from 'axios'
 import { router } from '../../routes'
+import axios from 'axios'
 
 const state = {
-    jobs: []
+    works: []
 }
 
 const mutations = {
-    addJob: () => {
+    addWork: () => {
         Swal.fire({
-            title: "직업을 입력해주세요.",
+            title: "경력을 입력해주세요.",
             html:
-                '<h4>Name</h4>'+
-                '<input id="job-name" class="form-control">',
+                '<div>'+
+                    '<h5>시작일자</h5>'+
+                    '<div data-label="Example" class="mt-example demo-forms">'+
+                        '<input id="startDate" type="text" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
+                    '</div>'+
+                    '<h5>종료일자</h5>'+
+                    '<div data-label="Example" class="mt-example demo-forms">'+
+                        '<input id="endDate" type="text" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
+                    '</div>'+
+                '</div>'+
+                '<h5 class="mt-3">직무</h5>'+
+                '<input id="work-job" class="form-control">'+
+                '<h5 class="mt-3">회사명</h5>'+
+                '<input id="work-name" class="form-control">'+
+                '<h5 class="mt-3">추가설명</h5>'+
+                '<input id="work-description" class="form-control">',
             inputAttributes: {
                 autocapitalize: "off"
             },
@@ -21,19 +34,19 @@ const mutations = {
             confirmButtonText: "저장",
             showLoaderOnConfirm: true,
             preConfirm: function () {
-                var name = document.getElementById('job-name').value
+                var name = document.getElementById('work-name').value
                 var apiUrl = api.url
-                return axios.post(apiUrl + "/jobs", 
+                return axios.post(apiUrl + "/resumes", 
                     {
                         'sessionObject': {
                             'sessionId': window.sessionStorage.getItem("sessionId"),
                         },
-                        'job': {
+                        'resume': {
                             'name': name,
                         }
                     }
-                ).then(function (job) {
-                    state.jobs.push(job.data)
+                ).then(function (work) {
+                    state.works.push(work.data)
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })
@@ -43,33 +56,27 @@ const mutations = {
             }
         })
     },
-    getJobs: () => {
-        state.jobs = []
-        axios.get(api.url+"/jobs",{
+    getWorks: () => {
+        state.works = []
+        axios.get(api.url+"/resumes",{
             params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((jobs) => {
-            for (var job of jobs.data){
-                state.jobs.push(job);
+        .then((works) => {
+            for (var work of works.data){
+                var startDate = new Date(work.startDate);
+                work.startDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+                var endDate = new Date(work.endDate);
+                work.endDate = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
+    
+                state.works.push(work);
             }
         })
         .catch(function(error) {
             alert(error);
         })
-    },
-    updateJobs: (jobs) => {
-        axios.put(api.url+"/jobs",
-            jobs
-        )
-        .then(() => {
-            toastSubmit()
-        })
-        .catch(function(error) {
-            alert(error);
-        })
-    },
+    }
 }
 
 const actions = {
@@ -84,15 +91,14 @@ const actions = {
                 router.push('/login')
             }
             else {
-                mutations.getJobs()
+                mutations.getWorks()
             }
         })
         .catch(function(error) { 
                 alert(error);
         })
     },
-
-    deleteJob: (state, id) => {
+    deleteWork: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
             text: "삭제할 경우 되돌릴 수 없습니다.",
@@ -103,14 +109,14 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/jobs/"+id)
+                axios.delete(api.url+"/resumes/"+id)
                 .then(() => {
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
                         'success'
                     )
-                    mutations.getJobs()
+                    mutations.getWorks()
                 })
                 .catch(function(error) {
                     alert(error);

@@ -1,6 +1,7 @@
 import { api, Swal } from './common/global-variable'
 import { toastSubmit } from './common/toastr'
 import axios from 'axios'
+import { router } from '../../routes'
 
 const state = {
     skills: []
@@ -78,6 +79,24 @@ const mutations = {
 }
 
 const actions = {
+    sessionCheck: function() {
+        axios.post(api.url+"/session-validation",
+            {
+                'sessionId': window.sessionStorage.getItem("sessionId")
+            }
+        )
+        .then( response => {
+            if(!response.data){
+                router.push('/login')
+            }
+            else {
+                mutations.getSkills()
+            }
+        })
+        .catch(function(error) { 
+                alert(error);
+        })
+    },
     deleteSkill: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -89,7 +108,7 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/skills/"+id,{})
+                axios.delete(api.url+"/skills/"+id)
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

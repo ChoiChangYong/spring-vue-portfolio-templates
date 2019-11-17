@@ -31,7 +31,7 @@
                                                 <th class="bg-dark text-white"></th>
                                             </tr>
                                             <tr>
-                                            <tr v-for="(skill) in skills" v-bind:key="skill.id">
+                                            <tr v-for="skill in skills" v-bind:key="skill.id">
                                                 <td id="name" class="editMe" ref="name">{{ skill.name }}</td>
                                                 <td>
                                                     <select id="level" class="form-control" v-model="skill.level" ref="level">
@@ -78,8 +78,8 @@ export default {
         ...mapState("skill",['skills'])
     },
     methods: {
-        ...mapMutations("skill",['addSkill', "getSkills", "updateSkills"]),
-        ...mapActions("skill",['deleteSkill']),
+        ...mapMutations("skill",['addSkill', "updateSkills"]),
+        ...mapActions("skill",['deleteSkill','sessionCheck']),
         submitSkill(){
             for(var idx = 0; idx < this.skills.length; idx++){
                 this.newSkills.push(this.skills[idx])
@@ -92,7 +92,7 @@ export default {
         }
     },
     mounted() {
-        this.getSkills()
+        this.sessionCheck()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }
