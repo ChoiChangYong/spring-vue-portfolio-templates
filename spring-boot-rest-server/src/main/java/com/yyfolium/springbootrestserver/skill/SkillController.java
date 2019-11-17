@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,12 +46,8 @@ public class SkillController {
     @PutMapping("/skills")
     public ResponseEntity<?> updateSkill(@Valid @RequestBody Map requestObject) {
         System.out.println("skills : " + requestObject.get("skills").toString());
-        Skill[] skills = (Skill[]) requestObject.get("skills");
-        for(Skill skill : skills){
-            System.out.println("skill : " + skill.toString());
-        }
-        
-        skillService.update((Skill[]) requestObject.get("skills"));
+
+        skillService.update((ArrayList<Object>) requestObject.get("skills"));
         return ResponseEntity.ok().build();
     }
 

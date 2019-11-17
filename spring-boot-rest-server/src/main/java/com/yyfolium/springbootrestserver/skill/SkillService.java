@@ -1,11 +1,13 @@
 package com.yyfolium.springbootrestserver.skill;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +40,11 @@ public class SkillService extends GenericServiceWithSessionImpl<Skill, SkillRepo
         return super.repository.findById(id);
     }
 
-    public void update(Skill[] fetchedSkills) {
-        for(Skill fetchedSkill : fetchedSkills){
+    public void update(ArrayList<Object> fetchedSkills) {
+        for(Object o : fetchedSkills){
+            ObjectMapper objectMapper = new ObjectMapper();
+            Skill fetchedSkill = objectMapper.convertValue(o, Skill.class);
+
             final Optional<Skill> skill = super.repository.findById(fetchedSkill.getId());
             if(skill.isPresent()){
                 Optional.ofNullable(fetchedSkill.getName()).ifPresent(f -> skill.get().setName(fetchedSkill.getName()));
