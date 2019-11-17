@@ -19,29 +19,26 @@
                                         <thead class="bg-dark text-white">
                                             <colgroup>
                                                 <col width="5%" />
-                                                <col width="5%" />
-                                                <col width="5%" />
                                                 <col width="15%" />
-                                                <col width="10%" />
-                                                <col width="60%" />
+                                                <col width="15%" />
+                                                <col width="15%" />
+                                                <col width="50%" />
                                             </colgroup>
                                             <tr>
                                                 <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
+                                                <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Tel</th>
                                                 <th>Message</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Nigam</td>
-                                                <td>Eichmann</td>
-                                                <td>@Sonu</td>
-                                                <td>111-111-111</td>
-                                                <td>연락주세요.</td>
+                                            <tr v-for="(contact, index) in contacts" v-bind:key="contact.id">
+                                                <td>{{ index }}</td>
+                                                <td>{{ contact.name }}</td>
+                                                <td>{{ contact.email }}</td>
+                                                <td>{{ contact.tel }}</td>
+                                                <td>{{ contact.message }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -56,8 +53,17 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
-
+    computed: {
+        ...mapState("contact",['contacts'])
+    },
+    mutations: {
+        ...mapMutations("contact",['getContacts'])
+    },
+    mounted() {
+        this.getContacts()
+    }
 }
 </script>
 

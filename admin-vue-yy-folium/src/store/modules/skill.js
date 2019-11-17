@@ -48,7 +48,7 @@ const mutations = {
             }
         })
     },
-    getSkill: () => {
+    getSkills: () => {
         state.skills = []
         axios.get(api.url+"/skills",{
             params: {
@@ -64,7 +64,7 @@ const mutations = {
             alert(error);
         })
     },
-    updateSkill: (skill) => {
+    updateSkills: (skill) => {
         axios.put(api.url+"/skills",
             skill
         )

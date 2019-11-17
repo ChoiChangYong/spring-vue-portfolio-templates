@@ -42,7 +42,7 @@ const mutations = {
             }
         })
     },
-    getJob: () => {
+    getJobs: () => {
         state.jobs = []
         axios.get(api.url+"/jobs",{
             params: {
@@ -58,7 +58,7 @@ const mutations = {
             alert(error);
         })
     },
-    updateJob: (jobs) => {
+    updateJobs: (jobs) => {
         axios.put(api.url+"/jobs",
             jobs
         )

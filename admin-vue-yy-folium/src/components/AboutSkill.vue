@@ -78,7 +78,7 @@ export default {
         ...mapState("skill",['skills'])
     },
     methods: {
-        ...mapMutations("skill",['addSkill', "getSkill", "updateSkill"]),
+        ...mapMutations("skill",['addSkill', "getSkills", "updateSkills"]),
         submitSkill(){
             for(var idx = 0; idx < this.skills.length; idx++){
                 this.newSkills.push(this.skills[idx])
@@ -91,7 +91,7 @@ export default {
         }
     },
     mounted() {
-        this.getSkill()
+        this.getSkills()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }

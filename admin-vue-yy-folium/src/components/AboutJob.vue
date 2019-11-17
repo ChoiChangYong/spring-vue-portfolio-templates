@@ -64,7 +64,7 @@ export default {
         ...mapState("job",['jobs'])
     },
     methods: {
-        ...mapMutations("job",['addJob', "getJob", "updateJob"]),
+        ...mapMutations("job",['addJob', "getJobs", "updateJobs"]),
         submitJob(){
             for(var idx = 0; idx < this.jobs.length; idx++){
                 this.newJobs.push(this.jobs[idx])
@@ -72,10 +72,11 @@ export default {
             for (var jdx = 0; jdx < this.jobs.length; jdx++){
                 this.newJobs[jdx].name = this.$refs.name[jdx].innerHTML
             }
-            this.updateJob(this.newJobs)
+            this.updateJobs(this.newJobs)
         }
     },
     mounted() {
+        this.getJobs()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }
