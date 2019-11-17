@@ -20,7 +20,7 @@ public class HeaderController {
     @GetMapping("/headers")
     public List<Header> getAllHeaders(@RequestParam Map requestObject) {
         System.out.println("requestObject : " + requestObject);
-        return headerService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
+        return headerService.getAllByUserOrderByCreated(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/headers/{id}")

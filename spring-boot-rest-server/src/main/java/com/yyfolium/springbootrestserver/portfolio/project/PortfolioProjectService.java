@@ -29,10 +29,10 @@ public class PortfolioProjectService {
         return portfolioProjectRepository.save(portfolioProject);
     }
 
-    public List<PortfolioProject> getAllByPortfolioMenuOrderByCreatedDesc(String user_id, Long menu_id) {
+    public List<PortfolioProject> getAllByPortfolioMenuOrderByCreated(String user_id, Long menu_id) {
         isUser(user_id);
         isPortfolioMenu(menu_id);
-        return portfolioProjectRepository.findByPortfolioMenuOrderByCreatedDesc(portfolioMenuRepository.findById(menu_id).get());
+        return portfolioProjectRepository.findByPortfolioMenuOrderByCreated(portfolioMenuRepository.findById(menu_id).get());
     }
 
     public Optional<PortfolioProject> getOneById(String user_id, Long menu_id, Long project_id) {

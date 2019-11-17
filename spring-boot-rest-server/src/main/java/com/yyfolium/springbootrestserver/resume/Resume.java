@@ -3,7 +3,6 @@ package com.yyfolium.springbootrestserver.resume;
 import com.yyfolium.springbootrestserver.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;

@@ -20,7 +20,7 @@ public class ContactController {
 
     @GetMapping("/contacts")
     public List<Contact> getAllContacts(@RequestParam Map requestObject) {
-        return contactService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
+        return contactService.getAllByUserOrderByCreated(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/contacts/{id}")
@@ -38,7 +38,7 @@ public class ContactController {
         return contactService.create(sessionObject.get("sessionId").toString(), contact);
     }
 
-    @PutMapping("/contacts/{id}")
+    @PutMapping("/contacts")
     public ResponseEntity<?> updateContact(@Valid @RequestBody Map requestObject) {
         contactService.update((ArrayList<Object>) requestObject.get("contacts"));
         return ResponseEntity.ok().build();

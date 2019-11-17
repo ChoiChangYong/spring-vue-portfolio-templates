@@ -28,8 +28,8 @@ public class HeaderService extends GenericServiceWithSessionImpl<Header, HeaderR
     }
 
     @Override
-    public List<Header> getAllByUserOrderByCreatedDesc(String sessionId) {
-        return super.getAllByUserOrderByCreatedDesc(sessionId);
+    public List<Header> getAllByUserOrderByCreated(String sessionId) {
+        return super.getAllByUserOrderByCreated(sessionId);
     }
 
     @Override

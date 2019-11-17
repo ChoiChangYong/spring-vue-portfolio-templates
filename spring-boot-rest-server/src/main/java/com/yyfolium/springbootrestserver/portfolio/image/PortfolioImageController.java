@@ -11,11 +11,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -38,7 +36,7 @@ public class PortfolioImageController {
     @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images")
     public List<PortfolioImage> getAllPortfolioImages(
             @PathVariable String user_id, @PathVariable Long project_id) {
-        return portfolioImageService.getAllByPortfolioProjectOrderByCreatedDesc(user_id, project_id);
+        return portfolioImageService.getAllByPortfolioProjectOrderByCreated(user_id, project_id);
     }
 
     @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")

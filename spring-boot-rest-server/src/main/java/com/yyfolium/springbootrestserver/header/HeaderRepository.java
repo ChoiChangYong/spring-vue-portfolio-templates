@@ -6,5 +6,5 @@ import com.yyfolium.springbootrestserver.user.User;
 import java.util.List;
 
 public interface HeaderRepository extends GenericRepositoryJoinUser<Header> {
-    List<Header> findByUserOrderByCreatedDesc(User user);
+    List<Header> findByUserOrderByCreated(User user);
 }

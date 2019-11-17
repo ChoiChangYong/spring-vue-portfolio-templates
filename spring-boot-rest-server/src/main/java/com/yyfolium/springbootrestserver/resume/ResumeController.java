@@ -19,8 +19,11 @@ public class ResumeController {
     ResumeService resumeService;
 
     @GetMapping("/resumes")
-    public List<Resume> getAllResumes(@PathVariable String user_id) {
-        return resumeService.getAllByUserOrderByCreatedDesc(user_id);
+    public List<Resume> getAllResumes(@RequestParam Map requestObject) {
+        String sessionId = requestObject.get("sessionId").toString();
+        String historyFlag = requestObject.get("historyFlag").toString();
+
+        return resumeService.getAllByUserAndHistoryFlagOrderByStartDate(sessionId, historyFlag);
     }
 
     @GetMapping("/resumes/{id}")
@@ -33,14 +36,14 @@ public class ResumeController {
         Map sessionObject = (Map) requestObject.get("sessionObject");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Resume resume = objectMapper.convertValue(requestObject.get("contact"), Resume.class);
+        Resume resume = objectMapper.convertValue(requestObject.get("resume"), Resume.class);
 
         return resumeService.create(sessionObject.get("sessionId").toString(), resume);
     }
 
-    @PutMapping("/resumes/{id}")
+    @PutMapping("/resumes")
     public ResponseEntity<?> updateResume(@Valid @RequestBody Map requestObject) {
-        resumeService.update((ArrayList<Object>) requestObject.get("contacts"));
+        resumeService.update((ArrayList<Object>) requestObject.get("resumes"));
         return ResponseEntity.ok().build();
     }
 

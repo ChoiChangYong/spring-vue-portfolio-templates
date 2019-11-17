@@ -20,7 +20,7 @@ public class JobController {
 
     @GetMapping("/jobs")
     public List<Job> getAllJobs(@RequestParam Map requestObject) {
-        return jobService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
+        return jobService.getAllByUserOrderByCreated(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/jobs/{id}")

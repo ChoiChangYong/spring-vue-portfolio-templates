@@ -5,7 +5,6 @@ import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,9 @@ import java.util.Optional;
 
 @Service
 public class ResumeService extends GenericServiceWithSessionImpl<Resume, ResumeRepository> {
+
+    @Autowired
+    ResumeRepository resumeRepository;
 
     public ResumeService(ResumeRepository resumeRepository,
                           UserRepository userRepository,
@@ -32,9 +34,9 @@ public class ResumeService extends GenericServiceWithSessionImpl<Resume, ResumeR
         return super.repository.save(resume);
     }
 
-    @Override
-    public List<Resume> getAllByUserOrderByCreatedDesc(String sessionId) {
-        return super.getAllByUserOrderByCreatedDesc(sessionId);
+    public List<Resume> getAllByUserAndHistoryFlagOrderByStartDate(String sessionId, String historyFlag) {
+        User user = getUserBySessionId(sessionId);
+        return resumeRepository.findByUserAndHistoryFlagOrderByStartDate(user, historyFlag);
     }
 
     @Override

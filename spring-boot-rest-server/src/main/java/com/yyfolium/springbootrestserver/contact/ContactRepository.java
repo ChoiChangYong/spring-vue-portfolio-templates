@@ -6,5 +6,5 @@ import com.yyfolium.springbootrestserver.user.User;
 import java.util.List;
 
 public interface ContactRepository extends GenericRepositoryJoinUser<Contact> {
-    List<Contact> findByUserOrderByCreatedDesc(User user);
+    List<Contact> findByUserOrderByCreated(User user);
 }

@@ -31,8 +31,8 @@ public class SkillService extends GenericServiceWithSessionImpl<Skill, SkillRepo
     }
 
     @Override
-    public List<Skill> getAllByUserOrderByCreatedDesc(String sessionId) {
-        return super.getAllByUserOrderByCreatedDesc(sessionId);
+    public List<Skill> getAllByUserOrderByCreated(String sessionId) {
+        return super.getAllByUserOrderByCreated(sessionId);
     }
 
     @Override

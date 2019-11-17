@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +31,8 @@ public class JobService extends GenericServiceWithSessionImpl<Job, JobRepository
     }
 
     @Override
-    public List<Job> getAllByUserOrderByCreatedDesc(String sessionId) {
-        return super.getAllByUserOrderByCreatedDesc(sessionId);
+    public List<Job> getAllByUserOrderByCreated(String sessionId) {
+        return super.getAllByUserOrderByCreated(sessionId);
     }
 
     @Override

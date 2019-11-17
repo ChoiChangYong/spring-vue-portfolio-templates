@@ -5,8 +5,6 @@ import com.yyfolium.springbootrestserver.user.UserRepository;
 import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +15,6 @@ public class GenericServiceWithSessionImpl<T, R extends GenericRepositoryJoinUse
     protected final UserRepository userRepository;
 
     private final SessionRepository sessionRepository;
-
-    @PersistenceContext
-    EntityManager entityManager;
 
     public GenericServiceWithSessionImpl(R repository, UserRepository userRepository, SessionRepository sessionRepository ) {
         this.repository = repository;
@@ -34,9 +29,9 @@ public class GenericServiceWithSessionImpl<T, R extends GenericRepositoryJoinUse
     }
 
     @Override
-    public List<T> getAllByUserOrderByCreatedDesc(String sessionId) {
+    public List<T> getAllByUserOrderByCreated(String sessionId) {
         User user = getUserBySessionId(sessionId);
-        return repository.findByUserOrderByCreatedDesc(user);
+        return repository.findByUserOrderByCreated(user);
     }
 
     @Override

@@ -8,5 +8,5 @@ import java.util.List;
 
 @NoRepositoryBean
 public interface GenericRepositoryJoinUser<T> extends JpaRepository<T, Long> {
-    List<T> findByUserOrderByCreatedDesc(User user);
+    List<T> findByUserOrderByCreated(User user);
 }

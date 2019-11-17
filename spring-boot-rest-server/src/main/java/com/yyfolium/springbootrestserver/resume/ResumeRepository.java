@@ -6,5 +6,5 @@ import com.yyfolium.springbootrestserver.user.User;
 import java.util.List;
 
 public interface ResumeRepository extends GenericRepositoryJoinUser<Resume> {
-    List<Resume> findByUserOrderByCreatedDesc(User user);
+    List<Resume> findByUserAndHistoryFlagOrderByStartDate(User user, String historyFlag);
 }

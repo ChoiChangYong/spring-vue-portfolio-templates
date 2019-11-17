@@ -20,7 +20,7 @@ public class SkillController {
 
     @GetMapping("skills")
     public List<Skill> getAllSkills(@RequestParam Map requestObject) {
-        return skillService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
+        return skillService.getAllByUserOrderByCreated(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/skills/{id}")
