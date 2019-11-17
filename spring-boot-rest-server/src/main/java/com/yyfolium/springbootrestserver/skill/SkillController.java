@@ -43,9 +43,14 @@ public class SkillController {
     }
 
     @PutMapping("/skills")
-    public ResponseEntity<?> updateSkill(@Valid @RequestBody Skill[] skills) {
-        System.out.println("skills : " + skills.toString());
-        skillService.update(skills);
+    public ResponseEntity<?> updateSkill(@Valid @RequestBody Map requestObject) {
+        System.out.println("skills : " + requestObject.get("skills").toString());
+        Skill[] skills = (Skill[]) requestObject.get("skills");
+        for(Skill skill : skills){
+            System.out.println("skill : " + skill.toString());
+        }
+        
+        skillService.update((Skill[]) requestObject.get("skills"));
         return ResponseEntity.ok().build();
     }
 
