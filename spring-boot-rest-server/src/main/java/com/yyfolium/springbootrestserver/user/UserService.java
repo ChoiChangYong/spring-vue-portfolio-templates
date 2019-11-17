@@ -3,10 +3,11 @@ package com.yyfolium.springbootrestserver.user;
 import com.yyfolium.springbootrestserver.S3Wrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.Session;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final SessionRepository sessionRepository;
+
     @Value("${cloud.aws.s3.bucket.name}")
     private String bucketName;
 
@@ -30,9 +33,10 @@ public class UserService {
 
     private final S3Wrapper s3Wrapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, S3Wrapper s3Wrapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SessionRepository sessionRepository, S3Wrapper s3Wrapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.sessionRepository = sessionRepository;
         this.s3Wrapper = s3Wrapper;
         this.s3Wrapper.setBucket(bucketName+storeName);
     }
@@ -61,6 +65,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getBySessionId(String sessionId) {
+        Session session = sessionRepository.findById(sessionId);
+        String user_id = session.getAttribute("uuid");
+        return userRepository.findByUuid(user_id).get();
+    }
+
+
+
     public Optional<User> getOneById(String id) {
         return userRepository.findById(id);
     }
@@ -69,33 +81,40 @@ public class UserService {
         return userRepository.findByUuid(uuid);
     }
 
-    public Optional<User> getUserBySessionId(HttpSession session) {
-        return userRepository.findByUuid((String) session.getAttribute("uuid"));
-    }
 
-    public User update(String uuid, User fetchedUser, MultipartFile multipartFile) throws IOException {
-        final Optional<User> user = userRepository.findByUuid(uuid);
+
+    public User update(String sessionId, User fetchedUser) {
+        Session session = sessionRepository.findById(sessionId);
+        String user_id = session.getAttribute("uuid");
+
+        final Optional<User> user = userRepository.findByUuid(user_id);
         if(user.isPresent()){
-            user.get().setName(fetchedUser.getName());
-            user.get().setGender(fetchedUser.getGender());
-            user.get().setEmail(fetchedUser.getEmail());
-            user.get().setTel(fetchedUser.getTel());
-
-            String fileName = UUID.randomUUID().toString().replace("-", "");
-            String originName = multipartFile.getOriginalFilename();
-            String exc = originName.substring(originName.lastIndexOf(".")+1, originName.length());
-            String fileFullPath = bucketEndpoint+storeName+"/"+fileName+"."+exc;
-
-            s3Wrapper.setBucket(bucketName+"/"+storeName);
-            s3Wrapper.upload(multipartFile.getInputStream(), fileName+"."+exc);
-
-            user.get().setImageUrl(fileFullPath);
-
+            Optional.ofNullable(fetchedUser.getName()).ifPresent(f -> user.get().setName(fetchedUser.getName()));
+            Optional.ofNullable(fetchedUser.getGender()).ifPresent(f -> user.get().setGender(fetchedUser.getGender()));
+            Optional.ofNullable(fetchedUser.getEmail()).ifPresent(f -> user.get().setEmail(fetchedUser.getEmail()));
+            Optional.ofNullable(fetchedUser.getTel()).ifPresent(f -> user.get().setTel(fetchedUser.getTel()));
             return userRepository.save(user.get());
         }
         else{
             return null;
         }
+    }
+
+    public void profileImageUpload(String sessionId, MultipartFile multipartFile) throws IOException {
+        Session session = sessionRepository.findById(sessionId);
+        String user_id = session.getAttribute("uuid");
+        Optional<User> user = userRepository.findByUuid(user_id);
+
+        String fileName = UUID.randomUUID().toString().replace("-", "");
+        String originName = multipartFile.getOriginalFilename();
+        String exc = originName.substring(originName.lastIndexOf(".")+1, originName.length());
+        String fileFullPath = bucketEndpoint+storeName+"/"+fileName+"."+exc;
+
+        s3Wrapper.setBucket(bucketName+"/"+storeName);
+        s3Wrapper.upload(multipartFile.getInputStream(), fileName+"."+exc);
+
+        user.get().setImageUrl(fileFullPath);
+        userRepository.save(user.get());
     }
 
     public void deleteByUuid(String uuid) {

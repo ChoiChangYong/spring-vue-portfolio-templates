@@ -34,7 +34,7 @@ public class ResumeService extends GenericServiceWithSessionImpl<Resume, ResumeR
         return super.repository.save(resume);
     }
 
-    public List<Resume> getAllByUserAndHistoryFlagOrderByStartDate(String sessionId, String historyFlag) {
+    public List<Resume> getAllByUserAndHistoryFlagOrderByStartDate(String sessionId, Integer historyFlag) {
         User user = getUserBySessionId(sessionId);
         return resumeRepository.findByUserAndHistoryFlagOrderByStartDate(user, historyFlag);
     }

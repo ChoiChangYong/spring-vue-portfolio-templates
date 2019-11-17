@@ -31,11 +31,12 @@ public class PortfolioMenuController {
     @PostMapping("/pf-menus")
     public PortfolioMenu createPortfolioMenu(@Valid @RequestBody Map requestObject) {
         Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        PortfolioMenu job = objectMapper.convertValue(requestObject.get("portfolioMenu"), PortfolioMenu.class);
+        PortfolioMenu portfolioMenu = objectMapper.convertValue(requestObject.get("portfolioMenu"), PortfolioMenu.class);
 
-        return portfolioMenuService.create(sessionObject.get("sessionId").toString(), job);
+        return portfolioMenuService.create(sessionId, portfolioMenu);
     }
 
     @PutMapping("/pf-menus")

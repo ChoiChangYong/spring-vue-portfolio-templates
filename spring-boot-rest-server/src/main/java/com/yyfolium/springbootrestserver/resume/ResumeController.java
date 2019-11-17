@@ -21,7 +21,7 @@ public class ResumeController {
     @GetMapping("/resumes")
     public List<Resume> getAllResumes(@RequestParam Map requestObject) {
         String sessionId = requestObject.get("sessionId").toString();
-        String historyFlag = requestObject.get("historyFlag").toString();
+        Integer historyFlag = Integer.parseInt(requestObject.get("historyFlag").toString());
 
         return resumeService.getAllByUserAndHistoryFlagOrderByStartDate(sessionId, historyFlag);
     }
