@@ -34,7 +34,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="(contact, index) in contacts" v-bind:key="contact.id">
-                                                <td>{{ index }}</td>
+                                                <td>{{ index+1 }}</td>
                                                 <td>{{ contact.name }}</td>
                                                 <td>{{ contact.email }}</td>
                                                 <td>{{ contact.tel }}</td>
@@ -58,11 +58,11 @@ export default {
     computed: {
         ...mapState("contact",['contacts'])
     },
-    mutations: {
+    methods: {
         ...mapActions("contact",['sessionCheck'])
     },
     mounted() {
-        this.sessionCheck()()
+        this.sessionCheck()
     }
 }
 </script>

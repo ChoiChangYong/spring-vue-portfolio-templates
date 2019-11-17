@@ -38,8 +38,8 @@ const mutations = {
                             'level': level
                         }
                     }
-                ).then(function (skill) {
-                    state.skills.push(skill.data)
+                ).then(function () {
+                    mutations.getSkills()
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })

@@ -9,6 +9,7 @@ Vue.use(VueSweetalert2);
 import nav from './modules/nav'
 import login from './modules/login'
 import home from './modules/home'
+import profile from './modules/profile'
 import skill from './modules/skill'
 import job from './modules/job'
 import work from './modules/work'
@@ -22,6 +23,7 @@ export const store = new Vuex.Store({
         nav,
         login,
         home,
+        profile,
         skill,
         job,
         work,

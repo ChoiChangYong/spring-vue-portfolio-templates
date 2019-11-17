@@ -32,8 +32,8 @@ const mutations = {
                             'name': name,
                         }
                     }
-                ).then(function (job) {
-                    state.jobs.push(job.data)
+                ).then(function () {
+                    mutations.getJobs()
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })

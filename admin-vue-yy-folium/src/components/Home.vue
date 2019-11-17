@@ -100,12 +100,12 @@ export default {
     methods: {
         ...mapActions("home",['sessionCheck']),
         ...mapActions("home",['getHeader']),
-        ...mapActions("home",['homeSubmitApi']),
+        ...mapActions("home",['updateHomeItems']),
         homeSubmit() {
             this.homeItems.title = this.$refs.title.innerHTML
             this.homeItems.intro = this.$refs.intro.innerHTML
             this.homeItems.subIntro = this.$refs.subIntro.innerHTML
-            this.homeSubmitApi()
+            this.updateHomeItems()
         }
     },
     mounted() {

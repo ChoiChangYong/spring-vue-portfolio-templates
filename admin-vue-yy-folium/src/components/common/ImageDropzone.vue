@@ -1,5 +1,5 @@
 <template>
-    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions"></Vue2Dropzone>
+    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions" ></Vue2Dropzone>
 </template>
 
 <script>
@@ -13,10 +13,17 @@ export default {
     data: () => {
         return {
             dropzoneOptions: {
-                url: 'localhost:8080',
+                url: "http://192.168.0.99:8080/api/users/image-upload",
+                
                 thumbnailWidth: 150,
-                maxFilesize: 0.5,
-                headers: { "My-Awesome-Header": "header value" }
+                maxFilesize: 128,
+                addRemoveLinks: true,
+                maxFiles: 1,
+                uploadMultiple: false,
+                method: 'post',
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF",
+                // headers: { "My-Awesome-Header": "header value" },
+                params: {'sessionId': window.sessionStorage.getItem("sessionId")}
             }
         }
     }

@@ -17,6 +17,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card mb-2" v-show="userAbout.imageUrl != null">
+                        <div class="card-header">
+                            <a data-toggle="collapse" aria-expanded="true" class="text-body text-muted">
+                                <a class="text-muted">프로필 이미지</a>
+                            </a>
+                        </div>
+                        <div id="accordion-2" data-parent="#accordion-" class="collapse show">
+                            <div class="card-body">
+                                <div class="col-sm-6 col-lg-5 img-center">
+                                    <img v-bind:src="userAbout.imageUrl" class="img-fluid" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card mb-2">
                         <div class="card-header">
                             <a class="text-body" data-toggle="collapse" aria-expanded="true">
@@ -37,24 +51,24 @@
                                         </tr>
                                         <tr>
                                             <th>Name</th>
-                                            <td id="name" class="editMe"></td>
+                                            <td id="name" class="editMe">{{ userAbout.name }}</td>
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
                                             <td>
-                                                <select id="inputState" class="form-control">
-                                                    <option>남자</option>
-                                                    <option>여자</option>
+                                                <select id="inputState" class="form-control" v-model="userAbout.gender">
+                                                    <option value="1">남자</option>
+                                                    <option value="2">여자</option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td id="email" class="editMe"></td>
+                                            <td id="email" class="editMe">{{ userAbout.email }}</td>
                                         </tr>
                                         <tr>
                                             <th>Tel</th>
-                                            <td id="tel" class="editMe"></td>
+                                            <td id="tel" class="editMe">{{ userAbout.tel }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -62,7 +76,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="button" class="btn btn-primary" @click="toastSubmit()">Submit</button>
+                        <button type="button" class="btn btn-primary">Submit</button>
                     </div>
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
@@ -74,17 +88,22 @@
 <script>
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import ImageDropzone from "./common/ImageDropzone"
-import { mapMutations } from "vuex"
+import { mapState, mapActions } from "vuex"
 import $ from 'jquery'
 
 export default {
     components: {
         ImageDropzone
     },
+    computed: {
+        ...mapState("profile",['userAbout'])
+    },
     methods: {
-        ...mapMutations(['toastSubmit']),
+        // ...mapMutations(['toastSubmit']),
+        ...mapActions("profile",['sessionCheck'])
     },
     mounted() {
+        this.sessionCheck()
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();
@@ -96,5 +115,8 @@ export default {
 </script>
 
 <style>
-@import url('../assets/css/dropzone.min.css')
+@import url('../assets/css/dropzone.min.css');
+.img-center {
+    margin: auto;
+}
 </style>

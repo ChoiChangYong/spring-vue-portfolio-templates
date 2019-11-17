@@ -21,9 +21,9 @@ const mutations = {
                         '<input id="education-end-date" type="date" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
                     '</div>'+
                 '</div>'+
-                '<h5 class="mt-3">직무</h5>'+
+                '<h5 class="mt-3">학과명</h5>'+
                 '<input id="education-job" class="form-control">'+
-                '<h5 class="mt-3">회사명</h5>'+
+                '<h5 class="mt-3">학교명</h5>'+
                 '<input id="education-company" class="form-control">'+
                 '<h5 class="mt-3">추가설명</h5>'+
                 '<textarea id="education-description" class="form-control">',
@@ -54,7 +54,7 @@ const mutations = {
                         }
                     }
                 ).then(function () {
-                    mutations.getWorks()
+                    mutations.getEducations()
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })

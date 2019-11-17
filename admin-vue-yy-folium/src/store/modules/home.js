@@ -57,7 +57,7 @@ const actions = {
                 alert(error);
         })
     },
-    homeSubmitApi: () => {
+    updateHomeItems: () => {
         axios.put(api.url+"/headers",{
             'id': state.homeItems.id,
             'backgroundImageFlag': state.homeItems.backgroundImageFlag,
