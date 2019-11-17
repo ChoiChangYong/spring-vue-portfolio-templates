@@ -24,8 +24,8 @@ public class PortfolioProject {
     @JoinColumn(name ="portfolio_menu_id",nullable = false)
     private PortfolioMenu portfolioMenu;
 
-    @Column(length = 30, nullable = false)
-    private String job;
+    @Column(length = 100, nullable = false)
+    private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
@@ -37,9 +37,9 @@ public class PortfolioProject {
     private Timestamp updated;
 
     @Builder
-    public PortfolioProject(PortfolioMenu portfolioMenu, String job, String description) {
+    public PortfolioProject(PortfolioMenu portfolioMenu, String name, String description) {
         this.portfolioMenu = portfolioMenu;
-        this.job = job;
+        this.name = name;
         this.description = description;
     }
 }

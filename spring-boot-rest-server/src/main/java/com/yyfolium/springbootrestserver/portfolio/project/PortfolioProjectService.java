@@ -46,7 +46,7 @@ public class PortfolioProjectService {
         isPortfolioMenu(menu_id);
         final Optional<PortfolioProject> portfolioProject = portfolioProjectRepository.findById(project_id);
         if(portfolioProject.isPresent()){
-            Optional.ofNullable(fetchedPortfolioProject.getJob()).ifPresent(f -> portfolioProject.get().setJob(fetchedPortfolioProject.getJob()));
+            Optional.ofNullable(fetchedPortfolioProject.getName()).ifPresent(f -> portfolioProject.get().setName(fetchedPortfolioProject.getName()));
             Optional.ofNullable(fetchedPortfolioProject.getDescription()).ifPresent(f -> portfolioProject.get().setDescription(fetchedPortfolioProject.getDescription()));
             return portfolioProjectRepository.save(portfolioProject.get());
         }

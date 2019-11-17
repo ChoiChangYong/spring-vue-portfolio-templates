@@ -20,21 +20,16 @@ public class SkillController {
 
     @GetMapping("skills")
     public List<Skill> getAllSkills(@RequestParam Map requestObject) {
-        System.out.println("requestObject : " + requestObject);
         return skillService.getAllByUserOrderByCreatedDesc(requestObject.get("sessionId").toString());
     }
 
     @GetMapping("/skills/{id}")
     public Optional<Skill> getSkillById(@PathVariable(value = "id") Long id) {
-        System.out.println("id : " + id);
         return skillService.getById(id);
     }
 
     @PostMapping("/skills")
     public Skill createSkill(@Valid @RequestBody Map requestObject) {
-        System.out.println("sessionObject : " + requestObject.get("sessionObject").toString());
-        System.out.println("skill : " + requestObject.get("skill").toString());
-
         Map sessionObject = (Map) requestObject.get("sessionObject");
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -45,15 +40,12 @@ public class SkillController {
 
     @PutMapping("/skills")
     public ResponseEntity<?> updateSkill(@Valid @RequestBody Map requestObject) {
-        System.out.println("skills : " + requestObject.get("skills").toString());
-
         skillService.update((ArrayList<Object>) requestObject.get("skills"));
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/skills/{id}")
     public ResponseEntity<?> deleteSkill(@PathVariable(value = "id") Long id) {
-        System.out.println("id : " + id);
         skillService.delete(id);
         return ResponseEntity.ok().build();
     }
