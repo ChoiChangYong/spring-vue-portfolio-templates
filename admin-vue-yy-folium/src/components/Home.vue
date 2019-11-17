@@ -1,6 +1,6 @@
 <template>
     <!-- Table area Start -->
-    <div class="container-fluid" v-bind:class="{ reloadFlag }">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -94,11 +94,6 @@ import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import $ from "jquery"
 
 export default {
-    data: () => {
-        return {
-            reloadFlag: false
-        }
-    },
     computed: {
         ...mapState("home",['homeItems','sessionFlag'])
     },

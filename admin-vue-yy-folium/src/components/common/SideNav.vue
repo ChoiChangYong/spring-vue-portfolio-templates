@@ -41,7 +41,7 @@
                                     <li><router-link to="/resume/education">Education</router-link></li>
                                 </ul>
                             </li>
-                            <li class="treeview"><router-link to="/portfolio/menu"><i class="fas fa-puzzle-piece"></i><span>Portfolio</span></router-link></li>
+                            <li class="treeview"><router-link to="/portfolio/menu" :key="$route.fullPath"><i class="fas fa-puzzle-piece"></i><span>Portfolio</span></router-link></li>
                             <li><router-link to="/contact"><i class="fas fa-envelope"></i> <span>Contact</span></router-link></li>
                         </ul>
                     </nav>

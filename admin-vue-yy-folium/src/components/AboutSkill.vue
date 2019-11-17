@@ -33,10 +33,10 @@
                                             <tr>
                                                 <!-- v-bind:id="index" -->
                                                 <!-- v-bind:id="index+'remove'"  -->
-                                            <!-- <tr v-for="(jobs, index) in getJobs" v-bind:key="jobs.job"> -->
-                                                <!-- <td  class="editMe" ref="skillName"></td>
+                                            <tr v-for="(skill) in skills" v-bind:key="skill.id">
+                                                <td id="name" class="editMe" ref="name">{{ skill.name }}</td>
                                                 <td>
-                                                    <select id="skill-level" class="form-control" v-model="skill.level">
+                                                    <select id="skill-level" class="form-control" v-model="skill.level" ref="level">
                                                         <option value="2">20%</option>
                                                         <option value="4">40%</option>
                                                         <option value="6">60%</option>
@@ -44,9 +44,10 @@
                                                         <option value="10">100%</option>
                                                     </select>
                                                 </td>
+                                                <input type="hidden" v-bind:value="skill.id" ref="id"/>
                                                 <td>
-                                                    <i class="fas fa-minus-square fa-2x" @click="submitSKill"></i>
-                                                </td> -->
+                                                    <i class="fas fa-minus-square fa-2x" @click="deleteSkill(skill.id)"></i>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -54,7 +55,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="toastSubmit()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="submitSkill()">Submit</button>
                         </div>
                     </div>
                 </div> <!-- end card-body-->
@@ -66,16 +67,37 @@
 
 <script>
 import { mapState, mapMutations } from "vuex"
+import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
+import $ from "jquery"
 
 export default {
+    
+    data: () => {
+        return {
+            newSkills: []
+        }
+    },
     computed: {
-        ...mapState("skill",['skill'])
+        ...mapState("skill",['skills'])
     },
     methods: {
-        ...mapMutations("skill",['addSkill']),
-        submitSKill(){
-            this.skill.name = this.$refs.skillName.innerHTML
+        ...mapMutations("skill",['addSkill', "getSkill", "updateSkill"]),
+        submitSkill(){
+            for(var idx = 0; idx < this.skills.length; idx++){
+                this.newSkills.push(this.skills[idx])
+            }
+            for (var jdx = 0; jdx < this.skills.length; jdx++){
+                this.newSkills[jdx].id = this.$refs.id[jdx].value
+                this.newSkills[jdx].name = this.$refs.name[jdx].innerHTML
+                this.newSkills[jdx].level = this.$refs.level[jdx].value
+            }
+            this.updateSkill(this.newSkills)
         }
+    },
+    mounted() {
+        this.getSkill()
+        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
+        $("#basicTableId").on("cell:edited")
     }
 }
 </script>

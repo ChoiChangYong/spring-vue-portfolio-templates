@@ -43,8 +43,8 @@ const actions = {
             alert(error);
         })
     },
-    loginAction: async (context) => {
-        await axios.post(api.url+"/login", {
+    loginAction: (context) => {
+        axios.post(api.url+"/login", {
             'id': state.user.id,
             'password': state.user.password
         })

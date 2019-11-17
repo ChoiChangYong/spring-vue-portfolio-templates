@@ -43,9 +43,6 @@ export default {
     mounted() {
         this.sessionCheck()
     }
-    // destroyed() {
-    //     location.reload()
-    // }
 }
 </script>
 

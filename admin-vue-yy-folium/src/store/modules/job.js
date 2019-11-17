@@ -1,5 +1,5 @@
 import { api, Swal } from './common/global-variable'
-import { toastSubmit } from './common/toastr'
+// import { Swal } from './common/global-variable'
 import axios from 'axios'
 
 const state = {
@@ -7,16 +7,12 @@ const state = {
 }
 
 const mutations = {
-    addSkill: () => {
+    addJob: () => {
         Swal.fire({
-            title: "Skill을 입력해주세요.",
+            title: "직업을 입력해주세요.",
             html:
                 '<h4>Name</h4>'+
-                '<input id="skill-name" class="form-control">' +
-                '<h4 class="mb-4">Level</h4>'+
-                ' <select id="skill-level" class="form-control">'+
-                    '<option value="2">20%</option>'+'<option value="4">40%</option>'+'<option value="6">60%</option>'+'<option value="8">80%</option>'+'<option value="10">100%</option>'+
-                '</select>',
+                '<input id="skill-name" class="form-control">',
             inputAttributes: {
                 autocapitalize: "off"
             },
@@ -25,20 +21,18 @@ const mutations = {
             showLoaderOnConfirm: true,
             preConfirm: function () {
                 var name = document.getElementById('skill-name').value
-                var level = document.getElementById("skill-level").value
                 var apiUrl = api.url
-                return axios.post(apiUrl + "/skills", 
+                return axios.post(apiUrl + "/jobs", 
                     {
                         'sessionObject': {
                             'sessionId': window.sessionStorage.getItem("sessionId"),
                         },
-                        'skill': {
+                        'job': {
                             'name': name,
-                            'level': level
                         }
                     }
-                ).then(function (skill) {
-                    state.skills.push(skill.data)
+                ).then(function (response) {
+                    alert(JSON.stringify(response.data))
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })
@@ -49,7 +43,6 @@ const mutations = {
         })
     },
     getSkill: () => {
-        state.skills = []
         axios.get(api.url+"/skills",{
             params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
@@ -65,11 +58,12 @@ const mutations = {
         })
     },
     updateSkill: (skill) => {
+        alert(JSON.stringify(skill))
         axios.put(api.url+"/skills",
             skill
         )
-        .then(() => {
-            toastSubmit()
+        .then((response) => {
+            alert(response)
         })
         .catch(function(error) {
             alert(error);
