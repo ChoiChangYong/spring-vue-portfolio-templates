@@ -31,8 +31,6 @@
                                                 <th class="bg-dark text-white"></th>
                                             </tr>
                                             <tr>
-                                                <!-- v-bind:id="index" -->
-                                                <!-- v-bind:id="index+'remove'"  -->
                                             <tr v-for="(skill) in skills" v-bind:key="skill.id">
                                                 <td id="name" class="editMe" ref="name">{{ skill.name }}</td>
                                                 <td>
@@ -44,7 +42,6 @@
                                                         <option value="10">100%</option>
                                                     </select>
                                                 </td>
-                                                <input type="hidden" v-bind:value="skill.id" ref="id"/>
                                                 <td>
                                                     <i class="fas fa-minus-square fa-2x" @click="deleteSkill(skill.id)"></i>
                                                 </td>
@@ -87,7 +84,6 @@ export default {
                 this.newSkills.push(this.skills[idx])
             }
             for (var jdx = 0; jdx < this.skills.length; jdx++){
-                this.newSkills[jdx].id = this.$refs.id[jdx].value
                 this.newSkills[jdx].name = this.$refs.name[jdx].innerHTML
                 this.newSkills[jdx].level = this.$refs.level[jdx].value
             }

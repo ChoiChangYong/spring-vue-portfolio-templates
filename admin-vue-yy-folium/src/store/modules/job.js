@@ -1,9 +1,9 @@
 import { api, Swal } from './common/global-variable'
-// import { Swal } from './common/global-variable'
+import { toastSubmit } from './common/toastr'
 import axios from 'axios'
 
 const state = {
-    skills: []
+    jobs: []
 }
 
 const mutations = {
@@ -12,7 +12,7 @@ const mutations = {
             title: "직업을 입력해주세요.",
             html:
                 '<h4>Name</h4>'+
-                '<input id="skill-name" class="form-control">',
+                '<input id="job-name" class="form-control">',
             inputAttributes: {
                 autocapitalize: "off"
             },
@@ -20,7 +20,7 @@ const mutations = {
             confirmButtonText: "저장",
             showLoaderOnConfirm: true,
             preConfirm: function () {
-                var name = document.getElementById('skill-name').value
+                var name = document.getElementById('job-name').value
                 var apiUrl = api.url
                 return axios.post(apiUrl + "/jobs", 
                     {
@@ -31,8 +31,8 @@ const mutations = {
                             'name': name,
                         }
                     }
-                ).then(function (response) {
-                    alert(JSON.stringify(response.data))
+                ).then(function (job) {
+                    state.skills.jobs(job.data)
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })
@@ -42,28 +42,28 @@ const mutations = {
             }
         })
     },
-    getSkill: () => {
-        axios.get(api.url+"/skills",{
+    getJob: () => {
+        state.jobs = []
+        axios.get(api.url+"/jobs",{
             params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((skills) => {
-            for (var skill of skills.data){
-                state.skills.push(skill);
+        .then((jobs) => {
+            for (var job of jobs.data){
+                state.jobs.push(job);
             }
         })
         .catch(function(error) {
             alert(error);
         })
     },
-    updateSkill: (skill) => {
-        alert(JSON.stringify(skill))
-        axios.put(api.url+"/skills",
-            skill
+    updateJob: (jobs) => {
+        axios.put(api.url+"/jobs",
+            jobs
         )
-        .then((response) => {
-            alert(response)
+        .then(() => {
+            toastSubmit()
         })
         .catch(function(error) {
             alert(error);

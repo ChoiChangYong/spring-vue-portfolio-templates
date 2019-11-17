@@ -10,6 +10,7 @@ import nav from './modules/nav'
 import login from './modules/login'
 import home from './modules/home'
 import skill from './modules/skill'
+import job from './modules/job'
 import contact from './modules/contact'
 
 Vue.use(Vuex);
@@ -20,6 +21,7 @@ export const store = new Vuex.Store({
         login,
         home,
         skill,
+        job,
         contact
     },
 });
