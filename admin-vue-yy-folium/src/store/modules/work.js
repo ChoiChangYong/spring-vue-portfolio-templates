@@ -14,19 +14,19 @@ const mutations = {
                 '<div>'+
                     '<h5>시작일자</h5>'+
                     '<div data-label="Example" class="mt-example demo-forms">'+
-                        '<input id="startDate" type="text" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
+                        '<input id="work-start-date" type="date" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
                     '</div>'+
                     '<h5>종료일자</h5>'+
                     '<div data-label="Example" class="mt-example demo-forms">'+
-                        '<input id="endDate" type="text" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
+                        '<input id="work-end-date" type="date" class="form-control mb-15" placeholder="YYYY/MM/DD">'+
                     '</div>'+
                 '</div>'+
                 '<h5 class="mt-3">직무</h5>'+
                 '<input id="work-job" class="form-control">'+
                 '<h5 class="mt-3">회사명</h5>'+
-                '<input id="work-name" class="form-control">'+
+                '<input id="work-company" class="form-control">'+
                 '<h5 class="mt-3">추가설명</h5>'+
-                '<input id="work-description" class="form-control">',
+                '<textarea id="work-description" class="form-control">',
             inputAttributes: {
                 autocapitalize: "off"
             },
@@ -34,19 +34,27 @@ const mutations = {
             confirmButtonText: "저장",
             showLoaderOnConfirm: true,
             preConfirm: function () {
-                var name = document.getElementById('work-name').value
-                var apiUrl = api.url
-                return axios.post(apiUrl + "/resumes", 
+                var startDate = document.getElementById('work-start-date').value
+                var endDate = document.getElementById('work-end-date').value
+                var company = document.getElementById('work-company').value
+                var job = document.getElementById('work-job').value
+                var description = document.getElementById('work-description').value
+                return axios.post(api.url + "/resumes", 
                     {
                         'sessionObject': {
                             'sessionId': window.sessionStorage.getItem("sessionId"),
                         },
                         'resume': {
-                            'name': name,
+                            job,
+                            company,
+                            description,
+                            startDate,
+                            endDate,
+                            'historyFlag': "0"
                         }
                     }
-                ).then(function (work) {
-                    state.works.push(work.data)
+                ).then(function () {
+                    mutations.getWorks()
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })
@@ -60,7 +68,8 @@ const mutations = {
         state.works = []
         axios.get(api.url+"/resumes",{
             params: {
-                'sessionId': window.sessionStorage.getItem("sessionId")
+                'sessionId': window.sessionStorage.getItem("sessionId"),
+                'historyFlag': "0"
             }
         })
         .then((works) => {

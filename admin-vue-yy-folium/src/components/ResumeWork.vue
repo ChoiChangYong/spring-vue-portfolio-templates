@@ -52,6 +52,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
+
 export default {
     computed: {
         ...mapState("work",['works'])
