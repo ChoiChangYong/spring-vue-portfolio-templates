@@ -34,7 +34,7 @@
                                             <tr v-for="(skill) in skills" v-bind:key="skill.id">
                                                 <td id="name" class="editMe" ref="name">{{ skill.name }}</td>
                                                 <td>
-                                                    <select id="skill-level" class="form-control" v-model="skill.level" ref="level">
+                                                    <select id="level" class="form-control" v-model="skill.level" ref="level">
                                                         <option value="2">20%</option>
                                                         <option value="4">40%</option>
                                                         <option value="6">60%</option>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex"
+import { mapState, mapMutations, mapActions } from "vuex"
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
 import $ from "jquery"
 
@@ -79,6 +79,7 @@ export default {
     },
     methods: {
         ...mapMutations("skill",['addSkill', "getSkills", "updateSkills"]),
+        ...mapActions("skill",['deleteSkill']),
         submitSkill(){
             for(var idx = 0; idx < this.skills.length; idx++){
                 this.newSkills.push(this.skills[idx])
@@ -87,7 +88,7 @@ export default {
                 this.newSkills[jdx].name = this.$refs.name[jdx].innerHTML
                 this.newSkills[jdx].level = this.$refs.level[jdx].value
             }
-            this.updateSkill(this.newSkills)
+            this.updateSkills(this.newSkills)
         }
     },
     mounted() {

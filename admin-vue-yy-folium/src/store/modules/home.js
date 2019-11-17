@@ -58,21 +58,6 @@ const actions = {
                 alert(error);
         })
     },
-    // getHeader: (context) => {
-    //     alert("getHeader")
-    //     axios.get(api.url+"/headers",{
-    //         params: {
-    //             'sessionId': window.sessionStorage.getItem("sessionId")
-    //         }
-    //     })
-    //     .then((response) => {
-    //         alert(response.data)
-    //         context.commit("setHomeItems", response.data)
-    //     })
-    //     .catch(function(error) {
-    //         alert(error);
-    //     })
-    // },
     homeSubmitApi: () => {
         axios.put(api.url+"/headers",{
             'id': state.homeItems.id,
