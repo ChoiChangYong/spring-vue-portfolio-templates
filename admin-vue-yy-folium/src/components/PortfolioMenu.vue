@@ -10,7 +10,7 @@
                       <div class="card mb-2">
                           <div class="card-header">
                               <a class="text-body" data-toggle="collapse" aria-expanded="true">
-                                  <a class="text-muted">표를 채워주세요.</a>
+                                  <a class="text-muted">프로젝트를 등록하시려면 하나 이상의 메뉴가 필요합니다.</a>
                               </a>
                           </div>
                           <div id="accordion-3" class="collapse show" data-parent="#accordion-">
@@ -27,7 +27,7 @@
                                           <tr>
                                               <th colspan="2" class="bg-dark text-white">Name</th>
                                           </tr>
-                                          <tr v-for="(menu) in menus" v-bind:key="menu.id">
+                                          <tr v-for="(menu) in portfolioMenus" v-bind:key="menu.id">
                                               <td id="name" class="editMe" ref="name">{{ menu.name }}</td>
                                               <td>
                                                   <i class="fas fa-minus-square fa-2x" @click="deleteMenu(menu.id)"></i>
@@ -61,16 +61,16 @@ export default {
         }
     },
     computed: {
-        ...mapState("menu",['menus'])
+        ...mapState("menu",['portfolioMenus'])
     },
     methods: {
         ...mapMutations("menu",['addMenu', "updateMenus"]),
         ...mapActions("menu",["deleteMenu", "sessionCheck"]),
         submitMenu(){
-            for(var idx = 0; idx < this.menus.length; idx++){
-                this.newMenus.push(this.menus[idx])
+            for(var idx = 0; idx < this.portfolioMenus.length; idx++){
+                this.newMenus.push(this.portfolioMenus[idx])
             }
-            for (var jdx = 0; jdx < this.menus.length; jdx++){
+            for (var jdx = 0; jdx < this.portfolioMenus.length; jdx++){
                 this.newMenus[jdx].name = this.$refs.name[jdx].innerHTML
             }
             this.updateMenus(this.newMenus)

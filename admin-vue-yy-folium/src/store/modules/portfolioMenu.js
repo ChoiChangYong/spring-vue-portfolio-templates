@@ -4,7 +4,7 @@ import axios from 'axios'
 import { router } from '../../routes'
 
 const state = {
-    menus: []
+    portfolioMenus: []
 }
 
 const mutations = {
@@ -43,15 +43,15 @@ const mutations = {
         })
     },
     getMenus: () => {
-        state.menus = []
+        state.portfolioMenus = []
         axios.get(api.url+"/portfolio-menus",{
             params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((menus) => {
-            for (var menu of menus.data){
-                state.menus.push(menu);
+        .then((portfolioMenus) => {
+            for (var menu of portfolioMenus.data){
+                state.portfolioMenus.push(menu);
             }
         })
         .catch(function(error) {
@@ -59,7 +59,7 @@ const mutations = {
         })
     },
     updateMenus: (portfolioMenus) => {
-
+        alert(JSON.stringify(portfolioMenus))
         axios.put(api.url+"/portfolio-menus",
             {
                 'sessionObject': {

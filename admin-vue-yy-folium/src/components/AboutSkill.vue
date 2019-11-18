@@ -10,7 +10,7 @@
                         <div class="card mb-2">
                             <div class="card-header">
                                 <a class="text-body" data-toggle="collapse" aria-expanded="true">
-                                    <a class="text-muted">표를 채워주세요.</a>
+                                    <a class="text-muted">사용 가능한 기술들을 작성해주세요.</a>
                                 </a>
                             </div>
                             <div id="accordion-3" class="collapse show" data-parent="#accordion-">
