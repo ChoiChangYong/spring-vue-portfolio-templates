@@ -7,7 +7,10 @@ const state = {
     newProjects: {
         name: "",
         belong: "",
-        descrition: ""
+        description: "",
+    },
+    menu_id: {
+        id: ""
     },
     imageUrls: [],
     dropzoneOptions: {
@@ -25,24 +28,20 @@ const state = {
 }
 
 const mutations = {
-    submitProject: () => {
-        Swal.fire({
-            type: 'success',
-            footer: '프로젝트가 저장되었습니다.',
-            text: '이미지를 등록하시겠습니까?',
-            inputAttributes: {
-                autocapitalize: "off"
-            },
-            showCancelButton: true,
-            confirmButtonText: "Yes",
-            cancelButtonText: 'No',
-            showLoaderOnConfirm: true,
-            preConfirm: function () {
-                router.push('/portfolio/project/image')
-            },
-            allowOutsideClick: function () {
-                Swal.isLoading()
-            }
+    submitProject: (state, menu_id) => {
+        alert(JSON.stringify(menu_id))
+        const portfolioProject = state.newProjects
+        axios.post(api.url+"/portfolio-menus/"+menu_id+"/portfolio-projects",{
+                'sessionObject': {
+                    'sessionId': window.sessionStorage.getItem("sessionId"),
+                },
+                portfolioProject
+        })
+        .then(() => {
+            mutations.submitSwal()
+        })
+        .catch(function(error) {
+            alert(error);
         })
     },
     getMenus: () => {
@@ -104,6 +103,29 @@ const mutations = {
     },
     // getImageUrl: (projectId) => {
     // }
+    submitSwal: () => {
+        Swal.fire({
+            type: 'success',
+            footer: '프로젝트가 저장되었습니다.',
+            text: '이미지를 등록하시겠습니까?',
+            inputAttributes: {
+                autocapitalize: "off"
+            },
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: 'No',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: function () {
+                Swal.isLoading()
+            }.then((result) => {
+                if (result.value) {
+                    router.push('/portfolio/project/image')
+                } else {
+                    router.push('/portfolio/project/view')
+                }
+            })
+        })
+    }
 }
 
 const actions = {

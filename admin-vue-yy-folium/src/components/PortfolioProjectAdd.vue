@@ -15,17 +15,17 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleSelectGender">메뉴</label>
-                                <select class="form-control" id="exampleSelectGender">
-                                    <option v-for="project in projects" v-bind:key="project.id" :value="project.portfolioMenu.name">{{ project.portfolioMenu.name }}</option>
+                                <select class="form-control" id="exampleSelectGender" v-model="menu_id.id">
+                                    <option v-for="project in projects" v-bind:key="project.id" :value="project.portfolioMenu.id">{{ project.portfolioMenu.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputName1">프로젝트명</label>
-                                <input type="text" class="form-control" id="exampleInputName1" v-model="newProjects.name">
+                                <input type="text" class="form-control" id="exampleInputName" v-model="newProjects.name">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputName1">소속</label>
-                                <input type="text" class="form-control" id="exampleInputName1"  v-model="newProjects.belong">
+                                <input type="text" class="form-control" id="exampleInputBelong"  v-model="newProjects.belong">
                             </div>
                             <div class="form-group">
                                 <label for="exampleTextarea1">추가설명</label>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button type="button" class="btn btn-primary" @click="submitProject">저장</button>
+                <button type="button" class="btn btn-primary" @click="submitProject(menu_id.id)">저장</button>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
     computed: {
-        ...mapState("project",['projects', 'newProjects'])
+        ...mapState("project",['projects', 'newProjects', 'menu_id'])
     },
     methods: {
         ...mapMutations("project",['submitProject'])
