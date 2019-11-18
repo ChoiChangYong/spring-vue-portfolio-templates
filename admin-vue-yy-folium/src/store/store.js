@@ -14,6 +14,7 @@ import skill from './modules/skill'
 import job from './modules/job'
 import work from './modules/work'
 import education from './modules/education'
+import menu from './modules/portfolioMenu'
 import contact from './modules/contact'
 
 Vue.use(Vuex);
@@ -24,10 +25,11 @@ export const store = new Vuex.Store({
         login,
         home,
         profile,
-        skill,
         job,
+        skill,
         work,
         education,
+        menu,
         contact
     },
 });

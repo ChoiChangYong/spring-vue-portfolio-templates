@@ -10,6 +10,7 @@ import AboutSkill from './components/AboutSkill'
 import ResumeWork from './components/ResumeWork'
 import ResumeEducation from './components/ResumeEducation'
 import PortfolioMenu from './components/PortfolioMenu'
+import PortfolioProject from './components/PortfolioProject'
 import Contact from './components/Contact'
 import PageNotFound from './components/common/404NotFound'
 
@@ -57,6 +58,10 @@ export const router = new VueRouter({
                 {
                     path: '/portfolio/menu',
                     component: PortfolioMenu
+                },
+                {
+                    path: '/portfolio/project',
+                    component: PortfolioProject
                 },
                 {
                     path: '/contact',

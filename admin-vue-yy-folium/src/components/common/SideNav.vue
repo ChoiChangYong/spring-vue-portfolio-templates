@@ -17,7 +17,7 @@
                     <!-- Sidebar Menu -->
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
-                            <li class="active"><router-link to="/home"><i class="fas fa-home"></i><span>Home</span></router-link></li>
+                            <li><router-link to="/home" exact><i class="fas fa-home"></i><span>Home</span></router-link></li>
                             <li class="treeview">
                                 <a href="javascript:void(0)">
                                     <i class="fas fa-id-card-alt"></i>
@@ -41,7 +41,18 @@
                                     <li><router-link to="/resume/education">Education</router-link></li>
                                 </ul>
                             </li>
-                            <li class="treeview"><router-link to="/portfolio/menu" :key="$route.fullPath"><i class="fas fa-puzzle-piece"></i><span>Portfolio</span></router-link></li>
+                            <li class="treeview">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                    <span>Portfolio</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><router-link to="/portfolio/menu">Menu</router-link></li>
+                                    <li><router-link to="/portfolio/project">Project</router-link></li>
+                                </ul>
+                            </li>
+
                             <li><router-link to="/contact"><i class="fas fa-envelope"></i> <span>Contact</span></router-link></li>
                         </ul>
                     </nav>
@@ -98,5 +109,7 @@ export default {
 </script>
 
 <style>
-
+.router-link-active {
+  background: #5A8DEE;
+}
 </style>

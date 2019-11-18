@@ -4,20 +4,16 @@ import axios from 'axios'
 import { router } from '../../routes'
 
 const state = {
-    skills: []
+    menus: []
 }
 
 const mutations = {
-    addSkill: () => {
+    addMenu: () => {
         Swal.fire({
-            title: "Skill을 입력해주세요.",
+            title: "Menu를 입력해주세요.",
             html:
                 '<h4>Name</h4>'+
-                '<input id="skill-name" class="form-control">' +
-                '<h4 class="mb-4">Level</h4>'+
-                ' <select id="skill-level" class="form-control">'+
-                    '<option value="2">20%</option>'+'<option value="4">40%</option>'+'<option value="6">60%</option>'+'<option value="8">80%</option>'+'<option value="10">100%</option>'+
-                '</select>',
+                '<input id="menu-name" class="form-control">',
             inputAttributes: {
                 autocapitalize: "off"
             },
@@ -25,21 +21,18 @@ const mutations = {
             confirmButtonText: "저장",
             showLoaderOnConfirm: true,
             preConfirm: function () {
-                var name = document.getElementById('skill-name').value
-                var level = document.getElementById("skill-level").value
-                var apiUrl = api.url
-                return axios.post(apiUrl + "/skills", 
+                var name = document.getElementById('menu-name').value
+                return axios.post(api.url + "/portfolio-menus", 
                     {
                         'sessionObject': {
                             'sessionId': window.sessionStorage.getItem("sessionId"),
                         },
-                        'skill': {
+                        'portfolioMenu': {
                             'name': name,
-                            'level': level
                         }
                     }
                 ).then(function () {
-                    mutations.getSkills()
+                    mutations.getMenus()
                 }).catch(function (t) {
                     Swal.showValidationMessage("Request failed: " + t)
                 })
@@ -49,25 +42,31 @@ const mutations = {
             }
         })
     },
-    getSkills: () => {
-        state.skills = []
-        axios.get(api.url+"/skills",{
+    getMenus: () => {
+        state.menus = []
+        axios.get(api.url+"/portfolio-menus",{
             params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((skills) => {
-            for (var skill of skills.data){
-                state.skills.push(skill);
+        .then((menus) => {
+            for (var menu of menus.data){
+                state.menus.push(menu);
             }
         })
         .catch(function(error) {
             alert(error);
         })
     },
-    updateSkills: (skills) => {
-        axios.put(api.url+"/skills",
-            skills
+    updateMenus: (portfolioMenus) => {
+
+        axios.put(api.url+"/portfolio-menus",
+            {
+                'sessionObject': {
+                    'sessionId': window.sessionStorage.getItem("sessionId"),
+                },
+                'portfolioMenus': portfolioMenus
+            }
         )
         .then(() => {
             toastSubmit()
@@ -90,14 +89,14 @@ const actions = {
                 router.push('/login')
             }
             else {
-                mutations.getSkills()
+                mutations.getMenus()
             }
         })
         .catch(function(error) { 
                 alert(error);
         })
     },
-    deleteSkill: async (state, id) => {
+    deleteMenu: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
             text: "삭제할 경우 되돌릴 수 없습니다.",
@@ -108,14 +107,14 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/skills/"+id)
+                axios.delete(api.url+"/portfolio-menus/"+id)
                 .then(() => {
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
                         'success'
                     )
-                    mutations.getSkills()
+                    mutations.getMenus()
                 })
                 .catch(function(error) {
                     alert(error);

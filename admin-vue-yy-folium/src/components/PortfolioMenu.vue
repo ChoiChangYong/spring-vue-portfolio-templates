@@ -1,9 +1,86 @@
 <template>
-  <p>포트폴리오 메뉴 등록</p>
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="edit-table-area">
+                      <h4 class="card-title mb-15">
+                          Menu
+                      </h4>
+                      <div class="card mb-2">
+                          <div class="card-header">
+                              <a class="text-body" data-toggle="collapse" aria-expanded="true">
+                                  <a class="text-muted">표를 채워주세요.</a>
+                              </a>
+                          </div>
+                          <div id="accordion-3" class="collapse show" data-parent="#accordion-">
+                              <div class="card-body">
+                                  <div class="text-right mb-2">
+                                      <i class="fas fa-plus-square fa-2x" @click="addMenu"></i>
+                                  </div>
+                                  <div class="table-responsive">
+                                      <table id="basicTableId" class="table table-bordered table-striped">
+                                          <colgroup>
+                                              <col width="95%" />
+                                              <col width="5%" />
+                                          </colgroup>
+                                          <tr>
+                                              <th colspan="2" class="bg-dark text-white">Name</th>
+                                          </tr>
+                                          <tr v-for="(menu) in menus" v-bind:key="menu.id">
+                                              <td id="name" class="editMe" ref="name">{{ menu.name }}</td>
+                                              <td>
+                                                  <i class="fas fa-minus-square fa-2x" @click="deleteMenu(menu.id)"></i>
+                                              </td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="text-right">
+                          <button type="button" class="btn btn-primary" @click="submitMenu()">Submit</button>
+                      </div>
+                  </div>
+              </div> <!-- end card-body-->
+          </div> <!-- end card-->
+      </div><!-- end col -->
+  </div>
+  <!-- end row -->
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex"
+import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
+import $ from "jquery"
+
 export default {
+      data() {
+        return {
+            newMenus: []
+        }
+    },
+    computed: {
+        ...mapState("menu",['menus'])
+    },
+    methods: {
+        ...mapMutations("menu",['addMenu', "updateMenus"]),
+        ...mapActions("menu",["deleteMenu", "sessionCheck"]),
+        submitMenu(){
+            for(var idx = 0; idx < this.menus.length; idx++){
+                this.newMenus.push(this.menus[idx])
+            }
+            for (var jdx = 0; jdx < this.menus.length; jdx++){
+                this.newMenus[jdx].name = this.$refs.name[jdx].innerHTML
+            }
+            this.updateMenus(this.newMenus)
+        }
+    },
+    mounted() {
+        this.sessionCheck()
+        new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
+        $("#basicTableId").on("cell:edited")
+    }
 
 }
 </script>
