@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="submitJob()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="submitJob()">저장</button>
                         </div>
                     </div>
                 </div> <!-- end card-body-->
@@ -86,7 +86,7 @@ export default {
 
 <style>
     .fa-plus-square {
-        color: #ffc107
+        color: #28a745
     }
     .fa-minus-square {
         color: #dc3545

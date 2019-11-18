@@ -68,4 +68,11 @@ export default {
 </script>
 
 <style>
+.vertical-timeline-icon{
+    background-color: #001737;
+    border: 0px
+}
+#vertical-timeline::before{
+    background-color: rgba(231, 231, 231, 0.733)
+}
 </style>

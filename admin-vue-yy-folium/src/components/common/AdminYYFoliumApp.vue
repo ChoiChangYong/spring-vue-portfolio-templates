@@ -22,8 +22,8 @@
 
 <script>
 import $ from 'jquery'
-import SideNav from "./common/SideNav"
-import HeaderNav from "./common/HeaderNav"
+import SideNav from "./SideNav"
+import HeaderNav from "./HeaderNav"
 
 export default {
     components: {

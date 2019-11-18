@@ -39,7 +39,7 @@
                           </div>
                       </div>
                       <div class="text-right">
-                          <button type="button" class="btn btn-primary" @click="submitMenu()">Submit</button>
+                          <button type="button" class="btn btn-primary" @click="submitMenu()">저장</button>
                       </div>
                   </div>
               </div> <!-- end card-body-->

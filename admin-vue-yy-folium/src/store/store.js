@@ -15,6 +15,7 @@ import job from './modules/job'
 import work from './modules/work'
 import education from './modules/education'
 import menu from './modules/portfolioMenu'
+import project from './modules/portfolioProject'
 import contact from './modules/contact'
 
 Vue.use(Vuex);
@@ -30,6 +31,7 @@ export const store = new Vuex.Store({
         work,
         education,
         menu,
+        project,
         contact
     },
 });

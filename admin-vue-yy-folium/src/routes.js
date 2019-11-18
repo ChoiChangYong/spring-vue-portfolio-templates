@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Login from './components/Login'
-import AdminYYFoliumApp from './components/AdminYYFoliumApp'
+import AdminYYFoliumApp from './components/common/AdminYYFoliumApp'
 import Home from './components/Home'
 import AboutProfile from './components/AboutProfile'
 import AboutJob from './components/AboutJob';
@@ -10,7 +10,11 @@ import AboutSkill from './components/AboutSkill'
 import ResumeWork from './components/ResumeWork'
 import ResumeEducation from './components/ResumeEducation'
 import PortfolioMenu from './components/PortfolioMenu'
-import PortfolioProject from './components/PortfolioProject'
+import PortfolioProject from './components/common/PortfolioProject'
+import PortfolioProjectView from './components/PortfolioProjectView'
+import PortfolioProjectAdd from './components/PortfolioProjectAdd'
+import PortfolioProjectEdit from './components/PortfolioProjectEdit'
+import PortfolioProjectImage from './components/PortfolioProjectImage'
 import Contact from './components/Contact'
 import PageNotFound from './components/common/404NotFound'
 
@@ -61,7 +65,33 @@ export const router = new VueRouter({
                 },
                 {
                     path: '/portfolio/project',
-                    component: PortfolioProject
+                    component: PortfolioProject,
+                    children: [
+                        {
+                            name: 'view',
+                            path: '/portfolio/project/view',
+                            component: PortfolioProjectView,
+                            prop: true
+                        },
+                        {
+                            name: 'add',
+                            path: '/portfolio/project/add',
+                            component: PortfolioProjectAdd,
+                            prop: true
+                        },
+                        {
+                            name: 'edit',
+                            path: '/portfolio/project/edit',
+                            component: PortfolioProjectEdit,
+                            prop: true
+                        },
+                        {
+                            name: 'image',
+                            path: '/portfolio/project/image',
+                            component: PortfolioProjectImage,
+                            prop: true
+                        },
+                    ]
                 },
                 {
                     path: '/contact',

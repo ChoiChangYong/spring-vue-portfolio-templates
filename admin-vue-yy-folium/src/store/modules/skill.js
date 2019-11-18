@@ -23,6 +23,7 @@ const mutations = {
             },
             showCancelButton: true,
             confirmButtonText: "저장",
+            cancelButtonText: "취소",
             showLoaderOnConfirm: true,
             preConfirm: function () {
                 var name = document.getElementById('skill-name').value

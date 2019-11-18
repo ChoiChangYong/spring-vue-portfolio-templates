@@ -10,6 +10,18 @@ const state = {
         email: "",
         tel: "",
         imageUrl: ""
+    },
+    dropzoneOptions: {
+        url: api.url+"/users/image-upload",
+        thumbnailWidth: 150,
+        maxFilesize: 128,
+        addRemoveLinks: true,
+        maxFiles: 1,
+        uploadMultiple: false,
+        method: 'post',
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF",
+        // headers: { "My-Awesome-Header": "header value" },
+        params: {'sessionId': window.sessionStorage.getItem("sessionId")},
     }
 }
 const mutations = {

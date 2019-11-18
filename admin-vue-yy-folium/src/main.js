@@ -8,6 +8,8 @@ import 'bootstrap'
 import 'dropify'
 import 'dropify/dist/css/dropify.min.css'
 
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 import 'jquery-ui'
 
 import 'jquery-slimscroll'

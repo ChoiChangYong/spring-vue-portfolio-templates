@@ -13,7 +13,7 @@
                         </div>
                         <div id="accordion-2" data-parent="#accordion-" class="collapse show">
                             <div class="card-body">
-                                <ImageDropzone></ImageDropzone>
+                                <Vue2Dropzone id="profileImage" :options="dropzoneOptions" v-on:vdropzone-success="getProfiles"></Vue2Dropzone>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="button" class="btn btn-primary" @click="profileSubmit">Submit</button>
+                        <button type="button" class="btn btn-primary" @click="profileSubmit">저장</button>
                     </div>
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
@@ -86,22 +86,22 @@
 </template>
 
 <script>
+import Vue2Dropzone from 'vue2-dropzone'
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
-import ImageDropzone from "./common/ImageDropzone"
 import { mapState, mapActions, mapMutations } from "vuex"
 import $ from 'jquery'
 
 export default {
     components: {
-        ImageDropzone
+        Vue2Dropzone
     },
     computed: {
-        ...mapState("profile",['userAbout'])
+        ...mapState("profile",['userAbout','dropzoneOptions'])
     },
     methods: {
         // ...mapMutations(['toastSubmit']),
         ...mapActions("profile",['sessionCheck']),
-        ...mapMutations("profile",['updateprofile']),
+        ...mapMutations("profile",['getProfiles','updateprofile']),
         profileSubmit() {
             this.userAbout.name = this.$refs.name.innerHTML
             this.userAbout.email = this.$refs.email.innerHTML

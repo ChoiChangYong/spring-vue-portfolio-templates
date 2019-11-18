@@ -4,7 +4,7 @@
         <div class="left-side-content-area d-flex align-items-center">
             <!-- Mobile Logo -->
             <div class="mobile-logo mr-3 mr-sm-4">
-                <a href="#"><img src="../../img/core-img/small-logo.png" alt="Mobile Logo"></a>
+                <router-link to="/home">Folium</router-link>
             </div>
 
             <!-- Triggers -->

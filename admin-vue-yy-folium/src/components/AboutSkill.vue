@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="submitSkill()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="submitSkill()">저장</button>
                         </div>
                     </div>
                 </div> <!-- end card-body-->

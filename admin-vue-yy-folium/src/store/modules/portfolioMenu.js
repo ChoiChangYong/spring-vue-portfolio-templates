@@ -59,7 +59,6 @@ const mutations = {
         })
     },
     updateMenus: (portfolioMenus) => {
-        alert(JSON.stringify(portfolioMenus))
         axios.put(api.url+"/portfolio-menus",
             {
                 'sessionObject': {

@@ -3,10 +3,8 @@
     <div class="ecaps-sidemenu-area">
         <!-- Desktop Logo -->
         <div class="ecaps-logo">
-            <a href="index.html">
-                <img class="desktop-logo" src="../../img/core-img/logo.png" alt="Desktop Logo"> 
-                <img class="small-logo" src="../../img/core-img/small-logo.png" alt="Mobile Logo">
-            </a>
+            <router-link to="/home"><strong class="desktop-logo center">Folium</strong></router-link>
+            <router-link to="/home"><strong class="small-logo center">Folium</strong></router-link>
         </div>
 
         <!-- Side Nav -->
@@ -17,7 +15,7 @@
                     <!-- Sidebar Menu -->
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
-                            <li><router-link to="/home" exact><i class="fas fa-home"></i><span>Home</span></router-link></li>
+                            <li><router-link to="/home"><i class="fas fa-home"></i><span>Home</span></router-link></li>
                             <li class="treeview">
                                 <a href="javascript:void(0)">
                                     <i class="fas fa-id-card-alt"></i>
@@ -49,7 +47,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><router-link to="/portfolio/menu">Menu</router-link></li>
-                                    <li><router-link to="/portfolio/project">Project</router-link></li>
+                                    <li><router-link to="/portfolio/project/view">Project</router-link></li>
                                 </ul>
                             </li>
 
@@ -109,7 +107,9 @@ export default {
 </script>
 
 <style>
-.router-link-active {
-  background: #5A8DEE;
+.center {
+    font-size: 25px;
+    width: auto;
+    margin: auto;
 }
 </style>

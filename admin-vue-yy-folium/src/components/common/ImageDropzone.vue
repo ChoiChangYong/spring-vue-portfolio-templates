@@ -1,10 +1,9 @@
 <template>
-    <Vue2Dropzone ref="profileImage" id="profileImage" :options="dropzoneOptions" v-on:vdropzone-success="getProfiles"></Vue2Dropzone>
+    <Vue2Dropzone id="profileImage" :options="dropzoneOptions" v-on:vdropzone-success="getProfiles"></Vue2Dropzone>
 </template>
 
 <script>
 import Vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -15,7 +14,6 @@ export default {
         return {
             dropzoneOptions: {
                 url: "http://192.168.0.99:8080/api/users/image-upload",
-                
                 thumbnailWidth: 150,
                 maxFilesize: 128,
                 addRemoveLinks: true,

@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" @click="homeSubmit()">Submit</button>
+                            <button type="button" class="btn btn-primary" @click="homeSubmit()">저장</button>
                         </div>
                     </div>
                 </div>
