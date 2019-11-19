@@ -15,8 +15,8 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleSelectGender">메뉴</label>
-                                <select class="form-control" id="exampleSelectGender" v-model="menu_id.id">
-                                    <option v-for="project in projects" v-bind:key="project.id" :value="project.portfolioMenu.id">{{ project.portfolioMenu.name }}</option>
+                                <select class="form-control" id="exampleSelectGender" v-model="selectedMenuId.id">
+                                    <option v-for="menu in menus" v-bind:key="menu.id" :value="menu.id">{{ menu.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button type="button" class="btn btn-primary" @click="submitProject(menu_id.id)">저장</button>
+                <button type="button" class="btn btn-primary" @click="submitProject(selectedMenuId.id)">저장</button>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
     computed: {
-        ...mapState("project",['projects', 'newProjects', 'menu_id'])
+        ...mapState("project",['projects', 'newProjects', 'menus', 'selectedMenuId'])
     },
     methods: {
         ...mapMutations("project",['submitProject'])

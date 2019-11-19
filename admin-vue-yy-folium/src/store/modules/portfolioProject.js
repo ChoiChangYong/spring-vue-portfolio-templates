@@ -9,27 +9,18 @@ const state = {
         belong: "",
         description: "",
     },
-    menu_id: {
+    newProject: {
+        id: ""
+    },
+    menus: [],
+    selectedMenuId: {
         id: ""
     },
     imageUrls: [],
-    dropzoneOptions: {
-        // url: api.url+"/portfolio-projects/"+this.project.id+"/image-upload",
-        thumbnailWidth: 150,
-        maxFilesize: 128,
-        addRemoveLinks: true,
-        maxFiles: 5,
-        uploadMultiple: false,
-        method: 'post',
-        acceptedFiles: ".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF",
-        // headers: { "My-Awesome-Header": "header value" },
-        // params: {'sessionId': window.sessionStorage.getItem("sessionId")},
-    }
 }
 
 const mutations = {
     submitProject: (state, menu_id) => {
-        alert(JSON.stringify(menu_id))
         const portfolioProject = state.newProjects
         axios.post(api.url+"/portfolio-menus/"+menu_id+"/portfolio-projects",{
                 'sessionObject': {
@@ -37,7 +28,8 @@ const mutations = {
                 },
                 portfolioProject
         })
-        .then(() => {
+        .then((response) => {
+            state.newProject.id = response.data.id
             mutations.submitSwal()
         })
         .catch(function(error) {
@@ -60,7 +52,9 @@ const mutations = {
                     },
                 })
             } else {
+                state.menus=[]
                 for (var portfolioMenu of portfolioMenus.data){
+                    state.menus.push(portfolioMenu)
                     mutations.getProjects(portfolioMenu.id)
                 }
             }
@@ -117,13 +111,14 @@ const mutations = {
             showLoaderOnConfirm: true,
             allowOutsideClick: function () {
                 Swal.isLoading()
-            }.then((result) => {
-                if (result.value) {
-                    router.push('/portfolio/project/image')
-                } else {
-                    router.push('/portfolio/project/view')
-                }
-            })
+            }
+        }).then((result) => {
+            if (result.value) {
+                const id = state.newProject.id
+                router.push({ name: 'image', params: { id: id }})
+            } else {
+                router.push({ path: '/portfolio/project/view'})
+            }
         })
     }
 }

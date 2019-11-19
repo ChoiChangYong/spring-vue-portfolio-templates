@@ -11,7 +11,7 @@
             </div>
             <div id="accordion-3" class="collapse show" data-parent="#accordion-">
                 <div class="card-body">
-                    <!-- <Vue2Dropzone id="projectImage" :options="dropzoneOptions"></Vue2Dropzone> -->
+                    <Vue2Dropzone id="projectImage" :options="dropzoneOptions"></Vue2Dropzone>
                 </div>
             </div>
         </div>
@@ -19,8 +19,39 @@
 </template>
 
 <script>
-export default {
+import { api } from '../store/modules/common/global-variable'
+import Vue2Dropzone from 'vue2-dropzone'
+// import { router } from '../routes'
+// import { mapState } from 'vuex'
 
+export default {
+    data: () => {
+        return{
+            newProjectId: "",
+            dropzoneOptions: {
+                url: "",
+                thumbnailWidth: 150,
+                maxFilesize: 128,
+                addRemoveLinks: true,
+                maxFiles: 5,
+                uploadMultiple: false,
+                method: 'post',
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF",
+                // headers: { "My-Awesome-Header": "header value" },
+                params: {'sessionId': window.sessionStorage.getItem("sessionId")},
+            },
+        }
+    },
+    computed: {
+        // ...mapState("portfolio",['newProject'])
+    },
+    components: {
+        Vue2Dropzone
+    },
+    created() {
+        this.newProjectId = this.$route.params.id
+        this.dropzoneOptions.url = api.url+"/portfolio-projects/"+this.newProjectId+"/image-upload"
+    }
 }
 </script>
 

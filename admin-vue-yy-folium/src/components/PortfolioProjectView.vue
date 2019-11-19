@@ -22,12 +22,11 @@
                                 <i class="fas fa-minus-square fa-2x"></i>
                             </div>
                             <h5 class>{{ project.name }}</h5>
-                            <div v-for="image in project.imageUrls" v-bind:key="image.id">
-                                <p>{{ image }}</p>
-                            </div>
-                            <!-- <slider v-for="image in projects.imageUrls" v-bind:key="image.id"> -->
-                                <!-- <img v-bind:src="image"/> -->
-                            <!-- </slider> -->
+                                <carousel :autoplay="true" :nav="false">
+                                    <div v-for="image in project.imageUrls" v-bind:key="image.id">
+                                        <img v-bind:src="image"/>
+                                    </div>
+                                </carousel>
                             <p class="card-text mt-2">
                                 {{ project.description}}
                             </p>
@@ -40,14 +39,15 @@
 </template>
 
 <script>
-// import slider from './common/Slider'
+import carousel from 'vue-owl-carousel'
 import { mapState, mapMutations, mapActions } from 'vuex'
+
 export default {
     computed: {
         ...mapState("project",['projects'])
     },
     components: { 
-        // slider 
+        carousel 
     },
     methods: {
         ...mapMutations("project",['isMenusNull']),
@@ -60,6 +60,17 @@ export default {
 </script>
 
 <style>
+.img-wrap {
+    margin: auto;
+    width: auto;
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
+}
+.project-img {
+    width: auto;
+    height: 300px;
+}
 .fa-pen-square {
     color: #ffc107
 }

@@ -87,7 +87,7 @@ export const router = new VueRouter({
                         },
                         {
                             name: 'image',
-                            path: '/portfolio/project/image',
+                            path: '/portfolio/project/image/:id',
                             component: PortfolioProjectImage,
                             prop: true
                         },
