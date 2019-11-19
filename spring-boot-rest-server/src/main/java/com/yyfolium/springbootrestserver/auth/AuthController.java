@@ -39,6 +39,14 @@ public class AuthController {
         return loginResult;
     }
 
+    @PostMapping("/welcome-user")
+    public String welcomeUser() {
+        Session session = sessionRepository.createSession();
+        session.setAttribute("uuid", userService.getOneById("yong").get().getUuid());
+        sessionRepository.save(session);
+        return session.getId();
+    }
+
     @PostMapping("/session-validation")
     public boolean sessionValidation(@RequestBody Map sessionObject) {
         Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
