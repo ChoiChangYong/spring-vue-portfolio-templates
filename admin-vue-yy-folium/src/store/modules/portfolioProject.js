@@ -120,6 +120,41 @@ const mutations = {
                 router.push({ path: '/portfolio/project/view'})
             }
         })
+    },
+    projectView: () => {
+        router.push('/portfolio/project/view')
+    },
+    deleteProject: (state, id) => {
+        Swal.fire({
+            title: '삭제하시겠습니까?',
+            text: "삭제할 경우 되돌릴 수 없습니다.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                axios.delete(api.url+"/portfolio-projects/"+id,
+                {
+                    params: {
+                        'sessionId': window.sessionStorage.getItem("sessionId")
+                    }
+                })
+                .then(() => {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    actions.sessionCheck()
+
+                })
+                .catch(function(error) {
+                    alert(error);
+                })
+            }
+        })
     }
 }
 

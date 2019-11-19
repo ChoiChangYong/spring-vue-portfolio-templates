@@ -19,7 +19,7 @@
                             <p>{{ project.portfolioMenu.name }}</p>
                             <div class="text-right float-right">
                                 <i class="fas fa-pen-square fa-2x mr-3"></i>
-                                <i class="fas fa-minus-square fa-2x"></i>
+                                <i class="fas fa-minus-square fa-2x" @click="deleteProject(project.id)"></i>
                             </div>
                             <h5 class>{{ project.name }}</h5>
                                 <carousel :autoplay="true" :nav="false">
@@ -50,7 +50,7 @@ export default {
         carousel 
     },
     methods: {
-        ...mapMutations("project",['isMenusNull']),
+        ...mapMutations("project",['isMenusNull', 'deleteProject']),
         ...mapActions("project",['sessionCheck'])
     },
     mounted() {
