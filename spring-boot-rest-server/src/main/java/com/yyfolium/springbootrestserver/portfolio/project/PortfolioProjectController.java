@@ -18,29 +18,27 @@ public class PortfolioProjectController {
     @Autowired
     PortfolioProjectService portfolioProjectService;
 
-    @GetMapping("/pf-menus/{menu_id}/pf-projects")
+    @GetMapping("/portfolio-menus/{menu_id}/portfolio-projects")
     public List<PortfolioProject> getAllPortfolioProjects(
-            @RequestParam Map requestObject, @PathVariable Long menu_id) {
+            @RequestParam Map requestObject, @PathVariable(value = "menu_id") Long menu_id) {
+        System.out.println(requestObject.toString());
 
         String sessionId = requestObject.get("sessionId").toString();
         return portfolioProjectService.getAllByPortfolioMenuOrderByCreated(sessionId, menu_id);
     }
 
 
+//    @GetMapping("/portfolio-menus/{menu_id}/portfolio-projects/{id}")
+//    public Optional<PortfolioProject> getPortfolioProjectById(
+//            @PathVariable String user_id, @PathVariable(value = "menu_id") Long menu_id, @PathVariable(value = "id") Long project_id) {
+//        return portfolioProjectService.getOneById(user_id, menu_id, project_id);
+//    }
 
 
-    @GetMapping("/pf-menus/{menu_id}/pf-projects/{id}")
-    public Optional<PortfolioProject> getPortfolioProjectById(
-            @PathVariable String user_id, @PathVariable(value = "menu_id") Long menu_id, @PathVariable(value = "id") Long project_id) {
-        return portfolioProjectService.getOneById(user_id, menu_id, project_id);
-    }
-
-
-
-
-    @PostMapping("/pf-menus/{menu_id}/pf-projects")
+    @PostMapping("/portfolio-menus/{menu_id}/portfolio-projects")
     public PortfolioProject createPortfolioProject(
-            @RequestBody Map requestObject, @PathVariable(value = "menu_id") Long menu_id) {
+            @Valid @RequestBody Map requestObject, @PathVariable(value = "menu_id") Long menu_id) {
+        System.out.println(requestObject.toString());
 
         Map sessionObject = (Map) requestObject.get("sessionObject");
         String sessionId = sessionObject.get("sessionId").toString();
@@ -51,9 +49,10 @@ public class PortfolioProjectController {
         return portfolioProjectService.create(sessionId, menu_id, portfolioProject);
     }
 
-    @PutMapping("/pf-menus/{menu_id}/pf-projects/{id}")
+    @PutMapping("/portfolio-menus/{menu_id}/portfolio-projects/{id}")
     public PortfolioProject updatePortfolioProject(
             @Valid @RequestBody Map requestObject, @PathVariable(value = "menu_id") Long menu_id, @PathVariable(value = "id") Long project_id) {
+        System.out.println(requestObject.toString());
 
         Map sessionObject = (Map) requestObject.get("sessionObject");
         String sessionId = sessionObject.get("sessionId").toString();
@@ -63,12 +62,12 @@ public class PortfolioProjectController {
         return portfolioProjectService.update(sessionId, menu_id, project_id, portfolioProject);
     }
 
-    @DeleteMapping("/pf-menus/{menu_id}/pf-projects/{id}")
+    @DeleteMapping("/portfolio-projects/{id}")
     public ResponseEntity<?> deletePortfolioProject(
-            @Valid @RequestBody Map sessionObject, @PathVariable(value = "menu_id") Long menu_id, @PathVariable(value = "id") Long project_id) {
-
+            @Valid @RequestParam Map sessionObject, @PathVariable(value = "id") Long project_id) {
+        System.out.println(sessionObject);
         String sessionId = sessionObject.get("sessionId").toString();
-        portfolioProjectService.delete(sessionId, menu_id, project_id);
+        portfolioProjectService.delete(sessionId, project_id);
         return ResponseEntity.ok().build();
     }
 }

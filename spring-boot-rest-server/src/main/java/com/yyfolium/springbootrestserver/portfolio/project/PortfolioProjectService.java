@@ -9,24 +9,28 @@ import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+
+
 public class PortfolioProjectService {
 
-    @Autowired
-    PortfolioProjectRepository portfolioProjectRepository;
+    private final PortfolioProjectRepository portfolioProjectRepository;
 
-    @Autowired
-    SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    PortfolioMenuRepository portfolioMenuRepository;
+    private final PortfolioMenuRepository portfolioMenuRepository;
+
+    public PortfolioProjectService(PortfolioProjectRepository portfolioProjectRepository, SessionRepository sessionRepository, UserRepository userRepository, PortfolioMenuRepository portfolioMenuRepository) {
+        this.portfolioProjectRepository = portfolioProjectRepository;
+        this.sessionRepository = sessionRepository;
+        this.userRepository = userRepository;
+        this.portfolioMenuRepository = portfolioMenuRepository;
+    }
 
     public PortfolioProject create(String sessionId, Long menu_id, PortfolioProject portfolioProject) {
         Session session = sessionRepository.findById(sessionId);
@@ -51,11 +55,11 @@ public class PortfolioProjectService {
         return portfolioProjectRepository.findByPortfolioMenuOrderByCreated(portfolioMenuRepository.findById(menu_id).get());
     }
 
-    public Optional<PortfolioProject> getOneById(String user_id, Long menu_id, Long project_id) {
-        isUser(user_id);
-        isPortfolioMenu(menu_id);
-        return portfolioProjectRepository.findById(project_id);
-    }
+//    public Optional<PortfolioProject> getOneById(String user_id, Long menu_id, Long project_id) {
+//        isUser(user_id);
+//        isPortfolioMenu(menu_id);
+//        return portfolioProjectRepository.findById(project_id);
+//    }
 
     public PortfolioProject update(String sessionId, Long menu_id, Long project_id, PortfolioProject fetchedPortfolioProject) {
         Session session = sessionRepository.findById(sessionId);
@@ -67,6 +71,7 @@ public class PortfolioProjectService {
         final Optional<PortfolioProject> portfolioProject = portfolioProjectRepository.findById(project_id);
         if(portfolioProject.isPresent()) {
             Optional.ofNullable(fetchedPortfolioProject.getName()).ifPresent(f -> portfolioProject.get().setName(fetchedPortfolioProject.getName()));
+            Optional.ofNullable(fetchedPortfolioProject.getBelong()).ifPresent(f -> portfolioProject.get().setBelong(fetchedPortfolioProject.getBelong()));
             Optional.ofNullable(fetchedPortfolioProject.getDescription()).ifPresent(f -> portfolioProject.get().setDescription(fetchedPortfolioProject.getDescription()));
             return portfolioProjectRepository.save(portfolioProject.get());
         }
@@ -75,13 +80,12 @@ public class PortfolioProjectService {
         }
     }
 
-    public void delete(String sessionId, Long menu_id, Long project_id) {
+    public void delete(String sessionId, Long project_id) {
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
 
         isUser(user_id);
-        isPortfolioMenu(menu_id);
-        
+
         Optional<PortfolioProject> portfolioProject = portfolioProjectRepository.findById(project_id);
         portfolioProject.ifPresent(portfolioProjectRepository::delete);
     }

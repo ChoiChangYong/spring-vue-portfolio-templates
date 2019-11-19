@@ -55,8 +55,6 @@ public class UserController {
 
     @PostMapping("/users/image-upload")
     public ResponseEntity<?> profileImageUpload(@RequestParam Map requestObject, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        System.out.println(requestObject.toString());
-
         String sessionId = requestObject.get("sessionId").toString();
         userService.profileImageUpload(sessionId, multipartFile);
         return ResponseEntity.ok().build();
@@ -64,11 +62,9 @@ public class UserController {
 
 
 
-
-
-    @DeleteMapping("/users/{uuid}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String uuid) {
-        userService.deleteByUuid(uuid);
-        return ResponseEntity.ok().build();
-    }
+//    @DeleteMapping("/users/{uuid}")
+//    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String uuid) {
+//        userService.deleteByUuid(uuid);
+//        return ResponseEntity.ok().build();
+//    }
 }

@@ -18,18 +18,22 @@ public class PortfolioMenuController {
     @Autowired
     PortfolioMenuService portfolioMenuService;
 
-    @GetMapping("/pf-menus")
+    @GetMapping("/portfolio-menus")
     public List<PortfolioMenu> getAllPortfolioMenus(@RequestParam Map requestObject) {
+        System.out.println(requestObject.toString());
+
         return portfolioMenuService.getAllByUserOrderByCreated(requestObject.get("sessionId").toString());
     }
 
-    @GetMapping("/pf-menus/{id}")
+    @GetMapping("/portfolio-menus/{id}")
     public Optional<PortfolioMenu> getPortfolioMenuById(@PathVariable(value = "id") Long id) {
         return portfolioMenuService.getById(id);
     }
 
-    @PostMapping("/pf-menus")
+    @PostMapping("/portfolio-menus")
     public PortfolioMenu createPortfolioMenu(@Valid @RequestBody Map requestObject) {
+        System.out.println(requestObject.toString());
+
         Map sessionObject = (Map) requestObject.get("sessionObject");
         String sessionId = sessionObject.get("sessionId").toString();
 
@@ -39,13 +43,21 @@ public class PortfolioMenuController {
         return portfolioMenuService.create(sessionId, portfolioMenu);
     }
 
-    @PutMapping("/pf-menus")
+    @PutMapping("/portfolio-menus")
     public ResponseEntity<?> updatePortfolioMenu(@Valid @RequestBody Map requestObject) {
-        portfolioMenuService.update((ArrayList<Object>) requestObject.get("portfolioMenus"));
+        System.out.println(requestObject.toString());
+
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        Map portfolioMenuObject = (Map) requestObject.get("portfolioMenus");
+
+        ArrayList<Object> portfolioMenus = (ArrayList<Object>) portfolioMenuObject.get("portfolioMenus");
+        portfolioMenuService.update(sessionId, portfolioMenus);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/pf-menus/{id}")
+    @DeleteMapping("/portfolio-menus/{id}")
     public ResponseEntity<?> deletePortfolioMenu(@PathVariable(value = "id") Long id) {
         portfolioMenuService.delete(id);
         return ResponseEntity.ok().build();

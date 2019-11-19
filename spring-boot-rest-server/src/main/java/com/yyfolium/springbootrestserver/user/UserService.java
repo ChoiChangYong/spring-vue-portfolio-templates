@@ -117,11 +117,11 @@ public class UserService {
         userRepository.save(user.get());
     }
 
-    public void deleteByUuid(String uuid) {
-        Optional<User> user = userRepository.findByUuid(uuid);
-        user.ifPresent(userRepository::delete);
+//    public void deleteByUuid(String uuid) {
+//        Optional<User> user = userRepository.findByUuid(uuid);
+//        user.ifPresent(userRepository::delete);
 //        userRepository.delete(user.get());
-    }
+//    }
 
 //    @Override
 //    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {

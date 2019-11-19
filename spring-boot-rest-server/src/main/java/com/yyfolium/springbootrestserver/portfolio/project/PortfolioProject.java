@@ -21,13 +21,16 @@ public class PortfolioProject {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="portfolio_menu_id",nullable = false)
+    @JoinColumn(name ="portfolio_menu_id")
     private PortfolioMenu portfolioMenu;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String name;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 100)
+    private String belong;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @CreationTimestamp

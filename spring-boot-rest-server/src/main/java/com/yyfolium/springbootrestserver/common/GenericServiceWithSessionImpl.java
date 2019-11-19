@@ -2,6 +2,7 @@ package com.yyfolium.springbootrestserver.common;
 
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
 
@@ -54,5 +55,13 @@ public class GenericServiceWithSessionImpl<T, R extends GenericRepositoryJoinUse
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
         return userRepository.findByUuid(user_id).get();
+    }
+
+    public void isUser(String sessionId){
+        Session session = sessionRepository.findById(sessionId);
+        String user_id = session.getAttribute("uuid");
+
+        userRepository.findByUuid(user_id)
+                .orElseThrow(() -> new UsernameNotFoundException(user_id));
     }
 }

@@ -21,10 +21,10 @@ public class PortfolioImage {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="portfolio_project_id",nullable = false)
+    @JoinColumn(name ="portfolio_project_id")
     private PortfolioProject portfolioProject;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String url;
 
     @CreationTimestamp

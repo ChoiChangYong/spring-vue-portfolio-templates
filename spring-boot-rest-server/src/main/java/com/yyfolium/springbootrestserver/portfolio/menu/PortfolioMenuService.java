@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,10 @@ public class PortfolioMenuService extends GenericServiceWithSessionImpl<Portfoli
         return super.repository.findById(id);
     }
 
-    public void update(ArrayList<Object> fetchedPortfolioMenus) {
+    public void update(String sessionId, ArrayList<Object> fetchedPortfolioMenus) {
+
+        super.isUser(sessionId);
+
         for(Object o : fetchedPortfolioMenus){
             ObjectMapper objectMapper = new ObjectMapper();
             PortfolioMenu fetchedPortfolioMenu = objectMapper.convertValue(o, PortfolioMenu.class);

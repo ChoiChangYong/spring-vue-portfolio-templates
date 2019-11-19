@@ -21,10 +21,10 @@ public class PortfolioMenu {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="user_id",nullable = false)
+    @JoinColumn(name ="user_id")
     private User user;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30)
     private String name;
 
     @CreationTimestamp

@@ -10,3 +10,4 @@ public interface GenericServiceWithSession<T> {
     T update(T fetchedT);
     void delete(Long id);
 }
+

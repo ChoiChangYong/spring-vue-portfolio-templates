@@ -1,19 +1,17 @@
 package com.yyfolium.springbootrestserver.portfolio.image;
 
-import com.yyfolium.springbootrestserver.storage.StorageFileNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yyfolium.springbootrestserver.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -33,65 +31,91 @@ public class PortfolioImageController {
         this.storageService = storageService;
     }
 
-    @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images")
+    @GetMapping("/portfolio-projects/{project_id}/portfolio-images")
     public List<PortfolioImage> getAllPortfolioImages(
-            @PathVariable String user_id, @PathVariable Long project_id) {
-        return portfolioImageService.getAllByPortfolioProjectOrderByCreated(user_id, project_id);
+            @RequestParam Map requestObject, @PathVariable Long project_id) {
+        System.out.println(requestObject.toString());
+
+        String sessionId = requestObject.get("sessionId").toString();
+        return portfolioImageService.getAllByPortfolioProjectOrderByCreated(sessionId, project_id);
     }
 
-    @GetMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")
-    public Optional<PortfolioImage> getPortfolioImageById(
-            @PathVariable String user_id, @PathVariable Long project_id, @PathVariable(value = "id") Long image_id) {
-        return portfolioImageService.getOneById(user_id, project_id, image_id);
-    }
 
-    @PostMapping("/users/{user_id}/pf-projects/{project_id}/pf-images")
-    public PortfolioImage createPortfolioImage(
-            @PathVariable String user_id, @PathVariable Long project_id,
-            @RequestParam("projectImage") MultipartFile multipartFile) {
+//    @GetMapping("/portfolio-projects/{project_id}/portfolio-images/{id}")
+//    public Optional<PortfolioImage> getPortfolioImageById(
+//            @PathVariable String user_id, @PathVariable Long project_id, @PathVariable(value = "id") Long image_id) {
+//        return portfolioImageService.getOneById(user_id, project_id, image_id);
+//    }
 
-        return portfolioImageService.create(user_id, project_id, multipartFile);
-    }
 
-    @PutMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")
+//    @PostMapping("/portfolio-projects/{project_id}/portfolio-images")
+//    public PortfolioImage createPortfolioImage(
+//            @RequestBody Map requestObject, @PathVariable(value = "project_id") Long project_id) {
+//
+//        Map sessionObject = (Map) requestObject.get("sessionObject");
+//        String sessionId = sessionObject.get("sessionId").toString();
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        PortfolioImage portfolioImage = objectMapper.convertValue(requestObject.get("portfolioImage"), PortfolioImage.class);
+//
+//        return portfolioImageService.create(sessionId, project_id, portfolioImage);
+//    }
+
+    @PutMapping("/portfolio-projects/{project_id}/portfolio-images/{id}")
     public PortfolioImage updatePortfolioImage(
-            @PathVariable String user_id, @PathVariable Long project_id,
-            @PathVariable(value = "id") Long image_id,
-            @RequestParam("projectImage") MultipartFile multipartFile) throws IOException {
-        return portfolioImageService.update(user_id, project_id, image_id, multipartFile);
+            @Valid @RequestBody Map requestObject,
+            @PathVariable(value = "project_id") Long project_id, @PathVariable(value = "id") Long image_id) throws IOException {
+
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        PortfolioImage portfolioImage = objectMapper.convertValue(requestObject.get("portfolioImage"), PortfolioImage.class);
+        return portfolioImageService.update(sessionId, project_id, image_id, portfolioImage);
     }
 
-    @DeleteMapping("/users/{user_id}/pf-projects/{project_id}/pf-images/{id}")
+    @DeleteMapping("/portfolio-projects/{project_id}/portfolio-images/{id}")
     public ResponseEntity<?> deletePortfolioImage(
-            @PathVariable String user_id, @PathVariable Long project_id, @PathVariable(value = "id") Long image_id) {
-        portfolioImageService.deleteById(user_id, project_id, image_id);
+            @Valid @RequestBody Map sessionObject, @PathVariable(value = "project_id") Long project_id, @PathVariable(value = "id") Long image_id) {
+
+        String sessionId = sessionObject.get("sessionId").toString();
+        portfolioImageService.deleteById(sessionId, project_id, image_id);
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/portfolio-projects/{project_id}/image-upload")
+    public ResponseEntity<?> profileImageUpload(
+            @RequestParam Map requestObject, @PathVariable(value = "project_id") Long project_id, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+        System.out.println(requestObject.toString());
 
+        String sessionId = requestObject.get("sessionId").toString();
 
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
-
-    @PostMapping("/files")
-    public ResponseEntity<Object> handleFileUpload(@RequestParam("file") MultipartFile file,
-                                                   RedirectAttributes redirectAttributes) {
-
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
-
+        portfolioImageService.projectImageUpload(sessionId, project_id, multipartFile);
         return ResponseEntity.ok().build();
     }
 
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
-    }
+//    @GetMapping("/files/{filename:.+}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+//
+//        Resource file = storageService.loadAsResource(filename);
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+//    }
+//
+//    @PostMapping("/files")
+//    public ResponseEntity<Object> handleFileUpload(@RequestParam("file") MultipartFile file,
+//                                                   RedirectAttributes redirectAttributes) {
+//
+//        storageService.store(file);
+//        redirectAttributes.addFlashAttribute("message",
+//                "You successfully uploaded " + file.getOriginalFilename() + "!");
+//
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @ExceptionHandler(StorageFileNotFoundException.class)
+//    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+//        return ResponseEntity.notFound().build();
+//    }
 }
