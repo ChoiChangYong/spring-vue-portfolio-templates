@@ -2,6 +2,9 @@ package com.yyfolium.springbootrestserver.user;
 
 import com.yyfolium.springbootrestserver.S3Wrapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;
@@ -14,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -50,6 +53,7 @@ public class UserService {
         User newUser = User.builder()
                 .id(user.getId())
                 .password(passwordEncoder.encode(user.getPassword()))
+                .role(user.getRole())
                 .name(user.getName())
                 .gender(user.getGender())
                 .email(user.getEmail())
@@ -112,6 +116,20 @@ public class UserService {
 
         user.get().setImageUrl(fileFullPath);
         userRepository.save(user.get());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String uuid) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUuid(uuid);
+        if(!user.isPresent()) {
+            throw new UsernameNotFoundException(uuid);
+        }
+
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.get().getUuid())
+                .password(user.get().getPassword())
+                .roles(user.get().getRole())
+                .build();
     }
 
 //    public void deleteByUuid(String uuid) {
