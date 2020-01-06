@@ -16,24 +16,19 @@ import java.util.Optional;
 public class PortfolioMenuService extends GenericServiceWithSessionImpl<PortfolioMenu, PortfolioMenuRepository> {
 
     public PortfolioMenuService(PortfolioMenuRepository portfolioMenuRepository,
-                      UserRepository userRepository,
-                      SessionRepository sessionRepository) {
+                                UserRepository userRepository,
+                                SessionRepository sessionRepository) {
         super(portfolioMenuRepository, userRepository, sessionRepository);
     }
 
     @Override
     public PortfolioMenu create(String sessionId, PortfolioMenu portfolioMenu) {
         User user = super.getUserBySessionId(sessionId);
-        if(user!=null) {
+        if (user != null) {
             portfolioMenu.setUser(user);
         }
         System.out.println(portfolioMenu.toString());
         return super.repository.save(portfolioMenu);
-    }
-
-    @Override
-    public List<PortfolioMenu> getAllByUserOrderByCreated(String sessionId) {
-        return super.getAllByUserOrderByCreated(sessionId);
     }
 
     @Override
@@ -45,12 +40,12 @@ public class PortfolioMenuService extends GenericServiceWithSessionImpl<Portfoli
 
         super.isUser(sessionId);
 
-        for(Object o : fetchedPortfolioMenus){
+        for (Object o : fetchedPortfolioMenus) {
             ObjectMapper objectMapper = new ObjectMapper();
             PortfolioMenu fetchedPortfolioMenu = objectMapper.convertValue(o, PortfolioMenu.class);
 
             final Optional<PortfolioMenu> portfolioMenu = super.repository.findById(fetchedPortfolioMenu.getId());
-            if(portfolioMenu.isPresent()){
+            if (portfolioMenu.isPresent()) {
                 Optional.ofNullable(fetchedPortfolioMenu.getName()).ifPresent(f -> portfolioMenu.get().setName(fetchedPortfolioMenu.getName()));
                 super.repository.save(portfolioMenu.get());
             }

@@ -72,7 +72,7 @@ public class PortfolioImageService {
         return portfolioImageRepository.save(portfolioImage);
     }
 
-    public List<PortfolioImage> getAllByPortfolioProjectOrderByCreated(String sessionId, Long project_id) {
+    public List<PortfolioImage> getAllBySessionIdAndPortfolioProjectOrderByCreated(String sessionId, Long project_id) {
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
 
@@ -82,11 +82,20 @@ public class PortfolioImageService {
         return portfolioImageRepository.findByPortfolioProjectOrderByCreated(portfolioProjectRepository.findById(project_id).get());
     }
 
-//    public Optional<PortfolioImage> getOneById(String user_id, Long project_id, Long image_id) {
-//        isUser(user_id);
-//        isPortfolioProject(project_id);
-//        return portfolioImageRepository.findById(image_id);
-//    }
+    public List<PortfolioImage> getAllByUuidAndPortfolioProjectOrderByCreated(String uuid, Long project_id) {
+        String user_id = uuid;
+
+        isUser(user_id);
+        isPortfolioProject(project_id);
+
+        return portfolioImageRepository.findByPortfolioProjectOrderByCreated(portfolioProjectRepository.findById(project_id).get());
+    }
+
+    public Optional<PortfolioImage> getOneById(String user_id, Long project_id, Long image_id) {
+        isUser(user_id);
+        isPortfolioProject(project_id);
+        return portfolioImageRepository.findById(image_id);
+    }
 
     public PortfolioImage update(String sessionId, Long project_id, Long image_id, PortfolioImage fetchedPortfolioImage) throws IOException {
         Session session = sessionRepository.findById(sessionId);

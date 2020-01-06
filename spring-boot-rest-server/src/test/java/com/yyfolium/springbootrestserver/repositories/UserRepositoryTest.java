@@ -33,7 +33,7 @@ public class UserRepositoryTest {
 
     @Test
     public void userTest() throws SQLException {
-        try(Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println(metaData.getURL());
             System.out.println(metaData.getDriverName());

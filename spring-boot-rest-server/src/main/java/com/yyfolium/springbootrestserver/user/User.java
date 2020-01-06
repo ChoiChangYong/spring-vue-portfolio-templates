@@ -13,7 +13,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "user")
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "uuid")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

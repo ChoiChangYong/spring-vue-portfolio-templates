@@ -31,11 +31,6 @@ public class JobService extends GenericServiceWithSessionImpl<Job, JobRepository
     }
 
     @Override
-    public List<Job> getAllByUserOrderByCreated(String sessionId) {
-        return super.getAllByUserOrderByCreated(sessionId);
-    }
-
-    @Override
     public Optional<Job> getById(Long id) {
         return super.repository.findById(id);
     }

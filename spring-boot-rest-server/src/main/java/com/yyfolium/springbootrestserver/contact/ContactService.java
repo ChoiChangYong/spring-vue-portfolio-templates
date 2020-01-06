@@ -31,11 +31,6 @@ public class ContactService extends GenericServiceWithSessionImpl<Contact, Conta
     }
 
     @Override
-    public List<Contact> getAllByUserOrderByCreated(String sessionId) {
-        return super.getAllByUserOrderByCreated(sessionId);
-    }
-
-    @Override
     public Optional<Contact> getById(Long id) {
         return super.repository.findById(id);
     }

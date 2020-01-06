@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "portfolio_menu")
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,7 +22,7 @@ public class PortfolioMenu {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(length = 30)

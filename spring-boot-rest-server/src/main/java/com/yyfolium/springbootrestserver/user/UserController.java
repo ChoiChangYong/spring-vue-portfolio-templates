@@ -1,6 +1,7 @@
 package com.yyfolium.springbootrestserver.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yyfolium.springbootrestserver.session.SessionCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,15 +37,11 @@ public class UserController {
     }
 
 
-
-
-
+    @SessionCheck
     @PutMapping("/users")
     public User updateUser(@Valid @RequestBody Map requestObject) {
 
         Map sessionObject = (Map) requestObject.get("sessionObject");
-        System.out.println(sessionObject.toString());
-        System.out.println(sessionObject.get("sessionId").toString());
         String sessionId = sessionObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,9 +50,12 @@ public class UserController {
         return userService.update(sessionId, user);
     }
 
+    @SessionCheck
     @PostMapping("/users/image-upload")
     public ResponseEntity<?> profileImageUpload(@RequestParam Map requestObject, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        String sessionId = requestObject.get("sessionId").toString();
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
         userService.profileImageUpload(sessionId, multipartFile);
         return ResponseEntity.ok().build();
     }

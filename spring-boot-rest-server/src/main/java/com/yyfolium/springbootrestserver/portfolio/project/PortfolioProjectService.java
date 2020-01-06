@@ -45,7 +45,7 @@ public class PortfolioProjectService {
         return portfolioProjectRepository.save(portfolioProject);
     }
 
-    public List<PortfolioProject> getAllByPortfolioMenuOrderByCreated(String sessionId, Long menu_id) {
+    public List<PortfolioProject> getAllBySessionIdAndPortfolioMenuOrderByCreated(String sessionId, Long menu_id) {
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
 
@@ -55,11 +55,20 @@ public class PortfolioProjectService {
         return portfolioProjectRepository.findByPortfolioMenuOrderByCreated(portfolioMenuRepository.findById(menu_id).get());
     }
 
-//    public Optional<PortfolioProject> getOneById(String user_id, Long menu_id, Long project_id) {
-//        isUser(user_id);
-//        isPortfolioMenu(menu_id);
-//        return portfolioProjectRepository.findById(project_id);
-//    }
+    public List<PortfolioProject> getAllByUuidAndPortfolioMenuOrderByCreated(String uuid, Long menu_id) {
+        String user_id = uuid;
+
+        isUser(user_id);
+        isPortfolioMenu(menu_id);
+
+        return portfolioProjectRepository.findByPortfolioMenuOrderByCreated(portfolioMenuRepository.findById(menu_id).get());
+    }
+
+    public Optional<PortfolioProject> getOneById(String user_id, Long menu_id, Long project_id) {
+        isUser(user_id);
+        isPortfolioMenu(menu_id);
+        return portfolioProjectRepository.findById(project_id);
+    }
 
     public PortfolioProject update(String sessionId, Long menu_id, Long project_id, PortfolioProject fetchedPortfolioProject) {
         Session session = sessionRepository.findById(sessionId);

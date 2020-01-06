@@ -38,7 +38,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.sessionRepository = sessionRepository;
         this.s3Wrapper = s3Wrapper;
-        this.s3Wrapper.setBucket(bucketName+storeName);
+        this.s3Wrapper.setBucket(bucketName + storeName);
     }
 
     public Boolean authentication(String id, String password) {
@@ -72,7 +72,6 @@ public class UserService {
     }
 
 
-
     public Optional<User> getOneById(String id) {
         return userRepository.findById(id);
     }
@@ -82,20 +81,18 @@ public class UserService {
     }
 
 
-
     public User update(String sessionId, User fetchedUser) {
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
 
         final Optional<User> user = userRepository.findByUuid(user_id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             Optional.ofNullable(fetchedUser.getName()).ifPresent(f -> user.get().setName(fetchedUser.getName()));
             Optional.ofNullable(fetchedUser.getGender()).ifPresent(f -> user.get().setGender(fetchedUser.getGender()));
             Optional.ofNullable(fetchedUser.getEmail()).ifPresent(f -> user.get().setEmail(fetchedUser.getEmail()));
             Optional.ofNullable(fetchedUser.getTel()).ifPresent(f -> user.get().setTel(fetchedUser.getTel()));
             return userRepository.save(user.get());
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -107,11 +104,11 @@ public class UserService {
 
         String fileName = UUID.randomUUID().toString().replace("-", "");
         String originName = multipartFile.getOriginalFilename();
-        String exc = originName.substring(originName.lastIndexOf(".")+1, originName.length());
-        String fileFullPath = bucketEndpoint+storeName+"/"+fileName+"."+exc;
+        String exc = originName.substring(originName.lastIndexOf(".") + 1, originName.length());
+        String fileFullPath = bucketEndpoint + storeName + "/" + fileName + "." + exc;
 
-        s3Wrapper.setBucket(bucketName+"/"+storeName);
-        s3Wrapper.upload(multipartFile.getInputStream(), fileName+"."+exc);
+        s3Wrapper.setBucket(bucketName + "/" + storeName);
+        s3Wrapper.upload(multipartFile.getInputStream(), fileName + "." + exc);
 
         user.get().setImageUrl(fileFullPath);
         userRepository.save(user.get());

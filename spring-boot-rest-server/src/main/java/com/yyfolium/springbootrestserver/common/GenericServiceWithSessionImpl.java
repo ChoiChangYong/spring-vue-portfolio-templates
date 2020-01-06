@@ -30,8 +30,13 @@ public class GenericServiceWithSessionImpl<T, R extends GenericRepositoryJoinUse
     }
 
     @Override
-    public List<T> getAllByUserOrderByCreated(String sessionId) {
+    public List<T> getAllBySessionIdOrderByCreated(String sessionId) {
         User user = getUserBySessionId(sessionId);
+        return repository.findByUserOrderByCreated(user);
+    }
+    @Override
+    public List<T> getAllByUuidOrderByCreated(String uuid) {
+        User user = getUserByUuid(uuid);
         return repository.findByUserOrderByCreated(user);
     }
 
@@ -55,6 +60,10 @@ public class GenericServiceWithSessionImpl<T, R extends GenericRepositoryJoinUse
         Session session = sessionRepository.findById(sessionId);
         String user_id = session.getAttribute("uuid");
         return userRepository.findByUuid(user_id).get();
+    }
+
+    protected User getUserByUuid(String uuid) {
+        return userRepository.findByUuid(uuid).get();
     }
 
     public void isUser(String sessionId){

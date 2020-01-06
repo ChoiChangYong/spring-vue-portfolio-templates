@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "portfolio_image")
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,7 +22,7 @@ public class PortfolioImage {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="portfolio_project_id")
+    @JoinColumn(name = "portfolio_project_id")
     private PortfolioProject portfolioProject;
 
     @Column(length = 255)

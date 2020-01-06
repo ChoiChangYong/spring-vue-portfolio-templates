@@ -13,6 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
+//                .disable().authorizeRequests()
 //                .antMatchers("/api/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()

@@ -1,6 +1,8 @@
 package com.yyfolium.springbootrestserver.resume;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yyfolium.springbootrestserver.session.SessionCheck;
+import com.yyfolium.springbootrestserver.skill.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +20,30 @@ public class ResumeController {
     @Autowired
     ResumeService resumeService;
 
+    @GetMapping("/anonymous/resumes/{uuid}")
+    public List<Resume> getAllSkillsForAnonymous(@PathVariable(value = "uuid") String uuid) {
+        return resumeService.getAllByUuidOrderByCreated(uuid);
+    }
+
+    @SessionCheck
     @GetMapping("/resumes")
     public List<Resume> getAllResumes(@RequestParam Map requestObject) {
-        String sessionId = requestObject.get("sessionId").toString();
-        Integer historyFlag = Integer.parseInt(requestObject.get("historyFlag").toString());
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        Map resumeObject = (Map) requestObject.get("resumeObject");
+        Integer historyFlag = Integer.parseInt(resumeObject.get("historyFlag").toString());
 
         return resumeService.getAllByUserAndHistoryFlagOrderByStartDate(sessionId, historyFlag);
     }
 
+    @SessionCheck
     @GetMapping("/resumes/{id}")
-    public Optional<Resume> getResumeById(@PathVariable(value = "id") Long id) {
+    public Optional<Resume> getResumeById(@RequestParam Map requestObject, @PathVariable(value = "id") Long id) {
         return resumeService.getById(id);
     }
 
+    @SessionCheck
     @PostMapping("/resumes")
     public Resume createResume(@Valid @RequestBody Map requestObject) {
         Map sessionObject = (Map) requestObject.get("sessionObject");
@@ -41,14 +54,16 @@ public class ResumeController {
         return resumeService.create(sessionObject.get("sessionId").toString(), resume);
     }
 
+    @SessionCheck
     @PutMapping("/resumes")
     public ResponseEntity<?> updateResume(@Valid @RequestBody Map requestObject) {
         resumeService.update((ArrayList<Object>) requestObject.get("resumes"));
         return ResponseEntity.ok().build();
     }
 
+    @SessionCheck
     @DeleteMapping("/resumes/{id}")
-    public ResponseEntity<?> deleteResume(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> deleteResume(@Valid @RequestBody Map requestObject, @PathVariable(value = "id") Long id) {
         resumeService.delete(id);
         return ResponseEntity.ok().build();
     }

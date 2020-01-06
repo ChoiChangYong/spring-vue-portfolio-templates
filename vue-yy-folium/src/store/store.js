@@ -9,7 +9,7 @@ import YYFoliumAbout from './modules/yy-folium-about'
 
 Vue.use(Vuex);
 Vue.use(VueTypedJs);
- 
+
 export const store = new Vuex.Store({
     modules: {
         YYFoliumNav,
