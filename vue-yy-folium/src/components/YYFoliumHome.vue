@@ -1,10 +1,10 @@
 <template>
     <header class="banner banner-img" id="home">
         <div class="container pr-title">
-            <h2>{{ getIntro }}</h2>
+            <h2>{{ homeItems.intro }}</h2>
 
             <div id="typed-strings">
-                <span>안녕하세요 반갑습니다</span>
+                <span>Welcome to the MYFolium portfolio site.</span>
             </div>
 
             <vue-typed-js 
@@ -18,12 +18,6 @@
                 <h3> - <span class="typing"></span> - </h3>
             </vue-typed-js>
 
-            <p>{{ getSubIntro }}</p>
-
-            <div class="modern-button banner-button">
-                <a href="#">Download CV <i class="fas fa-arrow-down"></i></a>
-            </div>
-
             <div class="arrow-bounce">
                 <a href="#about"><i class="fas fa-angle-double-down fa-2x"></i></a>
             </div>
@@ -32,15 +26,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import $ from 'jquery'
 
 export default {
-    computed: {    
-        ...mapGetters(['getIntro']),
-        ...mapGetters(['getSubIntro'])
+    computed: {
+        ...mapState("home",['homeItems'])
+    },
+    methods: {
+        ...mapActions("home",['getHomes'])
     },
     mounted() {
+        this.getHomes()
+        
         'use strict';
 
         $('a').on('click', function(event) {

@@ -13,42 +13,45 @@
 
         <ul class="filter-gallery">
             <li class="active">
-                <a href="javascript:void(0)" data-mixitup-control data-filter="all">All</a>
+                <a href="javascript:void(0)" data-mixitup-control data-filter="all">App</a>
             </li>
 
             <li>
-                <a href="javascript:void(0)" data-mixitup-control data-filter=".website">Website</a>
-            </li>
-
-            <li>
-                <a href="javascript:void(0)" data-mixitup-control data-filter=".system">System</a>
-            </li>
-
-            <li>
-                <a href="javascript:void(0)" data-mixitup-control data-filter=".logo">Logo</a>
-            </li>
-
-            <li>
-                <a href="javascript:void(0)" data-mixitup-control data-filter=".app">App</a>
+                <a href="javascript:void(0)" data-mixitup-control data-filter=".website">Web</a>
             </li>
         </ul>
 
         <div class="row gallery">
-            <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix website">
-                <figure class="imghvr-zoom-in">
-                    <img id="portfolio_image" class="img-fluid" src="../images/portfolio/1.jpg" alt="Portfolio" />
+            <!-- <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix all"> -->
+                <!-- <figure class="imghvr-zoom-in">
+                    <img id="portfolio_image" class="img-fluid" src="../images/banner-home-black.jpg" alt="Portfolio" />
 
                     <figcaption>
-                        <h1>Web Designing</h1>
+                        <h1>QR코드를 이용한 책거래 시스템</h1>
 
-                        <p>Duis finibus nisi et diam rhoncus, non efficitur sem malesuada. Ut bibendum efficitur hendrerit. Fusce quis sodales diam.</p>
+                        <p>QR코드를 이용한 책거래 시스템 구매자 - 웹 판매자 - 앱</p>
 
                         <i class="fas fa-plus fa-inverse fa-2x"></i>
                     </figcaption>
 
-                    <a href="../images/portfolio/1.jpg" class="portfolio-popup" title="Web Designing"></a>
+                    <a href="../images/banner-home-black.jpg" class="portfolio-popup" title="Web Designing"></a>
+                </figure> -->
+            <!-- </div>
+            <div class="col-12 col-md-4 col-sm-6 col-xs-6 mix website">
+                <figure class="imghvr-zoom-in">
+                    <img id="portfolio_image" class="img-fluid" src="../images/profile.jpg" alt="Portfolio" />
+
+                    <figcaption>
+                        <h1>포트폴리오 웹 사이트 배포</h1>
+
+                        <p>SpringBoot와 VueJS를 이용한 포토폴리오 웹 사이트 템플릿 배포</p>
+
+                        <i class="fas fa-plus fa-inverse fa-2x"></i>
+                    </figcaption>
+
+                    <a href="../images/profile.jpg" class="portfolio-popup" title="Web Designing"></a>
                 </figure>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Portfolio Section END -->

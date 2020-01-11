@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import 'expose-loader?$!expose-loader?jQuery!jquery'
 import 'jquery-inview'
+import 'bootstrap'
 import 'magnific-popup';
 
 import App from './App.vue'

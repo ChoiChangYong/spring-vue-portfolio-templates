@@ -1,6 +1,6 @@
 <template>
     <!-- Resume START -->
-    <div class="resume">
+    <div class="resume" id="resume">
         <div class="container">
             <h2>Resume</h2>
 

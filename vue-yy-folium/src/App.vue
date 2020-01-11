@@ -37,6 +37,7 @@ import YYFoliumPortfolio from './components/YYFoliumPortfolio';
 import YYFoliumContact from './components/YYFoliumContact';
 import YYFoliumFooter from './components/YYFoliumFooter';
 import $ from 'jquery';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'app',
@@ -49,7 +50,12 @@ export default {
     YYFoliumContact,
     YYFoliumFooter
   },
+  methods: {
+    ...mapActions("home",['sessionCheck']),
+  },
   mounted() {
+    this.sessionCheck()
+
     $(window).on('load', function() {
       'use strict';
 

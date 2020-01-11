@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar fixed-top navbar-expand-md navbar-light top-navigation">
         <div class="container">
-            <a class="navbar-brand" href="#home">{{ getTitle }}</a>
+            <a class="navbar-brand text-white" href="#home">{{ homeItems.title }}</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -10,11 +10,14 @@
             <div class="collapse navbar-collapse" id="top-navbar">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#home">Home</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resume">Resume</a>
                     </li>
 
                     <li class="nav-item">
@@ -31,12 +34,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import $ from 'jquery'
 
 export default {
     computed: {
-        ...mapGetters(['getTitle'])
+        ...mapState("home",['homeItems'])
     },
     mounted() {
         // Top Navigation Effect
