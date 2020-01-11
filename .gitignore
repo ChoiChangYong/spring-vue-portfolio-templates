@@ -1,4 +1,4 @@
-  
+# vue
 .DS_Store
 node_modules
 dist
@@ -21,10 +21,16 @@ vscode
 *.sln
 *.sw?
 
-# css files
+# vue-yy-folium css files
 vue-yy-folium/src/assets/
 vue-yy-folium/src/plugins/
 vue-yy-folium/src/images/
+
+# admin-vue-yy-folium css files
+admin-vue-yy-folium/src/assets/
+admin-vue-yy-folium/src/img/
+admin-vue-yy-folium/src/fonts/
+
 
 HELP.md
 target/

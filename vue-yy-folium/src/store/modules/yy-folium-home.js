@@ -1,5 +1,5 @@
 const state = {
-    intro: "Insert Intro",
+    intro: "이쁜 나뇽이와 멋진 용용이",
     subIntro: "Insert SubIntro"
 };
 
