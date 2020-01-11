@@ -1,10 +1,10 @@
 package com.yyfolium.springbootrestserver.resume;
 
+import com.yyfolium.springbootrestserver.common.GenericRepositoryJoinUser;
 import com.yyfolium.springbootrestserver.user.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ResumeRepository extends JpaRepository<Resume, Long> {
-    List<Resume> findByUserOrderByCreatedDesc(User user);
+public interface ResumeRepository extends GenericRepositoryJoinUser<Resume> {
+    List<Resume> findByUserAndHistoryFlagOrderByStartDate(User user, Integer historyFlag);
 }

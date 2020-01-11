@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "uuid")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +28,8 @@ public class User {
 
     @Column(length = 255, nullable = false)
     private String password;
+
+    private String role;
 
     @Column(length = 20)
     private String name;
@@ -51,10 +53,11 @@ public class User {
     private Timestamp updated;
 
     @Builder
-    public User(String id, String password, String name, Integer gender, String email, String tel, String imageUrl) {
+    public User(String id, String password, String role, String name, Integer gender, String email, String tel, String imageUrl) {
         this.uuid = UUID.randomUUID().toString().replace("-", "");
         this.id = id;
         this.password = password;
+        this.role = role;
         this.name = name;
         this.gender = gender;
         this.email = email;

@@ -1,5 +1,7 @@
 package com.yyfolium.springbootrestserver.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yyfolium.springbootrestserver.session.SessionCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -23,14 +26,9 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/users/{uuid}")
-    public Optional<User> getUserByUuid(@PathVariable(value = "uuid") String uuid) {
-        return userService.getOneByUuid(uuid);
-    }
-
     @GetMapping("/user")
-    public Optional<User> getUserByUuid(HttpSession session) {
-        return userService.getUserBySessionId(session);
+    public User getUserBySessionId(@RequestParam Map requestObject) {
+        return userService.getBySessionId(requestObject.get("sessionId").toString());
     }
 
     @PostMapping("/users")
@@ -38,16 +36,35 @@ public class UserController {
         return userService.create(user);
     }
 
-    @PutMapping("/users/{uuid}")
-    public User updateUser(@PathVariable(value = "uuid") String uuid,
-                           @Valid @RequestBody User user,
-                           @RequestParam("profileImage") MultipartFile multipartFile) throws IOException {
-        return userService.update(uuid, user, multipartFile);
+
+    @SessionCheck
+    @PutMapping("/users")
+    public User updateUser(@Valid @RequestBody Map requestObject) {
+
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = objectMapper.convertValue(requestObject.get("user"), User.class);
+
+        return userService.update(sessionId, user);
     }
 
-    @DeleteMapping("/users/{uuid}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String uuid) {
-        userService.deleteByUuid(uuid);
+    @SessionCheck
+    @PostMapping("/users/image-upload")
+    public ResponseEntity<?> profileImageUpload(@RequestParam Map requestObject, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        userService.profileImageUpload(sessionId, multipartFile);
         return ResponseEntity.ok().build();
     }
+
+
+
+//    @DeleteMapping("/users/{uuid}")
+//    public ResponseEntity<?> deleteUser(@PathVariable(value = "uuid") String uuid) {
+//        userService.deleteByUuid(uuid);
+//        return ResponseEntity.ok().build();
+//    }
 }

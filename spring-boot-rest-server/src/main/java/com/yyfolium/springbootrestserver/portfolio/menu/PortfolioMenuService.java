@@ -1,59 +1,60 @@
 package com.yyfolium.springbootrestserver.portfolio.menu;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yyfolium.springbootrestserver.common.GenericServiceWithSessionImpl;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PortfolioMenuService {
+public class PortfolioMenuService extends GenericServiceWithSessionImpl<PortfolioMenu, PortfolioMenuRepository> {
 
-    @Autowired
-    PortfolioMenuRepository portfolioMenuRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    public PortfolioMenu create(String user_id, PortfolioMenu portfolioMenu) {
-        Optional<User> user = userRepository.findByUuid(user_id);
-        user.ifPresent(portfolioMenu::setUser);
-        return portfolioMenuRepository.save(portfolioMenu);
+    public PortfolioMenuService(PortfolioMenuRepository portfolioMenuRepository,
+                                UserRepository userRepository,
+                                SessionRepository sessionRepository) {
+        super(portfolioMenuRepository, userRepository, sessionRepository);
     }
 
-    public List<PortfolioMenu> getAllByUserOrderByCreatedDesc(String user_id) {
-        isUser(user_id);
-        return portfolioMenuRepository.findByUserOrderByCreatedDesc(userRepository.findByUuid(user_id).get());
-    }
-
-    public Optional<PortfolioMenu> getOneById(String user_id, Long portfolioMenu_id) {
-        isUser(user_id);
-        return portfolioMenuRepository.findById(portfolioMenu_id);
-    }
-
-    public PortfolioMenu update(String user_id, Long portfolioMenu_id, PortfolioMenu fetchedPortfolioMenu) {
-        isUser(user_id);
-        final Optional<PortfolioMenu> portfolioMenu = portfolioMenuRepository.findById(portfolioMenu_id);
-        if(portfolioMenu.isPresent()){
-            Optional.ofNullable(fetchedPortfolioMenu.getName()).ifPresent(f -> portfolioMenu.get().setName(fetchedPortfolioMenu.getName()));
-            return portfolioMenuRepository.save(portfolioMenu.get());
+    @Override
+    public PortfolioMenu create(String sessionId, PortfolioMenu portfolioMenu) {
+        User user = super.getUserBySessionId(sessionId);
+        if (user != null) {
+            portfolioMenu.setUser(user);
         }
-        else{
-            return null;
+        System.out.println(portfolioMenu.toString());
+        return super.repository.save(portfolioMenu);
+    }
+
+    @Override
+    public Optional<PortfolioMenu> getById(Long id) {
+        return super.repository.findById(id);
+    }
+
+    public void update(String sessionId, ArrayList<Object> fetchedPortfolioMenus) {
+
+        super.isUser(sessionId);
+
+        for (Object o : fetchedPortfolioMenus) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            PortfolioMenu fetchedPortfolioMenu = objectMapper.convertValue(o, PortfolioMenu.class);
+
+            final Optional<PortfolioMenu> portfolioMenu = super.repository.findById(fetchedPortfolioMenu.getId());
+            if (portfolioMenu.isPresent()) {
+                Optional.ofNullable(fetchedPortfolioMenu.getName()).ifPresent(f -> portfolioMenu.get().setName(fetchedPortfolioMenu.getName()));
+                super.repository.save(portfolioMenu.get());
+            }
         }
     }
 
-    public void deleteById(String user_id, Long portfolioMenu_id) {
-        isUser(user_id);
-        Optional<PortfolioMenu> portfolioMenu = portfolioMenuRepository.findById(portfolioMenu_id);
-        portfolioMenu.ifPresent(portfolioMenuRepository::delete);
+    @Override
+    public void delete(Long id) {
+        super.delete(id);
     }
 
-    public void isUser(String user_id){
-        userRepository.findByUuid(user_id)
-                .orElseThrow(() -> new UsernameNotFoundException(user_id));
-    }
 }

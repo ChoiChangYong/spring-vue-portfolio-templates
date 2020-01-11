@@ -15,7 +15,7 @@ import YYFoliuContact from './modules/yy-folium-contact'
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
 Vue.use(VueTypedJs);
- 
+
 export const store = new Vuex.Store({
     modules: {
         YYFoliumNav,

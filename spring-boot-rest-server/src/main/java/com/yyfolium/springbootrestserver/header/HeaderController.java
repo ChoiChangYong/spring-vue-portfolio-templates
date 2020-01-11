@@ -1,11 +1,15 @@
 package com.yyfolium.springbootrestserver.header;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yyfolium.springbootrestserver.job.Job;
+import com.yyfolium.springbootrestserver.session.SessionCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,33 +19,48 @@ public class HeaderController {
     @Autowired
     HeaderService headerService;
 
-    @GetMapping("/users/{user_id}/headers")
-    public List<Header> getAllHeaders(@PathVariable String user_id) {
-        return headerService.getAllByUserOrderByCreatedDesc(user_id);
+    @GetMapping("/anonymous/headers/{uuid}")
+    public List<Header> getAllSkillsForAnonymous(@PathVariable(value = "uuid") String uuid) {
+        return headerService.getAllByUuidOrderByCreated(uuid);
     }
 
-    @GetMapping("/users/{user_id}/headers/{id}")
-    public Optional<Header> getHeaderById(@PathVariable String user_id,
-                                        @PathVariable(value = "id") Long header_id) {
-        return headerService.getOneById(user_id, header_id);
+    @SessionCheck
+    @GetMapping("/headers")
+    public List<Header> getAllHeaders(@RequestParam Map requestObject) {
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = sessionObject.get("sessionId").toString();
+
+        return headerService.getAllBySessionIdOrderByCreated(sessionId);
     }
 
-    @PostMapping("/users/{user_id}/headers")
-    public Header createHeader(@PathVariable String user_id,
-                             @Valid @RequestBody Header header) {
-        return headerService.create(user_id, header);
+    @SessionCheck
+    @GetMapping("/headers/{id}")
+    public Optional<Header> getSkillById(@RequestParam Map requestObject, @PathVariable(value = "id") Long id) {
+        return headerService.getById(id);
     }
 
-    @PutMapping("/users/{user_id}/headers/{id}")
-    public Header updateHeader(@PathVariable String user_id,
-                             @PathVariable(value = "id") Long header_id,
-                             @Valid @RequestBody Header header) {
-        return headerService.update(user_id, header_id, header);
+    @SessionCheck
+    @PostMapping("/headers")
+    public Header createHeader(@Valid @RequestBody Map requestObject) {
+        Map sessionObject = (Map) requestObject.get("sessionObject");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Header header = objectMapper.convertValue(requestObject.get("header"), Header.class);
+
+        return headerService.create(sessionObject.get("sessionId").toString(), header);
     }
 
-    @DeleteMapping("/users/{user_id}/headers/{id}")
-    public ResponseEntity<?> deleteHeader(@PathVariable String user_id, @PathVariable(value = "id") Long header_id) {
-        headerService.deleteById(user_id, header_id);
+    @SessionCheck
+    @PutMapping("/headers")
+    public ResponseEntity<?> updateHeader(@Valid @RequestBody Header header) {
+        headerService.update(header);
+        return ResponseEntity.ok().build();
+    }
+
+    @SessionCheck
+    @DeleteMapping("/headers/{id}")
+    public ResponseEntity<?> deleteHeader(@Valid @RequestBody Map requestObject, @PathVariable(value = "id") Long id) {
+        headerService.delete(id);
         return ResponseEntity.ok().build();
     }
 }

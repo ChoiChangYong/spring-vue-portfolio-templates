@@ -26,19 +26,25 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
-        String result = "0";
+        String loginResult = "0";
 
         if(userService.authentication(user.getId(), user.getPassword())) {
-            System.out.println(sessionRepository.findById("0393c5bd-8bba-43ba-b450-1bf0946254f3"));
-
             Session session = sessionRepository.createSession();
             session.setAttribute("uuid", userService.getOneById(user.getId()).get().getUuid());
             sessionRepository.save(session);
-
-            result = session.getId();
+            
+            loginResult = session.getId();
         }
 
-        return result;
+        return loginResult;
+    }
+
+    @PostMapping("/welcome-user")
+    public String welcomeUser() {
+        Session session = sessionRepository.createSession();
+        session.setAttribute("uuid", userService.getOneById("yong").get().getUuid());
+        sessionRepository.save(session);
+        return session.getId();
     }
 
     @PostMapping("/session-validation")
