@@ -88,7 +88,7 @@
 <script>
 import Vue2Dropzone from 'vue2-dropzone'
 import SimpleTableCellEditor from '../assets/js/SimpleTableCellEditor'
-import { mapState, mapActions, mapMutations } from "vuex"
+import { mapState, mapMutations } from "vuex"
 import $ from 'jquery'
 
 export default {
@@ -100,7 +100,7 @@ export default {
     },
     methods: {
         // ...mapMutations(['toastSubmit']),
-        ...mapActions("profile",['sessionCheck']),
+        // ...mapActions("profile",['sessionCheck']),
         ...mapMutations("profile",['getProfiles','updateprofile']),
         profileSubmit() {
             this.userAbout.name = this.$refs.name.innerHTML
@@ -110,7 +110,7 @@ export default {
         }
     },
     mounted() {
-        this.sessionCheck()
+        this.getProfiles()
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();
