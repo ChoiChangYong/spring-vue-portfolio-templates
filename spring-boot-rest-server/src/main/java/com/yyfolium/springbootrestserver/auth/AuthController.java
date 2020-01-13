@@ -27,7 +27,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
-        String loginResult = "0";
+        String loginResult = null;
 
         if(userService.authentication(user.getId(), user.getPassword())) {
             Session session = sessionRepository.createSession();
@@ -49,13 +49,13 @@ public class AuthController {
     }
 
     @PostMapping("/session-validation")
-    public boolean sessionValidation(@RequestBody Map sessionObject) {
+    public boolean sessionValidation(@RequestBody Map requestObject) {
 
         System.out.println("===============================");
-        System.out.println(sessionObject.toString());
+        System.out.println(requestObject.toString());
         System.out.println("===============================");
 
-        Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
+        Session session = sessionRepository.findById((String) requestObject.get("sessionId"));
 
         if(session==null)
             return false;
@@ -64,8 +64,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestBody Map sessionObject) {
-        sessionRepository.deleteById((String) sessionObject.get("sessionId"));
+    public ResponseEntity<?> logout(@RequestBody Map requestObject) {
+        sessionRepository.deleteById((String) requestObject.get("sessionId"));
         return ResponseEntity.ok().build();
     }
 }

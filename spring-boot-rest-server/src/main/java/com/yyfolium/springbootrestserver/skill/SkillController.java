@@ -27,8 +27,8 @@ public class SkillController {
     @SessionCheck
     @GetMapping("/skills")
     public List<Skill> getAllSkills(@RequestParam Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        return skillService.getAllBySessionIdOrderByCreated(sessionObject.get("sessionId").toString());
+        String sessionId = requestObject.get("sessionId").toString();
+        return skillService.getAllBySessionIdOrderByCreated(sessionId);
     }
 
     @SessionCheck
@@ -40,11 +40,11 @@ public class SkillController {
     @SessionCheck
     @PostMapping("/skills")
     public Skill createSkill(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Skill skill = objectMapper.convertValue(requestObject.get("skill"), Skill.class);
-        return skillService.create(sessionObject.get("sessionId").toString(), skill);
+        return skillService.create(sessionId, skill);
     }
 
     @SessionCheck

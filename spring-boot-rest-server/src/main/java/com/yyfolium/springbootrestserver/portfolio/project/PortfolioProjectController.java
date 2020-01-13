@@ -33,8 +33,7 @@ public class PortfolioProjectController {
             @RequestParam Map requestObject,
             @PathVariable(value = "menu_id") Long menu_id) {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         return portfolioProjectService.getAllBySessionIdAndPortfolioMenuOrderByCreated(sessionId, menu_id);
     }
@@ -52,8 +51,7 @@ public class PortfolioProjectController {
     public PortfolioProject createPortfolioProject(
             @Valid @RequestBody Map requestObject, @PathVariable(value = "menu_id") Long menu_id) {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         PortfolioProject portfolioProject = objectMapper.convertValue(requestObject.get("portfolioProject"), PortfolioProject.class);
@@ -66,8 +64,7 @@ public class PortfolioProjectController {
     public PortfolioProject updatePortfolioProject(
             @Valid @RequestBody Map requestObject, @PathVariable(value = "menu_id") Long menu_id, @PathVariable(value = "id") Long project_id) {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         PortfolioProject portfolioProject = objectMapper.convertValue(requestObject.get("portfolioProject"), PortfolioProject.class);
@@ -78,8 +75,7 @@ public class PortfolioProjectController {
     @DeleteMapping("/portfolio-projects/{id}")
     public ResponseEntity<?> deletePortfolioProject(
             @Valid @RequestParam Map requestObject, @PathVariable(value = "id") Long project_id) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         portfolioProjectService.delete(sessionId, project_id);
         return ResponseEntity.ok().build();

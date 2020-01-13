@@ -28,8 +28,7 @@ public class ContactController {
     @SessionCheck
     @GetMapping("/contacts")
     public List<Contact> getAllContacts(@RequestParam Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         return contactService.getAllBySessionIdOrderByCreated(sessionId);
     }
@@ -43,12 +42,12 @@ public class ContactController {
     @SessionCheck
     @PostMapping("/contacts")
     public Contact createContact(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Contact contact = objectMapper.convertValue(requestObject.get("contact"), Contact.class);
 
-        return contactService.create(sessionObject.get("sessionId").toString(), contact);
+        return contactService.create(sessionId, contact);
     }
 
     @SessionCheck

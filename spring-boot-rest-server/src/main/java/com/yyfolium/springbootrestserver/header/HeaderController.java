@@ -27,9 +27,7 @@ public class HeaderController {
     @SessionCheck
     @GetMapping("/headers")
     public List<Header> getAllHeaders(@RequestParam Map requestObject) {
-        System.out.println("/header 호출함");
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         return headerService.getAllBySessionIdOrderByCreated(sessionId);
     }
@@ -43,12 +41,12 @@ public class HeaderController {
     @SessionCheck
     @PostMapping("/headers")
     public Header createHeader(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Header header = objectMapper.convertValue(requestObject.get("header"), Header.class);
 
-        return headerService.create(sessionObject.get("sessionId").toString(), header);
+        return headerService.create(sessionId, header);
     }
 
     @SessionCheck

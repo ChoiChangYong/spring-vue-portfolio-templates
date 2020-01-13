@@ -42,12 +42,12 @@ public class JobController {
     @SessionCheck
     @PostMapping("/jobs")
     public Job createJob(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Job job = objectMapper.convertValue(requestObject.get("job"), Job.class);
 
-        return jobService.create(sessionObject.get("sessionId").toString(), job);
+        return jobService.create(sessionId, job);
     }
 
     @SessionCheck

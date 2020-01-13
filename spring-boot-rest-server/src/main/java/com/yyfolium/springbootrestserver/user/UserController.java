@@ -40,9 +40,7 @@ public class UserController {
     @SessionCheck
     @PutMapping("/users")
     public User updateUser(@Valid @RequestBody Map requestObject) {
-
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         User user = objectMapper.convertValue(requestObject.get("user"), User.class);
@@ -53,8 +51,7 @@ public class UserController {
     @SessionCheck
     @PostMapping("/users/image-upload")
     public ResponseEntity<?> profileImageUpload(@RequestParam Map requestObject, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         userService.profileImageUpload(sessionId, multipartFile);
         return ResponseEntity.ok().build();

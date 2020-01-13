@@ -28,8 +28,7 @@ public class ResumeController {
     @SessionCheck
     @GetMapping("/resumes")
     public List<Resume> getAllResumes(@RequestParam Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         Map resumeObject = (Map) requestObject.get("resumeObject");
         Integer historyFlag = Integer.parseInt(resumeObject.get("historyFlag").toString());
@@ -46,12 +45,12 @@ public class ResumeController {
     @SessionCheck
     @PostMapping("/resumes")
     public Resume createResume(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Resume resume = objectMapper.convertValue(requestObject.get("resume"), Resume.class);
 
-        return resumeService.create(sessionObject.get("sessionId").toString(), resume);
+        return resumeService.create(sessionId, resume);
     }
 
     @SessionCheck

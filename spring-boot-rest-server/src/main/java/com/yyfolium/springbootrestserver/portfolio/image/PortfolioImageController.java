@@ -46,8 +46,7 @@ public class PortfolioImageController {
     public List<PortfolioImage> getAllPortfolioImages(
             @RequestParam Map requestObject, @PathVariable Long project_id) {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         return portfolioImageService.getAllBySessionIdAndPortfolioProjectOrderByCreated(sessionId, project_id);
     }
@@ -81,8 +80,7 @@ public class PortfolioImageController {
             @Valid @RequestBody Map requestObject,
             @PathVariable(value = "project_id") Long project_id, @PathVariable(value = "id") Long image_id) throws IOException {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         PortfolioImage portfolioImage = objectMapper.convertValue(requestObject.get("portfolioImage"), PortfolioImage.class);
@@ -94,8 +92,7 @@ public class PortfolioImageController {
     public ResponseEntity<?> deletePortfolioImage(
             @Valid @RequestBody Map requestObject, @PathVariable(value = "project_id") Long project_id, @PathVariable(value = "id") Long image_id) {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         portfolioImageService.deleteById(sessionId, project_id, image_id);
         return ResponseEntity.ok().build();
@@ -106,8 +103,7 @@ public class PortfolioImageController {
     public ResponseEntity<?> profileImageUpload(
             @RequestParam Map requestObject, @PathVariable(value = "project_id") Long project_id, @RequestParam("file") MultipartFile multipartFile) throws IOException {
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         portfolioImageService.projectImageUpload(sessionId, project_id, multipartFile);
         return ResponseEntity.ok().build();

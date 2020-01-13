@@ -47,8 +47,7 @@ public class PortfolioMenuController {
     @SessionCheck
     @PostMapping("/portfolio-menus")
     public PortfolioMenu createPortfolioMenu(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         ObjectMapper objectMapper = new ObjectMapper();
         PortfolioMenu portfolioMenu = objectMapper.convertValue(requestObject.get("portfolioMenu"), PortfolioMenu.class);
@@ -59,8 +58,7 @@ public class PortfolioMenuController {
     @SessionCheck
     @PutMapping("/portfolio-menus")
     public ResponseEntity<?> updatePortfolioMenu(@Valid @RequestBody Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         Map portfolioMenuObject = (Map) requestObject.get("portfolioMenus");
 
