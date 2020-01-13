@@ -28,33 +28,45 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function(context) {
-        axios.post(api.url+"/session-validation",
-            {
+    // sessionCheck: function(context) {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         },
+    //         {
+    //             withCredentials: true,
+    //         }
+    //     )
+    //     .then( response => {
+            
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+                
+    //         }
+    //     })
+    //     .catch(function(error) {
+    //             alert(error);
+    //             // router.push('/login')
+    //     })
+    // },
+    getHeader: () => {
+        axios.get(api.url+"/headers",{
+            params: {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
-        )
-        .then( response => {
-            
+        })
+        .then((response, context) => {
             if(!response.data){
                 router.push('/login')
-            }
-            else {
-                axios.get(api.url+"/headers",{
-                    params: {
-                        'sessionId': window.sessionStorage.getItem("sessionId")
-                    }
-                })
-                .then((response) => {
-                    context.commit("setHomeItems", response.data)
-                })
-                .catch(function(error) {
-                    alert(error);
-                })
+            } else {
+                context.commit("setHomeItems", response.data)
             }
         })
-        .catch(function(error) { 
-                alert(error);
+        .catch(function(error) {
+            router.push('/login')
+            alert(error);
         })
     },
     updateHomeItems: () => {

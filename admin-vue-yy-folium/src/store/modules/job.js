@@ -48,12 +48,17 @@ const mutations = {
         state.jobs = []
         axios.get(api.url+"/jobs",{
             params: {
-                'sessionId': window.sessionStorage.getItem("sessionId")
+                "sessionId": window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((jobs) => {
-            for (var job of jobs.data){
-                state.jobs.push(job);
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            }
+            else {
+                for (var job of response.data){
+                    state.jobs.push(job);
+                }
             }
         })
         .catch(function(error) {
@@ -74,24 +79,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getJobs()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getJobs()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
 
     deleteJob: (state, id) => {
         Swal.fire({

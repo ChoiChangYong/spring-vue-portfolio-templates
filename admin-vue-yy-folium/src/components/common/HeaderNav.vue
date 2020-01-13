@@ -44,10 +44,9 @@ export default {
     },
     methods: {
         ...mapMutations("nav", ['TrriggerActive']),
-        ...mapActions("nav",['logout','sessionCheck'])
+        ...mapActions("nav",['logout'])
     },
     mounted() {
-        this.sessionCheck()
         // :: Dropdown Active Code
         if ($.fn.dropdown) {
             $("dropdown-toggle").dropdown();

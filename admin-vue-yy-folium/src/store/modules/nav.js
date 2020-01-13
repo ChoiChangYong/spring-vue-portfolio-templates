@@ -17,21 +17,6 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
     logout: function() {
         axios.post(api.url+"/logout",
             {

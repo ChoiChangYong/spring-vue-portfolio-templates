@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "header")
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
 @ToString

@@ -1,5 +1,6 @@
 package com.yyfolium.springbootrestserver.auth;
 
+import com.yyfolium.springbootrestserver.session.SessionCheck;
 import com.yyfolium.springbootrestserver.user.User;
 import com.yyfolium.springbootrestserver.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class AuthController {
 
     @PostMapping("/session-validation")
     public boolean sessionValidation(@RequestBody Map sessionObject) {
+
+        System.out.println("===============================");
+        System.out.println(sessionObject.toString());
+        System.out.println("===============================");
+
         Session session = sessionRepository.findById((String) sessionObject.get("sessionId"));
 
         if(session==null)

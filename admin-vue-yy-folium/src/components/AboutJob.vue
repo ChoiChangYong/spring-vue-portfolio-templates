@@ -64,8 +64,8 @@ export default {
         ...mapState("job",['jobs'])
     },
     methods: {
-        ...mapMutations("job",['addJob', "updateJobs"]),
-        ...mapActions("job",["deleteJob", "sessionCheck"]),
+        ...mapMutations("job",['addJob', "updateJobs", "getJobs"]),
+        ...mapActions("job",["deleteJob"]),
         submitJob(){
             for(var idx = 0; idx < this.jobs.length; idx++){
                 this.newJobs.push(this.jobs[idx])
@@ -77,7 +77,7 @@ export default {
         }
     },
     mounted() {
-        this.sessionCheck()
+        this.getJobs()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }

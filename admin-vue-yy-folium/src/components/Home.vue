@@ -98,7 +98,7 @@ export default {
         ...mapState("home",['homeItems'])
     },
     methods: {
-        ...mapActions("home",['sessionCheck']),
+        // ...mapActions("home",['sessionCheck']),
         ...mapActions("home",['getHeader']),
         ...mapActions("home",['updateHomeItems']),
         homeSubmit() {
@@ -109,7 +109,7 @@ export default {
         }
     },
     mounted() {
-        this.sessionCheck()
+        this.getHeader()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }

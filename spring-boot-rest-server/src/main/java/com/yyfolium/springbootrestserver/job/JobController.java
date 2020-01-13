@@ -28,8 +28,7 @@ public class JobController {
     @SessionCheck
     @GetMapping("/jobs")
     public List<Job> getAllJobs(@RequestParam Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
 
         return jobService.getAllBySessionIdOrderByCreated(sessionId);
     }

@@ -24,15 +24,15 @@ public class SessionCheckAspect {
     @Around("@annotation(com.yyfolium.springbootrestserver.session.SessionCheck)")
     public Object sessionCheckPerf(ProceedingJoinPoint pip) throws Throwable {
         Map requestObject = (Map) pip.getArgs()[0];
-
         System.out.println(requestObject.toString());
 
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        if(sessionObject==null) {
+        if(requestObject.isEmpty()) {
             return null;
         }
 
-        String sessionId = sessionObject.get("sessionId").toString();
+        String sessionId = requestObject.get("sessionId").toString();
+        System.out.println(sessionId);
+
         Session session = sessionRepository.findById(sessionId);
         if(session==null) {
             return null;

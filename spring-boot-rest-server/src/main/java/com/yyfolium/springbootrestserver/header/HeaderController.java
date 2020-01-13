@@ -27,6 +27,7 @@ public class HeaderController {
     @SessionCheck
     @GetMapping("/headers")
     public List<Header> getAllHeaders(@RequestParam Map requestObject) {
+        System.out.println("/header 호출함");
         Map sessionObject = (Map) requestObject.get("sessionObject");
         String sessionId = sessionObject.get("sessionId").toString();
 
