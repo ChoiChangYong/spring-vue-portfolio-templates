@@ -31,12 +31,16 @@ const mutations = {
                 'sessionId': window.sessionStorage.getItem("sessionId"),
             }
         })
-        .then((profiles) => {
-            state.userAbout.name = profiles.data.name
-            state.userAbout.gender = profiles.data.gender
-            state.userAbout.email = profiles.data.email
-            state.userAbout.tel = profiles.data.tel
-            state.userAbout.imageUrl = profiles.data.imageUrl
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            } else {
+                state.userAbout.name = response.data.name
+                state.userAbout.gender = response.data.gender
+                state.userAbout.email = response.data.email
+                state.userAbout.tel = response.data.tel
+                state.userAbout.imageUrl = response.data.imageUrl
+            }
         })
         .catch(function(error) {
             alert(error);
