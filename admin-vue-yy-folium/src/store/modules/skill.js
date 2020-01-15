@@ -4,7 +4,8 @@ import axios from 'axios'
 import { router } from '../../routes'
 
 const state = {
-    skills: []
+    skills: [],
+    sessionId: window.sessionStorage.getItem("sessionId")
 }
 
 const mutations = {
@@ -31,9 +32,7 @@ const mutations = {
                 var apiUrl = api.url
                 return axios.post(apiUrl + "/skills", 
                     {
-                        'sessionObject': {
-                            'sessionId': window.sessionStorage.getItem("sessionId"),
-                        },
+                        'sessionId': window.sessionStorage.getItem("sessionId"),
                         'skill': {
                             'name': name,
                             'level': level
@@ -57,18 +56,22 @@ const mutations = {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((skills) => {
-            for (var skill of skills.data){
-                state.skills.push(skill);
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            } else {
+                for (var skill of response.data){
+                    state.skills.push(skill);
+                }
             }
         })
         .catch(function(error) {
             alert(error);
         })
     },
-    updateSkills: (skills) => {
+    updateSkills: (state) => {
         axios.put(api.url+"/skills",
-            skills
+            state
         )
         .then(() => {
             toastSubmit()
@@ -80,24 +83,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getSkills()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getSkills()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
     deleteSkill: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -109,7 +112,11 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/skills/"+id)
+                axios.delete(api.url+"/skills/"+id,{
+                    data: {
+                        "sessionId": window.sessionStorage.getItem("sessionId")
+                    }
+                })
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

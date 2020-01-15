@@ -42,9 +42,7 @@ const mutations = {
                 var description = document.getElementById('work-description').value
                 return axios.post(api.url + "/resumes", 
                     {
-                        'sessionObject': {
-                            'sessionId': window.sessionStorage.getItem("sessionId"),
-                        },
+                        'sessionId': window.sessionStorage.getItem("sessionId"),
                         'resume': {
                             job,
                             company,
@@ -73,14 +71,19 @@ const mutations = {
                 'historyFlag': "0"
             }
         })
-        .then((works) => {
-            for (var work of works.data){
-                var startDate = new Date(work.startDate);
-                work.startDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-                var endDate = new Date(work.endDate);
-                work.endDate = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
-    
-                state.works.push(work);
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            }
+            else {
+                for (var work of response.data){
+                    var startDate = new Date(work.startDate);
+                    work.startDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+                    var endDate = new Date(work.endDate);
+                    work.endDate = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
+        
+                    state.works.push(work);
+                }
             }
         })
         .catch(function(error) {
@@ -90,24 +93,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getWorks()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getWorks()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
     deleteWork: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -119,7 +122,11 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/resumes/"+id)
+                axios.delete(api.url+"/resumes/"+id,{
+                    data: {
+                        "sessionId": window.sessionStorage.getItem("sessionId")
+                    }
+                })
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { api } from '../../store/modules/common/global-variable.js'
 import Vue2Dropzone from 'vue2-dropzone'
 import { mapMutations } from 'vuex'
 
@@ -13,7 +14,7 @@ export default {
     data: () => {
         return {
             dropzoneOptions: {
-                url: "http://192.168.0.99:8080/api/users/image-upload",
+                url: api.url+"/users/image-upload",
                 thumbnailWidth: 150,
                 maxFilesize: 128,
                 addRemoveLinks: true,

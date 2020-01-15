@@ -42,8 +42,11 @@ const mutations = {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((portfolioMenus) => {
-            if(portfolioMenus.data.length==0){
+        .then((response) => {
+            
+            if(!response.data){
+                router.push('/login')
+            } else if(response.data.length==0){
                 Swal.fire({
                     type: 'info',
                     text: '메뉴를 먼저 등록해주세요!',
@@ -53,7 +56,7 @@ const mutations = {
                 })
             } else {
                 state.menus=[]
-                for (var portfolioMenu of portfolioMenus.data){
+                for (var portfolioMenu of response.data){
                     state.menus.push(portfolioMenu)
                     mutations.getProjects(portfolioMenu.id)
                 }
@@ -159,24 +162,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getMenus()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getMenus()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
 }
 
 export default {

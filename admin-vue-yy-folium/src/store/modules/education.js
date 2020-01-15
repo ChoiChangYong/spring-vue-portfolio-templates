@@ -42,9 +42,7 @@ const mutations = {
                 var description = document.getElementById('education-description').value
                 return axios.post(api.url + "/resumes", 
                     {
-                        'sessionObject': {
-                            'sessionId': window.sessionStorage.getItem("sessionId"),
-                        },
+                        'sessionId': window.sessionStorage.getItem("sessionId"),
                         'resume': {
                             job,
                             company,
@@ -73,14 +71,18 @@ const mutations = {
                 'historyFlag': "1"
             }
         })
-        .then((educations) => {
-            for (var education of educations.data){
-                var startDate = new Date(education.startDate);
-                education.startDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-                var endDate = new Date(education.endDate);
-                education.endDate = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
-    
-                state.educations.push(education);
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            } else{
+                for (var education of response.data){
+                    var startDate = new Date(education.startDate);
+                    education.startDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+                    var endDate = new Date(education.endDate);
+                    education.endDate = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
+        
+                    state.educations.push(education);
+                }
             }
         })
         .catch(function(error) {
@@ -90,24 +92,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getEducations()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getEducations()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
     deleteEducation: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -119,7 +121,11 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/resumes/"+id)
+                axios.delete(api.url+"/resumes/"+id, {
+                    data: {
+                        "sessionId": window.sessionStorage.getItem("sessionId")
+                    }
+                })
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

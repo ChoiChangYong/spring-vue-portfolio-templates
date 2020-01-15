@@ -4,7 +4,7 @@ import axios from 'axios'
 import { router } from '../../routes'
 
 const state = {
-    jobs: []
+    jobs: [],
 }
 
 const mutations = {
@@ -26,9 +26,7 @@ const mutations = {
                 var apiUrl = api.url
                 return axios.post(apiUrl + "/jobs", 
                     {
-                        'sessionObject': {
-                            'sessionId': window.sessionStorage.getItem("sessionId"),
-                        },
+                        'sessionId': window.sessionStorage.getItem("sessionId"),
                         'job': {
                             'name': name,
                         }
@@ -65,9 +63,10 @@ const mutations = {
             alert(error);
         })
     },
-    updateJobs: (jobs) => {
-        axios.put(api.url+"/jobs",
-            jobs
+    updateJobs: (state) => {
+
+        axios.put(api.url+"/jobs", 
+            state
         )
         .then(() => {
             toastSubmit()
@@ -82,7 +81,7 @@ const actions = {
     // sessionCheck: function() {
     //     axios.post(api.url+"/session-validation",
     //         {
-    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //             'sessionId': state.sessionId
     //         }
     //     )
     //     .then( response => {
@@ -109,7 +108,11 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/jobs/"+id)
+                axios.delete(api.url+"/jobs/"+id,{
+                    data: {
+                        "sessionId": window.sessionStorage.getItem("sessionId")
+                    }
+                })
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

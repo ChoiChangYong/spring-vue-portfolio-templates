@@ -58,11 +58,11 @@ export default {
         ...mapState("education",['educations'])
     },
     methods: {
-        ...mapMutations("education",['addEducation']),
-        ...mapActions("education",['sessionCheck','deleteEducation'])
+        ...mapMutations("education",['addEducation', 'getEducations']),
+        ...mapActions("education",['deleteEducation'])
     },
     mounted() {
-        this.sessionCheck()
+        this.getEducations()
     }
 }
 </script>

@@ -24,9 +24,7 @@ const mutations = {
                 var name = document.getElementById('menu-name').value
                 return axios.post(api.url + "/portfolio-menus", 
                     {
-                        'sessionObject': {
-                            'sessionId': window.sessionStorage.getItem("sessionId"),
-                        },
+                        'sessionId': window.sessionStorage.getItem("sessionId"),
                         'portfolioMenu': {
                             'name': name,
                         }
@@ -49,9 +47,13 @@ const mutations = {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((portfolioMenus) => {
-            for (var menu of portfolioMenus.data){
-                state.portfolioMenus.push(menu);
+        .then((response) => {
+            if(!response.data){
+                router.push('/login')
+            } else {
+                for (var menu of response.data){
+                    state.portfolioMenus.push(menu);
+                }
             }
         })
         .catch(function(error) {
@@ -61,9 +63,7 @@ const mutations = {
     updateMenus: (portfolioMenus) => {
         axios.put(api.url+"/portfolio-menus",
             {
-                'sessionObject': {
-                    'sessionId': window.sessionStorage.getItem("sessionId"),
-                },
+                'sessionId': window.sessionStorage.getItem("sessionId"),
                 'portfolioMenus': portfolioMenus
             }
         )
@@ -77,24 +77,24 @@ const mutations = {
 }
 
 const actions = {
-    sessionCheck: function() {
-        axios.post(api.url+"/session-validation",
-            {
-                'sessionId': window.sessionStorage.getItem("sessionId")
-            }
-        )
-        .then( response => {
-            if(!response.data){
-                router.push('/login')
-            }
-            else {
-                mutations.getMenus()
-            }
-        })
-        .catch(function(error) { 
-                alert(error);
-        })
-    },
+    // sessionCheck: function() {
+    //     axios.post(api.url+"/session-validation",
+    //         {
+    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //         }
+    //     )
+    //     .then( response => {
+    //         if(!response.data){
+    //             router.push('/login')
+    //         }
+    //         else {
+    //             mutations.getMenus()
+    //         }
+    //     })
+    //     .catch(function(error) { 
+    //             alert(error);
+    //     })
+    // },
     deleteMenu: async (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -106,7 +106,11 @@ const actions = {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                axios.delete(api.url+"/portfolio-menus/"+id)
+                axios.delete(api.url+"/portfolio-menus/"+id,{
+                    data: {
+                        "sessionId": window.sessionStorage.getItem("sessionId")
+                    }
+                })
                 .then(() => {
                     Swal.fire(
                         'Deleted!',

@@ -58,11 +58,11 @@ export default {
         ...mapState("work",['works'])
     },
     methods: {
-        ...mapMutations("work",['addWork']),
-        ...mapActions("work",['sessionCheck','deleteWork'])
+        ...mapMutations("work",['getWorks', 'addWork']),
+        ...mapActions("work",['deleteWork'])
     },
     mounted() {
-        this.sessionCheck()
+        this.getWorks()
     }
 }
 </script>

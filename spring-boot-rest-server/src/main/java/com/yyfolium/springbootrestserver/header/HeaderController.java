@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,7 +52,10 @@ public class HeaderController {
 
     @SessionCheck
     @PutMapping("/headers")
-    public ResponseEntity<?> updateHeader(@Valid @RequestBody Header header) {
+    public ResponseEntity<?> updateHeader(@Valid @RequestBody Map requestObject) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Header header = objectMapper.convertValue(requestObject.get("header"), Header.class);
+
         headerService.update(header);
         return ResponseEntity.ok().build();
     }

@@ -30,8 +30,7 @@ public class ResumeController {
     public List<Resume> getAllResumes(@RequestParam Map requestObject) {
         String sessionId = requestObject.get("sessionId").toString();
 
-        Map resumeObject = (Map) requestObject.get("resumeObject");
-        Integer historyFlag = Integer.parseInt(resumeObject.get("historyFlag").toString());
+        Integer historyFlag = Integer.parseInt(requestObject.get("historyFlag").toString());
 
         return resumeService.getAllByUserAndHistoryFlagOrderByStartDate(sessionId, historyFlag);
     }

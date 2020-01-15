@@ -19,12 +19,13 @@ import 'owl.carousel'
 import 'popper.js'
 
 import 'particles.js'
-import 'dropzone'
+import dropzone from 'dropzone'
 
 import { router } from './routes'
 import { store } from './store/store'
 
 Vue.config.productionTip = false
+dropzone.autoDiscover = false;
 
 new Vue({
   store,

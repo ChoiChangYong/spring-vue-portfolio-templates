@@ -40,7 +40,7 @@
 
 <script>
 import carousel from 'vue-owl-carousel'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
     computed: {
@@ -50,11 +50,11 @@ export default {
         carousel 
     },
     methods: {
-        ...mapMutations("project",['isMenusNull', 'deleteProject']),
-        ...mapActions("project",['sessionCheck'])
+        ...mapMutations("project",['getMenus', 'isMenusNull', 'deleteProject']),
+        // ...mapActions("project",['sessionCheck'])
     },
     mounted() {
-        this.sessionCheck()
+        this.getMenus()
     }
 }
 </script>

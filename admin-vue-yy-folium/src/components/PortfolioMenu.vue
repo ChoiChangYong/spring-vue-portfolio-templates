@@ -64,8 +64,8 @@ export default {
         ...mapState("menu",['portfolioMenus'])
     },
     methods: {
-        ...mapMutations("menu",['addMenu', "updateMenus"]),
-        ...mapActions("menu",["deleteMenu", "sessionCheck"]),
+        ...mapMutations("menu",['getMenus', 'addMenu', 'updateMenus']),
+        ...mapActions("menu",["deleteMenu"]),
         submitMenu(){
             for(var idx = 0; idx < this.portfolioMenus.length; idx++){
                 this.newMenus.push(this.portfolioMenus[idx])
@@ -77,7 +77,7 @@ export default {
         }
     },
     mounted() {
-        this.sessionCheck()
+        this.getMenus()
         new SimpleTableCellEditor("basicTableId").SetEditableClass("editMe"),
         $("#basicTableId").on("cell:edited")
     }

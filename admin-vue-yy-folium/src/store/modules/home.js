@@ -31,7 +31,7 @@ const actions = {
     // sessionCheck: function(context) {
     //     axios.post(api.url+"/session-validation",
     //         {
-    //             'sessionId': window.sessionStorage.getItem("sessionId")
+    //             'sessionId': state.sessionId
     //         },
     //         {
     //             withCredentials: true,
@@ -57,11 +57,11 @@ const actions = {
                 'sessionId': window.sessionStorage.getItem("sessionId")
             }
         })
-        .then((response, context) => {
+        .then((response) => {
             if(!response.data){
                 router.push('/login')
             } else {
-                context.commit("setHomeItems", response.data)
+                mutations.setHomeItems(state, response.data)
             }
         })
         .catch(function(error) {
@@ -71,11 +71,14 @@ const actions = {
     },
     updateHomeItems: () => {
         axios.put(api.url+"/headers",{
-            'id': state.homeItems.id,
-            'backgroundImageFlag': state.homeItems.backgroundImageFlag,
-            'title': state.homeItems.title,
-            'intro': state.homeItems.intro,
-            'subIntro': state.homeItems.subIntro
+            'sessionId': window.sessionStorage.getItem("sessionId"),
+            header: {
+                'id': state.homeItems.id,
+                'backgroundImageFlag': state.homeItems.backgroundImageFlag,
+                'title': state.homeItems.title,
+                'intro': state.homeItems.intro,
+                'subIntro': state.homeItems.subIntro
+            }
         })
         .then(() => {
             toastSubmit()
