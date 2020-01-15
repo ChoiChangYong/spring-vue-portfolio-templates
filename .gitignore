@@ -63,3 +63,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Spring ###
+spring-boot-rest-server/src/main/resources/application.properties
