@@ -30,9 +30,7 @@ public class PortfolioMenuController {
     @SessionCheck
     @GetMapping("/portfolio-menus")
     public List<PortfolioMenu> getAllPortfolioMenus(@RequestParam Map requestObject) {
-        Map sessionObject = (Map) requestObject.get("sessionObject");
-        String sessionId = sessionObject.get("sessionId").toString();
-
+        String sessionId = requestObject.get("sessionId").toString();
         return portfolioMenuService.getAllBySessionIdOrderByCreated(sessionId);
     }
 
@@ -70,7 +68,7 @@ public class PortfolioMenuController {
     @SessionCheck
     @DeleteMapping("/portfolio-menus/{id}")
     public ResponseEntity<?> deletePortfolioMenu(
-            @Valid @RequestParam Map requestObject, @PathVariable(value = "id") Long id) {
+            @Valid @RequestBody Map requestObject, @PathVariable(value = "id") Long id) {
 
         portfolioMenuService.delete(id);
         return ResponseEntity.ok().build();

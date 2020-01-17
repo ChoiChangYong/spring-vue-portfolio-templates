@@ -3,7 +3,7 @@ package com.yyfolium.springbootrestserver.portfolio.project;
 import com.yyfolium.springbootrestserver.portfolio.menu.PortfolioMenu;
 import com.yyfolium.springbootrestserver.portfolio.menu.PortfolioMenuRepository;
 import com.yyfolium.springbootrestserver.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yyfolium.springbootrestserver.user.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.session.Session;
 import org.springframework.session.SessionRepository;

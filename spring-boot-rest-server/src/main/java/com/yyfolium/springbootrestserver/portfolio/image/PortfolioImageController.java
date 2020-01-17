@@ -1,9 +1,9 @@
 package com.yyfolium.springbootrestserver.portfolio.image;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yyfolium.springbootrestserver.portfolio.menu.PortfolioMenu;
 import com.yyfolium.springbootrestserver.session.SessionCheck;
 import com.yyfolium.springbootrestserver.storage.StorageService;
+import com.yyfolium.springbootrestserver.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,8 @@ public class PortfolioImageController {
 
     private final PortfolioImageService portfolioImageService;
 
+    private final UserService userService;
+
     private final StorageService storageService;
 
     @Value("${cloud.aws.s3.bucket.endpoint}")
@@ -29,8 +31,9 @@ public class PortfolioImageController {
 
     @Autowired
     public PortfolioImageController(
-            PortfolioImageService portfolioImageService, StorageService storageService) {
+            PortfolioImageService portfolioImageService, UserService userService, StorageService storageService) {
         this.portfolioImageService = portfolioImageService;
+        this.userService = userService;
         this.storageService = storageService;
     }
 
@@ -44,7 +47,8 @@ public class PortfolioImageController {
     @SessionCheck
     @GetMapping("/portfolio-projects/{project_id}/portfolio-images")
     public List<PortfolioImage> getAllPortfolioImages(
-            @RequestParam Map requestObject, @PathVariable Long project_id) {
+            @RequestParam Map requestObject,
+            @PathVariable Long project_id) {
 
         String sessionId = requestObject.get("sessionId").toString();
 
@@ -56,8 +60,12 @@ public class PortfolioImageController {
     @GetMapping("/portfolio-projects/{project_id}/portfolio-images/{id}")
     public Optional<PortfolioImage> getPortfolioImageById(
             @Valid @RequestBody Map requestObject,
-            @PathVariable String user_id, @PathVariable Long project_id, @PathVariable(value = "id") Long image_id) {
-        return portfolioImageService.getOneById(user_id, project_id, image_id);
+            @PathVariable Long project_id, @PathVariable(value = "id") Long image_id) {
+
+        String sessionId = requestObject.get("sessionId").toString();
+        String userId = userService.getBySessionId(sessionId).getUuid();
+
+        return portfolioImageService.getOneById(userId, project_id, image_id);
     }
 
 
