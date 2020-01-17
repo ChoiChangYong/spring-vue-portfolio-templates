@@ -15,6 +15,7 @@
                         <router-view></router-view>
                     </div>
                 </div>
+                <Footer></Footer>
             </div>
         </div>
     </div>
@@ -24,11 +25,13 @@
 import $ from 'jquery'
 import SideNav from "./SideNav"
 import HeaderNav from "./HeaderNav"
+import Footer from "./Footer"
 
 export default {
     components: {
         SideNav,
         HeaderNav,
+        Footer
     },
     mounted() {
         // :: Preloader Active Code

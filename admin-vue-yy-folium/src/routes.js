@@ -81,7 +81,7 @@ export const router = new VueRouter({
                         },
                         {
                             name: 'edit',
-                            path: '/portfolio/project/edit',
+                            path: '/portfolio/project/edit/:projectId/:menuId',
                             component: PortfolioProjectEdit,
                             prop: true
                         },

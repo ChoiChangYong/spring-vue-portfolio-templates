@@ -1,5 +1,6 @@
 import { api, Swal } from './common/global-variable'
 import { router } from '../../routes'
+import { toastSubmit } from './common/toastr'
 import axios from 'axios'
 
 const state = {
@@ -17,20 +18,39 @@ const state = {
         id: ""
     },
     imageUrls: [],
+    project: {
+        name: "",
+        belong: "",
+        description: "",
+        created: "",
+        updated: ""
+    }
 }
 
 const mutations = {
     submitProject: (state, menu_id) => {
         const portfolioProject = state.newProjects
         axios.post(api.url+"/portfolio-menus/"+menu_id+"/portfolio-projects",{
-                'sessionObject': {
-                    'sessionId': window.sessionStorage.getItem("sessionId"),
-                },
+                'sessionId': window.sessionStorage.getItem("sessionId"),
                 portfolioProject
         })
         .then((response) => {
             state.newProject.id = response.data.id
             mutations.submitSwal()
+        })
+        .catch(function(error) {
+            alert(error);
+        })
+    },
+    editProject: (state, paramsId) => {
+        const portfolioProject = state.project
+        axios.put(api.url+"/portfolio-menus/"+paramsId.menuId+"/portfolio-projects/"+paramsId.projectId,{
+            'sessionId': window.sessionStorage.getItem("sessionId"),
+            portfolioProject
+        })
+        .then(() => {
+            toastSubmit()
+            router.push({ path: '/portfolio/project/view'})
         })
         .catch(function(error) {
             alert(error);
@@ -98,8 +118,23 @@ const mutations = {
             alert(error);
         })
     },
-    // getImageUrl: (projectId) => {
-    // }
+    getProject: (state, paramsId) => {
+        axios.get(api.url+"/portfolio-menus/"+paramsId.menuId+"/portfolio-projects/"+paramsId.projectId,{
+            params: {
+                'sessionId': window.sessionStorage.getItem("sessionId")
+            }
+        })
+        .then((project) => {
+            state.project.name = project.data.name
+            state.project.belong = project.data.belong
+            state.project.description = project.data.description
+            state.project.created = project.data.created
+            state.project.updated = project.data.updated
+        })
+        .catch(function(error) {
+            alert(error);
+        })
+    },
     submitSwal: () => {
         Swal.fire({
             type: 'success',
@@ -127,6 +162,9 @@ const mutations = {
     projectView: () => {
         router.push('/portfolio/project/view')
     },
+    modifyProject: (state, project) => {
+        router.push({ name: 'edit', params: { projectId: project.id, menuId: project.portfolioMenu.id }})
+    },
     deleteProject: (state, id) => {
         Swal.fire({
             title: '삭제하시겠습니까?',
@@ -140,7 +178,7 @@ const mutations = {
             if (result.value) {
                 axios.delete(api.url+"/portfolio-projects/"+id,
                 {
-                    params: {
+                    data: {
                         'sessionId': window.sessionStorage.getItem("sessionId")
                     }
                 })
@@ -150,7 +188,7 @@ const mutations = {
                         'Your file has been deleted.',
                         'success'
                     )
-                    actions.sessionCheck()
+                    actions.getMenus()
 
                 })
                 .catch(function(error) {

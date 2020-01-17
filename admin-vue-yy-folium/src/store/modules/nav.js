@@ -24,6 +24,7 @@ const actions = {
             }
         )
         .then(()=>{
+            window.sessionStorage.clear()
             router.push('/login')
         })
         .catch(function(error) { 

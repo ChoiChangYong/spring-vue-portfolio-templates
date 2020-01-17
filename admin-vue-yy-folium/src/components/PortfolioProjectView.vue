@@ -18,7 +18,7 @@
                         <div class="card-body" v-for="project in projects" v-bind:key="project.id">
                             <p>{{ project.portfolioMenu.name }}</p>
                             <div class="text-right float-right">
-                                <i class="fas fa-pen-square fa-2x mr-3"></i>
+                                <i class="fas fa-pen-square fa-2x mr-3" @click="modifyProject(project)"></i>
                                 <i class="fas fa-minus-square fa-2x" @click="deleteProject(project.id)"></i>
                             </div>
                             <h5 class>{{ project.name }}</h5>
@@ -50,8 +50,7 @@ export default {
         carousel 
     },
     methods: {
-        ...mapMutations("project",['getMenus', 'isMenusNull', 'deleteProject']),
-        // ...mapActions("project",['sessionCheck'])
+        ...mapMutations("project",['getMenus', 'isMenusNull', 'modifyProject', 'deleteProject'])
     },
     mounted() {
         this.getMenus()
