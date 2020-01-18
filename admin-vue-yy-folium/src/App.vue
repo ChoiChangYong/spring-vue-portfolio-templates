@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import './assets/js/treemenu.js'
+import './assets/admin/js/treemenu.js'
 
 export default {
   name: 'app',
@@ -20,6 +20,6 @@ export default {
 </script>
 
 <style>
-@import url("./assets/css/bootstrap.min.css");
-@import url("./assets/css/style.css");
+@import url("./assets/admin/css/bootstrap.min.css");
+@import url("./assets/admin/css/style.css");
 </style>

@@ -6,17 +6,17 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(VueSweetalert2);
 
-import nav from './modules/nav'
-import login from './modules/login'
-import home from './modules/home'
-import profile from './modules/profile'
-import skill from './modules/skill'
-import job from './modules/job'
-import work from './modules/work'
-import education from './modules/education'
-import menu from './modules/portfolioMenu'
-import project from './modules/portfolioProject'
-import contact from './modules/contact'
+import nav from './modules/admin/nav'
+import login from './modules/admin/login'
+import home from './modules/admin/home'
+import profile from './modules/admin/profile'
+import skill from './modules/admin/skill'
+import job from './modules/admin/job'
+import work from './modules/admin/work'
+import education from './modules/admin/education'
+import menu from './modules/admin/portfolioMenu'
+import project from './modules/admin/portfolioProject'
+import contact from './modules/admin/contact'
 
 Vue.use(Vuex);
 

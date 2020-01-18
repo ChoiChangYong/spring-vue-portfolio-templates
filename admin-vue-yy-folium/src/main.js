@@ -21,7 +21,7 @@ import 'popper.js'
 import 'particles.js'
 import dropzone from 'dropzone'
 
-import { router } from './routes'
+import { router } from './routes/admin'
 import { store } from './store/store'
 
 Vue.config.productionTip = false
