@@ -1,0 +1,27 @@
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.typed-element{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
