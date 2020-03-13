@@ -23,8 +23,18 @@ const actions = {
         axios.get(api.url+"/anonymous/skills/"+ uuid
         )
         .then((response) => {
-            for(var skill of response.data) {
-                state.mySkills.push(skill);
+            for(var data of response.data) {
+                var level = Number(data.level);
+                data.level = level * 10;
+                state.mySkills.push(data);
+                state.myAbout.name = data.user.name;
+                state.myAbout.email = data.user.email;
+                state.myAbout.tel = data.user.tel;
+                if(data.user.gender == "1"){
+                    state.myAbout.gender = "남자";
+                } else if(data.user.gender == "2"){
+                    state.myAbout.gender = "여자";
+                }
             }
         })
         .catch(function(error) {

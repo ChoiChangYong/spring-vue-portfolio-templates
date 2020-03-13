@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-5">
                 <!-- About Image -->
-                <img src="../../img/user/about-me.png" alt="About Me" class="img-fluid" />
+                <img src="../../img/user/minyeong.png" alt="About Me" class="img-fluid" />
             </div>
 
             <!-- About Information START -->
@@ -53,36 +53,27 @@
             <!-- Skills Progressbar START -->
             <div class="row">
                 <div class="col-md-6">
-                    <!-- <div class="skill-progress">
-                        <div class="skill-title clearfix">UX Design</div>
-
-                        <div class="skill-progressbar">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="skill-progress" v-for="skill in mySkills.slice(2,mySkills.length)" v-bind:key="skill.id">
-                        <div class="skill-title clearfix">{{ skill.name }}</div>
-                        <div class="skill-progressbar">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" v-bind:aria-valuenow="skill.level*10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="skill-progress" v-for="skill in mySkills.slice(0,2,mySkills.length)" v-bind:key="skill.id">
                         <div class="skill-title clearfix">{{ skill.name }}</div>
                         <div class="skill-progressbar">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" v-bind:aria-valuenow="skill.level*10" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" v-bind:aria-valuenow="skill.level" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+                <div class="col-md-6">
+                    <div class="skill-progress" v-for="skill in mySkills.slice(2,mySkills.length)" v-bind:key="skill.id">
+                        <div class="skill-title clearfix">{{ skill.name }}</div>
+                        <div class="skill-progressbar">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" v-bind:aria-valuenow="skill.level" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- Skills Progressbar END -->
         </div>
